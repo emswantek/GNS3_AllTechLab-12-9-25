@@ -474,3 +474,4 @@ interface GigabitEthernet6/0
  ip address 172.16.90.90 255.255.255.252
  negotiation auto
 end
+
