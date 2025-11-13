@@ -599,3 +599,15 @@ eigrp router-id 172.31.255.1
 
 copy run start
 
+| Device        | Loopback0 IP     | Purpose                     |
+| ------------- | ---------------- | --------------------------- |
+| CE1           | 172.31.255.1/32  | Router-ID, mgmt             |
+| R2            | 172.31.255.2/32  | Router-ID, mgmt             |
+| R3            | 172.31.255.3/32  | Router-ID, mgmt             |
+| DC-VPC-SW1    | 172.31.255.4/32  | Router-ID, mgmt             |
+| DC-VPC-SW2    | 172.31.255.5/32  | Router-ID, mgmt             |
+| DC-SW1        | 172.31.255.6/32  | mgmt or future L3 interface |
+| LAN2-MSTP-SW1 | 172.31.255.11/32 | mgmt                        |
+| LAN2-MSTP-SW2 | 172.31.255.12/32 | mgmt                        |
+| LAN2-MSTP-SW3 | 172.31.255.13/32 | mgmt                        |
+| LAN2-MSTP-SW4 | 172.31.255.14/32 | mgmt                        |

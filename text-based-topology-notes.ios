@@ -1,3 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
 VPC-PC-1 eth0 <-> SW1 gi1/1 VLAN11
 VPC-PC-2 eth0 <-> SW1 gi2/1 VLAN22
 VPC-PC-3 eth0 <-> SW1 gi3/1 VLAN33
@@ -6,50 +17,38 @@ SW1 gi0/2 <-> SW2 gi0/1
 SW2 gi0/0 <-> SW4 gi0/2
 SW3 gi0/0 <-> SW4 gi0/3
 SW4 gi0/0 <-> R1 gi1/0 
-Note: R1 is serving DHCP for VLANs 11, 22, 33
-
 R1 gi2/0 <-> CE1 gi2/0 via OSPF
 CE1 gi1/0 <-> ISP-PE-1 gi1/0 via BGP
-
-Note: The ISP-PE and ISP-CORE routers are running MPLS and 2 VRFs for CE1 and CE2
 ISP-PE-1 gi2/0 <-> ISP-CORE-1 gi1/0
 ISP-PE-1 gi4/0 <-> ISP-PE-2 gi1/0
 ISP-PE-1 gi5/0 <-> ISP-PE-4 gi1/0
 ISP-PE-1 gi3/0 <-> ISP-PE-3 gi1/0
-
 ISP-PE-2 gi2/0 <-> ISP-CORE-1 gi4/0
 ISP-PE-2 gi3/0 <-> ISP-PE-3 gi4/0
 ISP-PE-2 gi5/0 <-> ISP-PE-4 gi4/0
-
 ISP-PE-3 gi2/0 <-> ISP-CORE-1 gi3/0
 ISP-PE-3 gi5/0 <-> ISP-PE-4 gi3/0
-
 ISP-PE-4 gi2/0 <-> ISP-CORE-1 gi5/0
-
 ISP-PE2 gi6/0 <-> CE2 gi1/0 via BGP
 CE2 gi2/0 <-> EIGRP-R2 gi2/0 via EIGRP
 CE2 gi3/0 <-> EIGRP-R3 gi3/0 via EIGRP
 EIGRP-R2 gi1/0 <-> DC-SW1 gi2/2
 EIGRP-R3 gi6/0 <-> DC-SW1 gi2/3
-Note: EIGRP-R2 and EIGRP-R3 are running HSRP on the link to DC-SW1
 DC-SW1 gi3/1 <-> DC-VPC-SW1 eth1/9
 DC-SW1 gi3/2 <-> DC-VPC-SW2 eth1/9
 DC-VPC-SW1 mgmt0 <-> DC-VPC-SW2 mgmt0
 DC-VPC-SW1 eth1/1 <-> DC-VPC-SW2 eth1/1
 DC-VPC-SW1 eth1/2 <-> DC-VPC-SW2 eth1/2
-
 DC-VPC-SW1 eth2/10 <-> LAN2-MSTP-SW1 gi3/0
 DC-VPC-SW1 eth2/11 <-> LAN2-MSTP-SW4 gi3/0
 DC-VPC-SW2 eth2/2 <-> LAN2-MSTP-SW1 gi3/1
 DC-VPC-SW2 eth2/3 <-> LAN2-MSTP-SW4 gi3/1
-
 LAN2-MSTP-SW1 gi0/0 <-> LAN2-MSTP-SW2 gi0/0
 LAN2-MSTP-SW2 gi0/1 <-> LAN2-MSTP-SW3 gi0/0
 LAN2-MSTP-SW2 gi1/0 <-> LAN2-SW1 gi1/0
 LAN2-MSTP-SW3 gi0/1 <-> LAN2-MSTP-SW4 gi0/0
 LAN2-MSTP-SW3 gi1/0 <-> LAN2-SW2
 LAN2-MSTP-SW4 gi1/0 <-> LAN2-SW3
-
 LAN2-SW1 gi0/0 <-> PC4 eth0
 LAN2-SW2 gi0/0 <-> PC5 eth0
 LAN2-SW3 gi0/0 <-> PC6 eth0
