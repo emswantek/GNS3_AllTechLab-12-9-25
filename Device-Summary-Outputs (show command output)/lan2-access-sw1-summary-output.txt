@@ -1,0 +1,153 @@
+!Summary output from LAN2-ACCESS-SW1
+
+LAN2-ACCESS-SW1#sh int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0     PC4                connected    241        a-full   auto RJ45
+Gi0/1                        notconnect   1          a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0     LAN2-MSTP-SW2      connected    trunk      a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/1                        notconnect   1          a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+
+LAN2-ACCESS-SW1#sh vlan br
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi0/1, Gi0/2, Gi0/3, Gi1/1
+                                                Gi1/2, Gi1/3, Gi2/0, Gi2/1
+                                                Gi2/2, Gi2/3, Gi3/0, Gi3/1
+                                                Gi3/2, Gi3/3
+241  LAN2-SEGMENT-1                   active    Gi0/0
+251  NET-MGMT-VLAN                    active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+
+LAN2-ACCESS-SW1#sh int trunk
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi1/0       auto             n-802.1q       trunking      1
+
+Port        Vlans allowed on trunk
+Gi1/0       1-4094
+
+Port        Vlans allowed and active in management domain
+Gi1/0       1,241,251
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi1/0       1,241,251
+
+LAN2-ACCESS-SW1#show spanning-tree
+
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32768
+             Address     0c08.fc50.0007
+             Cost        4
+             Port        5 (GigabitEthernet1/0)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0c68.265b.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi0/1               Desg FWD 4         128.2    P2p
+Gi0/2               Desg FWD 4         128.3    P2p
+Gi0/3               Desg FWD 4         128.4    P2p
+Gi1/0               Root FWD 4         128.5    P2p
+Gi1/1               Desg FWD 4         128.6    P2p
+Gi1/2               Desg FWD 4         128.7    P2p
+Gi1/3               Desg FWD 4         128.8    P2p
+Gi2/0               Desg FWD 4         128.9    P2p
+Gi2/1               Desg FWD 4         128.10   P2p
+Gi2/2               Desg FWD 4         128.11   P2p
+Gi2/3               Desg FWD 4         128.12   P2p
+Gi3/0               Desg FWD 4         128.13   P2p
+Gi3/1               Desg FWD 4         128.14   P2p
+Gi3/2               Desg FWD 4         128.15   P2p
+Gi3/3               Desg FWD 4         128.16   P2p
+
+
+
+VLAN0241
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32768
+             Address     0c08.fc50.0007
+             Cost        4
+             Port        5 (GigabitEthernet1/0)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    33009  (priority 32768 sys-id-ext 241)
+             Address     0c68.265b.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi0/0               Desg FWD 4         128.1    P2p
+Gi1/0               Root FWD 4         128.5    P2p
+
+
+
+VLAN0251
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32768
+             Address     0c08.fc50.0007
+             Cost        4
+             Port        5 (GigabitEthernet1/0)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    33019  (priority 32768 sys-id-ext 251)
+             Address     0c68.265b.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi1/0               Root FWD 4         128.5    P2p
+
+LAN2-ACCESS-SW1#show ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/1     unassigned      YES unset  down                  down
+GigabitEthernet0/2     unassigned      YES unset  down                  down
+GigabitEthernet0/3     unassigned      YES unset  down                  down
+GigabitEthernet1/0     unassigned      YES unset  up                    up
+GigabitEthernet1/1     unassigned      YES unset  down                  down
+GigabitEthernet1/2     unassigned      YES unset  down                  down
+GigabitEthernet1/3     unassigned      YES unset  down                  down
+GigabitEthernet2/0     unassigned      YES unset  down                  down
+GigabitEthernet2/1     unassigned      YES unset  down                  down
+GigabitEthernet2/2     unassigned      YES unset  down                  down
+GigabitEthernet2/3     unassigned      YES unset  down                  down
+GigabitEthernet3/0     unassigned      YES unset  down                  down
+GigabitEthernet3/1     unassigned      YES unset  down                  down
+GigabitEthernet3/2     unassigned      YES unset  down                  down
+GigabitEthernet3/3     unassigned      YES unset  down                  down
+Loopback0              172.31.255.21   YES NVRAM  up                    up
+Vlan251                172.31.251.21   YES NVRAM  up                    up
+
+LAN2-ACCESS-SW1#sh cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+LAN2-MSTP-SW2    Gig 1/0           164             R S I            Gig 1/0
+
+Total cdp entries displayed : 1

@@ -1,0 +1,227 @@
+!Summary output from LAN2-MSTP-SW1
+
+LAN2-MSTP-SW1#sh int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0     LAN2-MSTP-SW2      connected    trunk      a-full   auto RJ45
+Gi0/1     LAN2-MSTP-SW4      connected    trunk      a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0                        notconnect   1          a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0     DC-VPC-SW1         connected    trunk      a-full   auto RJ45
+Gi3/1     DC-VPC-SW2         connected    trunk      a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+Po12      vPC Switches e1/6  connected    trunk      a-full   auto
+
+LAN2-MSTP-SW1#sh cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+DC-VPC-SW2(976MYWRI6UU)
+                 Gig 3/1           174            R S I C N9K-9000v Eth 1/6
+DC-VPC-SW1(9CG64GSMIDD)
+                 Gig 3/0           169            R S I C N9K-9000v Eth 1/6
+LAN2-MSTP-SW4    Gig 0/1           127             R S I            Gig 0/1
+LAN2-MSTP-SW2    Gig 0/0           131             R S I            Gig 0/0
+
+Total cdp entries displayed : 4
+
+LAN2-MSTP-SW1#sh etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      N - not in use, no aggregation
+        f - failed to allocate aggregator
+
+        M - not in use, minimum links not met
+        m - not in use, port not aggregated due to minimum links not met
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+        A - formed by Auto LAG
+
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+12     Po12(SU)        LACP      Gi3/0(P)    Gi3/1(P)
+
+LAN2-MSTP-SW1#sh spanning-tree
+
+MST0
+  Spanning tree enabled protocol mstp
+  Root ID    Priority    32768
+             Address     0c08.fc50.0007
+             Cost        0
+             Port        65 (Port-channel12)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32768  (priority 32768 sys-id-ext 0)
+             Address     0cbc.46ad.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi0/0               Desg FWD 20000     128.1    P2p
+Gi0/1               Desg FWD 20000     128.2    P2p
+Gi0/2               Desg FWD 20000     128.3    P2p
+Gi0/3               Desg FWD 20000     128.4    P2p
+Gi1/0               Desg FWD 20000     128.5    P2p
+Gi1/1               Desg FWD 20000     128.6    P2p
+Gi1/2               Desg FWD 20000     128.7    P2p
+Gi1/3               Desg FWD 20000     128.8    P2p
+Gi2/0               Desg FWD 20000     128.9    P2p
+Gi2/1               Desg FWD 20000     128.10   P2p
+Gi2/2               Desg FWD 20000     128.11   P2p
+Gi2/3               Desg FWD 20000     128.12   P2p
+Gi3/2               Desg FWD 20000     128.15   P2p
+Gi3/3               Desg FWD 20000     128.16   P2p
+Po12                Root FWD 10000     128.65   P2p
+
+
+
+MST1
+  Spanning tree enabled protocol mstp
+  Root ID    Priority    4097
+             Address     0c08.fc50.0007
+             Cost        20000
+             Port        65 (Port-channel12)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    8193   (priority 8192 sys-id-ext 1)
+             Address     0cbc.46ad.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi0/0               Desg FWD 20000     128.1    P2p
+Gi0/1               Desg FWD 20000     128.2    P2p
+Po12                Root FWD 10000     128.65   P2p
+
+
+
+MST2
+  Spanning tree enabled protocol mstp
+  Root ID    Priority    4098
+             Address     0c08.fc50.0007
+             Cost        20000
+             Port        65 (Port-channel12)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    16386  (priority 16384 sys-id-ext 2)
+             Address     0cbc.46ad.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi0/0               Desg FWD 20000     128.1    P2p
+Gi0/1               Altn BLK 20000     128.2    P2p
+Po12                Root FWD 10000     128.65   P2p
+
+
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#sh spanning-tree ms
+LAN2-MSTP-SW1#sh spanning-tree mst
+
+##### MST0    vlans mapped:   1-240,244-250,252-4094
+Bridge        address 0cbc.46ad.0000  priority      32768 (32768 sysid 0)
+Root          address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+              port    Po12            path cost     0
+Regional Root address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+                                      internal cost 20000     rem hops 18
+Operational   hello time 2 , forward delay 15, max age 20, txholdcount 6
+Configured    hello time 2 , forward delay 15, max age 20, max hops    20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Gi0/2            Desg FWD 20000     128.3    P2p
+Gi0/3            Desg FWD 20000     128.4    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p
+Gi1/1            Desg FWD 20000     128.6    P2p
+Gi1/2            Desg FWD 20000     128.7    P2p
+Gi1/3            Desg FWD 20000     128.8    P2p
+Gi2/0            Desg FWD 20000     128.9    P2p
+Gi2/1            Desg FWD 20000     128.10   P2p
+Gi2/2            Desg FWD 20000     128.11   P2p
+Gi2/3            Desg FWD 20000     128.12   P2p
+Gi3/2            Desg FWD 20000     128.15   P2p
+Gi3/3            Desg FWD 20000     128.16   P2p
+Po12             Root FWD 10000     128.65   P2p
+
+##### MST1    vlans mapped:   241-242
+Bridge        address 0cbc.46ad.0000  priority      8193  (8192 sysid 1)
+Root          address 0c08.fc50.0007  priority      4097  (4096 sysid 1)
+              port    Po12            cost          20000     rem hops 18
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Po12             Root FWD 10000     128.65   P2p
+
+##### MST2    vlans mapped:   243,251
+Bridge        address 0cbc.46ad.0000  priority      16386 (16384 sysid 2)
+Root          address 0c08.fc50.0007  priority      4098  (4096 sysid 2)
+              port    Po12            cost          20000     rem hops 18
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Altn BLK 20000     128.2    P2p
+Po12             Root FWD 10000     128.65   P2p
+
+LAN2-MSTP-SW1#show ip int brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/1     unassigned      YES unset  up                    up
+GigabitEthernet0/2     unassigned      YES unset  down                  down
+GigabitEthernet0/3     unassigned      YES unset  down                  down
+GigabitEthernet1/0     unassigned      YES unset  down                  down
+GigabitEthernet1/1     unassigned      YES unset  down                  down
+GigabitEthernet1/2     unassigned      YES unset  down                  down
+GigabitEthernet1/3     unassigned      YES unset  down                  down
+GigabitEthernet2/0     unassigned      YES unset  down                  down
+GigabitEthernet2/1     unassigned      YES unset  down                  down
+GigabitEthernet2/2     unassigned      YES unset  down                  down
+GigabitEthernet2/3     unassigned      YES unset  down                  down
+GigabitEthernet3/0     unassigned      YES unset  up                    up
+GigabitEthernet3/1     unassigned      YES unset  up                    up
+GigabitEthernet3/2     unassigned      YES unset  down                  down
+GigabitEthernet3/3     unassigned      YES unset  down                  down
+Loopback0              172.31.255.11   YES NVRAM  up                    up
+Port-channel12         unassigned      YES unset  up                    up
+Vlan251                172.31.251.11   YES NVRAM  up                    up
+
+LAN2-MSTP-SW1#sh vlan br
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi0/2, Gi0/3, Gi1/0, Gi1/1
+                                                Gi1/2, Gi1/3, Gi2/0, Gi2/1
+                                                Gi2/2, Gi2/3, Gi3/2, Gi3/3
+241  LAN2-SEGMENT-1                   active
+242  LAN2-SEGMENT-2                   active
+243  LAN2-SEGMENT-3                   active
+251  NET-MGMT-VLAN                    active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
