@@ -1,0 +1,88 @@
+!Summary output from CE1
+
+CE1#sh run | i interface|description|ip address
+interface Loopback0
+ ip address 172.16.0.2 255.255.255.255
+interface FastEthernet0/0
+ no ip address
+interface GigabitEthernet1/0
+ description Link_to_ISP-1-1
+ ip address 10.0.0.2 255.255.255.252
+interface GigabitEthernet2/0
+ description Link_to_R1
+ ip address 192.168.1.2 255.255.255.252
+interface GigabitEthernet3/0
+ no ip address
+interface GigabitEthernet4/0
+ no ip address
+interface GigabitEthernet5/0
+ no ip address
+interface GigabitEthernet6/0
+ no ip address
+
+router ospf 1
+ router-id 172.16.0.2
+router bgp 65001
+ bgp log-neighbor-changes
+ network 10.0.0.0 mask 255.255.255.252
+ neighbor 10.0.0.1 remote-as 65000
+mpls ldp router-id Loopback0 force
+
+CE1#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+172.16.0.1        1   FULL/BDR        00:00:36    192.168.1.1     GigabitEthernet2/0
+
+CE1#show ip bgp topology *
+For address family: IPv4 Unicast
+
+BGP table version is 2, local router ID is 172.16.0.2
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,
+              x best-external, a additional-path, c RIB-compressed,
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>  10.0.0.0/30      0.0.0.0                  0         32768 i
+
+CE1#show ip bgp su
+CE1#show ip bgp summary
+BGP router identifier 172.16.0.2, local AS number 65001
+BGP table version is 2, main routing table version 2
+1 network entries using 144 bytes of memory
+1 path entries using 80 bytes of memory
+1/1 BGP path/bestpath attribute entries using 136 bytes of memory
+0 BGP route-map cache entries using 0 bytes of memory
+0 BGP filter-list cache entries using 0 bytes of memory
+BGP using 360 total bytes of memory
+BGP activity 1/0 prefixes, 1/0 paths, scan interval 60 secs
+
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.0.0.1        4        65000       0       0        1    0    0 never    Idle
+
+CE1#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+C        10.0.0.0/30 is directly connected, GigabitEthernet1/0
+L        10.0.0.2/32 is directly connected, GigabitEthernet1/0
+      172.16.0.0/16 is variably subnetted, 6 subnets, 3 masks
+C        172.16.0.2/32 is directly connected, Loopback0
+O IA     172.16.10.0/24 [110/2] via 192.168.1.1, 01:17:06, GigabitEthernet2/0
+S        172.16.10.0/25 [1/0] via 192.168.1.1
+O IA     172.16.11.0/24 [110/2] via 192.168.1.1, 01:17:06, GigabitEthernet2/0
+O IA     172.16.22.0/24 [110/2] via 192.168.1.1, 01:17:06, GigabitEthernet2/0
+O IA     172.16.33.0/24 [110/2] via 192.168.1.1, 01:17:06, GigabitEthernet2/0
+      192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.1.0/30 is directly connected, GigabitEthernet2/0
+L        192.168.1.2/32 is directly connected, GigabitEthernet2/0

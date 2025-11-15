@@ -1,0 +1,85 @@
+!Summary output from R1
+
+R1#sh run | i interface|ip address|description
+interface Loopback0
+ ip address 172.16.0.1 255.255.255.255
+interface FastEthernet0/0
+ no ip address
+interface GigabitEthernet1/0
+ description To_LAN-1_SW4
+ no ip address
+interface GigabitEthernet1/0.10
+ description MGMT
+ ip address 172.16.10.1 255.255.255.0
+interface GigabitEthernet1/0.11
+ description PC-VLAN-11
+ ip address 172.16.11.1 255.255.255.0
+interface GigabitEthernet1/0.22
+ description PC-VLAN-22
+ ip address 172.16.22.1 255.255.255.0
+interface GigabitEthernet1/0.33
+ description PC-VLAN-33
+ ip address 172.16.33.1 255.255.255.0
+interface GigabitEthernet2/0
+ description to CE1
+ ip address 192.168.1.1 255.255.255.252
+interface GigabitEthernet3/0
+ no ip address
+interface GigabitEthernet4/0
+ no ip address
+interface GigabitEthernet5/0
+ no ip address
+interface GigabitEthernet6/0
+ no ip address
+
+R1#sh run | s dhcp
+ip dhcp pool VLAN11
+ network 172.16.11.0 255.255.255.0
+ default-router 172.16.11.1
+ip dhcp pool VLAN22
+ network 172.16.22.0 255.255.255.0
+ default-router 172.16.22.1
+ip dhcp pool VLAN33
+ network 172.16.33.0 255.255.255.0
+ default-router 172.16.33.1
+
+R1#sh run | s router
+router ospf 1
+ router-id 172.16.0.1
+ network 172.16.10.0 0.0.0.255 area 1
+ network 172.16.11.0 0.0.0.255 area 1
+ network 172.16.22.0 0.0.0.255 area 1
+ network 172.16.33.0 0.0.0.255 area 1
+ network 192.168.1.0 0.0.0.3 area 0
+
+R1#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+172.16.0.2        1   FULL/DR         00:00:32    192.168.1.2     GigabitEthernet2/0
+
+R1#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 192.168.1.2 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.1.2
+      172.16.0.0/16 is variably subnetted, 9 subnets, 2 masks
+C        172.16.0.1/32 is directly connected, Loopback0
+C        172.16.10.0/24 is directly connected, GigabitEthernet1/0.10
+L        172.16.10.1/32 is directly connected, GigabitEthernet1/0.10
+C        172.16.11.0/24 is directly connected, GigabitEthernet1/0.11
+L        172.16.11.1/32 is directly connected, GigabitEthernet1/0.11
+C        172.16.22.0/24 is directly connected, GigabitEthernet1/0.22
+L        172.16.22.1/32 is directly connected, GigabitEthernet1/0.22
+C        172.16.33.0/24 is directly connected, GigabitEthernet1/0.33
+L        172.16.33.1/32 is directly connected, GigabitEthernet1/0.33
+      192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.1.0/30 is directly connected, GigabitEthernet2/0
+L        192.168.1.1/32 is directly connected, GigabitEthernet2/0

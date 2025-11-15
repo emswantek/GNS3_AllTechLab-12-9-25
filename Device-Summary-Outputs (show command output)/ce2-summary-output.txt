@@ -1,0 +1,136 @@
+!Summary output from CE2
+
+CE2#show run | s interface
+interface Loopback0
+ ip address 172.31.255.1 255.255.255.255
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+interface GigabitEthernet1/0
+ description ISP-PE-2
+ ip address 172.16.90.89 255.255.255.252
+ negotiation auto
+interface GigabitEthernet2/0
+ description EIGRP-R2
+ ip address 172.21.0.254 255.255.255.0
+ negotiation auto
+interface GigabitEthernet3/0
+ description EIGRP-R1
+ ip address 172.22.0.254 255.255.255.0
+ negotiation auto
+interface GigabitEthernet4/0
+ no ip address
+ negotiation auto
+interface GigabitEthernet5/0
+ no ip address
+ negotiation auto
+interface GigabitEthernet6/0
+ no ip address
+ negotiation auto
+
+CE2#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+FastEthernet0/0        unassigned      YES NVRAM  administratively down down
+GigabitEthernet1/0     172.16.90.89    YES NVRAM  up                    up
+GigabitEthernet2/0     172.21.0.254    YES NVRAM  up                    up
+GigabitEthernet3/0     172.22.0.254    YES NVRAM  up                    up
+GigabitEthernet4/0     unassigned      YES NVRAM  up                    up
+GigabitEthernet5/0     unassigned      YES NVRAM  up                    up
+GigabitEthernet6/0     unassigned      YES NVRAM  up                    up
+Loopback0              172.31.255.1    YES NVRAM  up                    up
+
+CE2#sh ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  172.16.90.89            -   ca09.1930.001c  ARPA   GigabitEthernet1/0
+Internet  172.16.90.90          176   ca07.3c96.00a8  ARPA   GigabitEthernet1/0
+Internet  172.21.0.1            176   ca02.18f4.0038  ARPA   GigabitEthernet2/0
+Internet  172.21.0.254            -   ca09.1930.0038  ARPA   GigabitEthernet2/0
+Internet  172.22.0.1            176   ca08.1912.0054  ARPA   GigabitEthernet3/0
+Internet  172.22.0.254            -   ca09.1930.0054  ARPA   GigabitEthernet3/0
+
+CE2#sh run | s router
+router eigrp 65535
+ network 172.21.0.0 0.0.0.255
+ network 172.22.0.0 0.0.0.255
+ network 172.31.255.0 0.0.0.255
+ eigrp router-id 172.31.255.1
+router bgp 65202
+ bgp log-neighbor-changes
+ network 172.16.90.88 mask 255.255.255.252
+ neighbor 172.16.90.90 remote-as 65200
+
+CE2#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      172.16.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.16.90.88/30 is directly connected, GigabitEthernet1/0
+L        172.16.90.89/32 is directly connected, GigabitEthernet1/0
+      172.21.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.21.0.0/24 is directly connected, GigabitEthernet2/0
+L        172.21.0.254/32 is directly connected, GigabitEthernet2/0
+      172.22.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.22.0.0/24 is directly connected, GigabitEthernet3/0
+L        172.22.0.254/32 is directly connected, GigabitEthernet3/0
+      172.31.0.0/16 is variably subnetted, 10 subnets, 2 masks
+D        172.31.241.0/24
+           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+D        172.31.242.0/24
+           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+D        172.31.243.0/24
+           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+D        172.31.251.0/24
+           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+D        172.31.254.0/24
+           [90/3072] via 172.22.0.1, 02:57:20, GigabitEthernet3/0
+           [90/3072] via 172.21.0.1, 02:57:20, GigabitEthernet2/0
+C        172.31.255.1/32 is directly connected, Loopback0
+D        172.31.255.2/32
+           [90/130816] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+D        172.31.255.3/32
+           [90/130816] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
+D        172.31.255.4/32
+           [90/131072] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
+           [90/131072] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+D        172.31.255.5/32
+           [90/131072] via 172.22.0.1, 02:48:51, GigabitEthernet3/0
+           [90/131072] via 172.21.0.1, 02:48:51, GigabitEthernet2/0
+
+CE2#sh ip bgp summary
+BGP router identifier 172.31.255.1, local AS number 65202
+BGP table version is 2, main routing table version 2
+1 network entries using 144 bytes of memory
+1 path entries using 80 bytes of memory
+1/1 BGP path/bestpath attribute entries using 136 bytes of memory
+0 BGP route-map cache entries using 0 bytes of memory
+0 BGP filter-list cache entries using 0 bytes of memory
+BGP using 360 total bytes of memory
+BGP activity 1/0 prefixes, 1/0 paths, scan interval 60 secs
+
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+172.16.90.90    4        65200       0       0        1    0    0 never    Idle
+
+CE2#show eigrp protocols
+EIGRP-IPv4 Protocol for AS(65535)
+  Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  NSF-aware route hold timer is 240
+  Router-ID: 172.31.255.1
+  Topology : 0 (base)
+    Active Timer: 3 min
+    Distance: internal 90 external 170
+    Maximum path: 4
+    Maximum hopcount 100
+    Maximum metric variance 1

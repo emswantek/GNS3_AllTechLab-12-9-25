@@ -1,0 +1,58 @@
+!Summary output from SW3
+
+SW3#sh cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+SW4              Gig 0/0           140             R S I            Gig 0/3
+SW1              Gig 0/1           174             R S I            Gig 0/3
+
+SW3#sh int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0     To_SW4             connected    trunk      a-full   auto RJ45
+Gi0/1     To_SW1             connected    trunk      a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0                        notconnect   1          a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/1                        notconnect   1          a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+
+SW3#sh spanning-tree summary
+Switch is in pvst mode
+Root bridge for: none
+Extended system ID                      is enabled
+Portfast Default                        is disabled
+Portfast Edge BPDU Guard Default        is disabled
+Portfast Edge BPDU Filter Default       is disabled
+Loopguard Default                       is disabled
+PVST Simulation Default                 is enabled but inactive in pvst mode
+Bridge Assurance                        is enabled but inactive in pvst mode
+EtherChannel misconfig guard            is enabled
+Configured Pathcost method used is short
+UplinkFast                              is disabled
+BackboneFast                            is disabled
+
+Name                   Blocking Listening Learning Forwarding STP Active
+---------------------- -------- --------- -------- ---------- ----------
+VLAN0001                     0         0        0         16         16
+VLAN0010                     0         0        0          2          2
+VLAN0011                     0         0        0          2          2
+VLAN0022                     0         0        0          2          2
+VLAN0033                     0         0        0          2          2
+---------------------- -------- --------- -------- ---------- ----------
+
+Name                   Blocking Listening Learning Forwarding STP Active
+---------------------- -------- --------- -------- ---------- ----------
+5 vlans                      0         0        0         24         24

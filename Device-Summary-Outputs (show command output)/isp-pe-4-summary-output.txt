@@ -1,0 +1,112 @@
+!Summary output from ISP-PE-4
+
+ISP-PE-4#  show run | i interface|description|isis|ip address|mpls
+mpls label protocol ldp
+interface Loopback0
+ ip address 5.115.115.1 255.255.255.255
+ ip router isis CORE
+interface FastEthernet0/0
+ no ip address
+interface GigabitEthernet1/0
+ description ISP-PE-1
+ ip address 10.115.14.2 255.255.255.252
+ ip router isis CORE
+ mpls ip
+ isis network point-to-point
+interface GigabitEthernet2/0
+ description ISP-CORE-1
+ ip address 10.115.4.2 255.255.255.252
+ ip router isis CORE
+ mpls ip
+ isis network point-to-point
+interface GigabitEthernet3/0
+ description ISP-PE-3
+ ip address 10.115.34.2 255.255.255.252
+ ip router isis CORE
+ mpls ip
+ isis network point-to-point
+interface GigabitEthernet4/0
+ description ISP-PE-2
+ ip address 10.115.24.2 255.255.255.252
+ ip router isis CORE
+ mpls ip
+ isis network point-to-point
+interface GigabitEthernet5/0
+ no ip address
+interface GigabitEthernet6/0
+ no ip address
+
+ISP-PE-4#    sh run | s router
+router isis CORE
+ net 49.0001.1150.1154.1151.00
+ is-type level-2-only
+ metric-style wide
+ log-adjacency-changes
+mpls ldp router-id Loopback0 force
+
+ISP-PE-4#    sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      1.0.0.0/32 is subnetted, 1 subnets
+i L2     1.115.115.1 [115/20] via 10.115.4.1, 02:37:38, GigabitEthernet2/0
+      2.0.0.0/32 is subnetted, 1 subnets
+i L2     2.115.115.1 [115/20] via 10.115.14.1, 02:37:38, GigabitEthernet1/0
+      3.0.0.0/32 is subnetted, 1 subnets
+i L2     3.115.115.1 [115/20] via 10.115.24.1, 02:37:28, GigabitEthernet4/0
+      4.0.0.0/32 is subnetted, 1 subnets
+i L2     4.115.115.1 [115/20] via 10.115.34.1, 02:37:28, GigabitEthernet3/0
+      5.0.0.0/32 is subnetted, 1 subnets
+C        5.115.115.1 is directly connected, Loopback0
+      10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
+i L2     10.115.1.0/30 [115/20] via 10.115.14.1, 02:37:38, GigabitEthernet1/0
+                       [115/20] via 10.115.4.1, 02:37:38, GigabitEthernet2/0
+i L2     10.115.2.0/30 [115/20] via 10.115.24.1, 02:37:28, GigabitEthernet4/0
+                       [115/20] via 10.115.4.1, 02:37:28, GigabitEthernet2/0
+i L2     10.115.3.0/30 [115/20] via 10.115.34.1, 02:37:28, GigabitEthernet3/0
+                       [115/20] via 10.115.4.1, 02:37:28, GigabitEthernet2/0
+C        10.115.4.0/30 is directly connected, GigabitEthernet2/0
+L        10.115.4.2/32 is directly connected, GigabitEthernet2/0
+i L2     10.115.12.0/30 [115/20] via 10.115.24.1, 02:37:28, GigabitEthernet4/0
+                        [115/20] via 10.115.14.1, 02:37:28, GigabitEthernet1/0
+i L2     10.115.13.0/30 [115/20] via 10.115.34.1, 02:37:28, GigabitEthernet3/0
+                        [115/20] via 10.115.14.1, 02:37:28, GigabitEthernet1/0
+C        10.115.14.0/30 is directly connected, GigabitEthernet1/0
+L        10.115.14.2/32 is directly connected, GigabitEthernet1/0
+i L2     10.115.23.0/30 [115/20] via 10.115.34.1, 02:37:28, GigabitEthernet3/0
+                        [115/20] via 10.115.24.1, 02:37:28, GigabitEthernet4/0
+C        10.115.24.0/30 is directly connected, GigabitEthernet4/0
+L        10.115.24.2/32 is directly connected, GigabitEthernet4/0
+C        10.115.34.0/30 is directly connected, GigabitEthernet3/0
+L        10.115.34.2/32 is directly connected, GigabitEthernet3/0
+
+ISP-PE-4#    show mpls forwarding-table
+Local      Outgoing   Prefix           Bytes Label   Outgoing   Next Hop
+Label      Label      or Tunnel Id     Switched      interface
+16         Pop Label  2.115.115.1/32   0             Gi1/0      10.115.14.1
+17         Pop Label  1.115.115.1/32   0             Gi2/0      10.115.4.1
+18         Pop Label  10.115.1.0/30    0             Gi2/0      10.115.4.1
+           Pop Label  10.115.1.0/30    0             Gi1/0      10.115.14.1
+19         Pop Label  10.115.12.0/30   0             Gi1/0      10.115.14.1
+           No Label   10.115.12.0/30   0             Gi4/0      10.115.24.1
+20         Pop Label  10.115.13.0/30   0             Gi1/0      10.115.14.1
+           No Label   10.115.13.0/30   0             Gi3/0      10.115.34.1
+21         Pop Label  10.115.2.0/30    0             Gi2/0      10.115.4.1
+           No Label   10.115.2.0/30    0             Gi4/0      10.115.24.1
+22         Pop Label  10.115.3.0/30    0             Gi2/0      10.115.4.1
+           No Label   10.115.3.0/30    0             Gi3/0      10.115.34.1
+23         No Label   4.115.115.1/32   0             Gi3/0      10.115.34.1
+24         No Label   3.115.115.1/32   0             Gi4/0      10.115.24.1
+25         No Label   10.115.23.0/30   0             Gi4/0      10.115.24.1
+           No Label   10.115.23.0/30   0             Gi3/0      10.115.34.1
+
+ISP-PE-4#    sh vrf brief
+ISP-PE-4#    sh run | s vrf

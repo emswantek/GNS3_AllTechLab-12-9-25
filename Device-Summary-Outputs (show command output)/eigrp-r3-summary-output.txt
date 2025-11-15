@@ -1,0 +1,114 @@
+!Summary output from EIGRP-R3
+
+EIGRP-R3#  show run | s interface
+interface Loopback0
+ ip address 172.31.255.3 255.255.255.255
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+interface GigabitEthernet1/0
+ no ip address
+ shutdown
+ negotiation auto
+interface GigabitEthernet2/0
+ no ip address
+ shutdown
+ negotiation auto
+interface GigabitEthernet3/0
+ description CE2
+ ip address 172.22.0.1 255.255.255.0
+ negotiation auto
+interface GigabitEthernet4/0
+ no ip address
+ shutdown
+ negotiation auto
+interface GigabitEthernet5/0
+ no ip address
+ shutdown
+ negotiation auto
+interface GigabitEthernet6/0
+ description To-DC-SW1
+ no ip address
+ negotiation auto
+interface GigabitEthernet6/0.254
+ description Transit-To-DC-VPC-SWs
+ encapsulation dot1Q 254
+ ip address 172.31.254.3 255.255.255.0
+
+EIGRP-R3#  sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+FastEthernet0/0        unassigned      YES NVRAM  administratively down down
+GigabitEthernet1/0     unassigned      YES NVRAM  administratively down down
+GigabitEthernet2/0     unassigned      YES NVRAM  administratively down down
+GigabitEthernet3/0     172.22.0.1      YES NVRAM  up                    up
+GigabitEthernet4/0     unassigned      YES NVRAM  administratively down down
+GigabitEthernet5/0     unassigned      YES NVRAM  administratively down down
+GigabitEthernet6/0     unassigned      YES NVRAM  up                    up
+GigabitEthernet6/0.254 172.31.254.3    YES NVRAM  up                    up
+Loopback0              172.31.255.3    YES NVRAM  up                    up
+
+EIGRP-R3#  sh ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  172.22.0.1              -   ca08.1912.0054  ARPA   GigabitEthernet3/0
+Internet  172.22.0.254          174   ca09.1930.0054  ARPA   GigabitEthernet3/0
+Internet  172.31.254.2          165   ca02.18f4.001c  ARPA   GigabitEthernet6/0.254
+Internet  172.31.254.3            -   ca08.1912.00a8  ARPA   GigabitEthernet6/0.254
+Internet  172.31.254.4            0   0c9f.43a5.0007  ARPA   GigabitEthernet6/0.254
+Internet  172.31.254.5           10   0c08.fc50.0007  ARPA   GigabitEthernet6/0.254
+
+EIGRP-R3#  sh eigrp protocols
+EIGRP-IPv4 Protocol for AS(65535)
+  Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  NSF-aware route hold timer is 240
+  Router-ID: 172.31.255.3
+  Topology : 0 (base)
+    Active Timer: 3 min
+    Distance: internal 90 external 170
+    Maximum path: 4
+    Maximum hopcount 100
+    Maximum metric variance 1
+
+EIGRP-R3#  sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      172.21.0.0/24 is subnetted, 1 subnets
+D        172.21.0.0
+           [90/3072] via 172.31.254.2, 02:45:51, GigabitEthernet6/0.254
+           [90/3072] via 172.22.0.254, 02:45:51, GigabitEthernet3/0
+      172.22.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.22.0.0/24 is directly connected, GigabitEthernet3/0
+L        172.22.0.1/32 is directly connected, GigabitEthernet3/0
+      172.31.0.0/16 is variably subnetted, 11 subnets, 2 masks
+D        172.31.241.0/24
+           [90/3072] via 172.31.254.5, 02:45:48, GigabitEthernet6/0.254
+           [90/3072] via 172.31.254.4, 02:45:48, GigabitEthernet6/0.254
+D        172.31.242.0/24
+           [90/3072] via 172.31.254.5, 02:45:48, GigabitEthernet6/0.254
+           [90/3072] via 172.31.254.4, 02:45:48, GigabitEthernet6/0.254
+D        172.31.243.0/24
+           [90/3072] via 172.31.254.5, 02:45:48, GigabitEthernet6/0.254
+           [90/3072] via 172.31.254.4, 02:45:48, GigabitEthernet6/0.254
+D        172.31.251.0/24
+           [90/3072] via 172.31.254.5, 02:45:48, GigabitEthernet6/0.254
+           [90/3072] via 172.31.254.4, 02:45:48, GigabitEthernet6/0.254
+C        172.31.254.0/24 is directly connected, GigabitEthernet6/0.254
+L        172.31.254.3/32 is directly connected, GigabitEthernet6/0.254
+D        172.31.255.1/32
+           [90/130816] via 172.22.0.254, 02:45:51, GigabitEthernet3/0
+D        172.31.255.2/32
+           [90/130816] via 172.31.254.2, 02:45:51, GigabitEthernet6/0.254
+C        172.31.255.3/32 is directly connected, Loopback0
+D        172.31.255.4/32
+           [90/130816] via 172.31.254.4, 02:45:51, GigabitEthernet6/0.254
+D        172.31.255.5/32
+           [90/130816] via 172.31.254.5, 02:45:48, GigabitEthernet6/0.254

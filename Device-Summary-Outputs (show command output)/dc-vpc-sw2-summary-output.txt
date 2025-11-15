@@ -1,0 +1,629 @@
+!Summary output from DC-VPC-SW2
+
+DC-VPC-SW2# show interface status
+
+--------------------------------------------------------------------------------
+Port          Name               Status    Vlan      Duplex  Speed   Type
+--------------------------------------------------------------------------------
+mgmt0         DC-VPC-SW1 mgmt0   connected routed    full    1000    --
+
+--------------------------------------------------------------------------------
+Port          Name               Status    Vlan      Duplex  Speed   Type
+--------------------------------------------------------------------------------
+Eth1/1        DC-VPC-SW1-eth1/1  connected trunk     full    1000    10g
+Eth1/2        DC-VPC-SW1-eth1/2  connected trunk     full    1000    10g
+Eth1/3        --                 connected 1         full    auto    10g
+Eth1/4        --                 connected 1         full    auto    10g
+Eth1/5        --                 connected 1         full    auto    10g
+Eth1/6        LAN2-MSTP-SW1      connected trunk     full    1000    10g
+Eth1/7        LAN2-MSTP-SW4      connected trunk     full    1000    10g
+Eth1/8        --                 connected 1         full    auto    10g
+Eth1/9        DC-SW1             connected trunk     full    1000    10g
+Eth1/10       --                 notconnec 1         auto    auto    10g
+Eth1/11       --                 notconnec 1         auto    auto    10g
+Eth1/12       --                 notconnec 1         auto    auto    10g
+Eth1/13       --                 notconnec 1         auto    auto    10g
+Eth1/14       --                 notconnec 1         auto    auto    10g
+Eth1/15       --                 notconnec 1         auto    auto    10g
+Eth1/16       --                 notconnec 1         auto    auto    10g
+Eth1/17       --                 notconnec 1         auto    auto    10g
+Eth1/18       --                 notconnec 1         auto    auto    10g
+Eth1/19       --                 notconnec 1         auto    auto    10g
+Eth1/20       --                 notconnec 1         auto    auto    10g
+Eth1/21       --                 notconnec 1         auto    auto    10g
+Eth1/22       --                 notconnec 1         auto    auto    10g
+Eth1/23       --                 notconnec 1         auto    auto    10g
+Eth1/24       --                 notconnec 1         auto    auto    10g
+Eth1/25       --                 notconnec 1         auto    auto    10g
+Eth1/26       --                 notconnec 1         auto    auto    10g
+Eth1/27       --                 notconnec 1         auto    auto    10g
+Eth1/28       --                 notconnec 1         auto    auto    10g
+Eth1/29       --                 notconnec 1         auto    auto    10g
+Eth1/30       --                 notconnec 1         auto    auto    10g
+Eth1/31       --                 notconnec 1         auto    auto    10g
+Eth1/32       --                 notconnec 1         auto    auto    10g
+Eth1/33       --                 notconnec 1         auto    auto    10g
+Eth1/34       --                 notconnec 1         auto    auto    10g
+Eth1/35       --                 notconnec 1         auto    auto    10g
+Eth1/36       --                 notconnec 1         auto    auto    10g
+Eth1/37       --                 notconnec 1         auto    auto    10g
+Eth1/38       --                 notconnec 1         auto    auto    10g
+Eth1/39       --                 notconnec 1         auto    auto    10g
+Eth1/40       --                 notconnec 1         auto    auto    10g
+Eth1/41       --                 notconnec 1         auto    auto    10g
+Eth1/42       --                 notconnec 1         auto    auto    10g
+Eth1/43       --                 notconnec 1         auto    auto    10g
+Eth1/44       --                 notconnec 1         auto    auto    10g
+Eth1/45       --                 notconnec 1         auto    auto    10g
+Eth1/46       --                 notconnec 1         auto    auto    10g
+Eth1/47       --                 notconnec 1         auto    auto    10g
+Eth1/48       --                 notconnec 1         auto    auto    10g
+Eth1/49       --                 notconnec 1         auto    auto    10g
+Eth1/50       --                 notconnec 1         auto    auto    10g
+Eth1/51       --                 notconnec 1         auto    auto    10g
+Eth1/52       --                 notconnec 1         auto    auto    10g
+Eth1/53       --                 notconnec 1         auto    auto    10g
+Eth1/54       --                 notconnec 1         auto    auto    10g
+Eth1/55       --                 notconnec 1         auto    auto    10g
+Eth1/56       --                 notconnec 1         auto    auto    10g
+Eth1/57       --                 notconnec 1         auto    auto    10g
+Eth1/58       --                 notconnec 1         auto    auto    10g
+Eth1/59       --                 notconnec 1         auto    auto    10g
+Eth1/60       --                 notconnec 1         auto    auto    10g
+Eth1/61       --                 notconnec 1         auto    auto    10g
+Eth1/62       --                 notconnec 1         auto    auto    10g
+Eth1/63       --                 notconnec 1         auto    auto    10g
+Eth1/64       --                 notconnec 1         auto    auto    10g
+Eth1/65       --                 notconnec 1         auto    auto    10g
+Eth1/66       --                 notconnec 1         auto    auto    10g
+Eth1/67       --                 notconnec 1         auto    auto    10g
+Eth1/68       --                 notconnec 1         auto    auto    10g
+Eth1/69       --                 notconnec 1         auto    auto    10g
+Eth1/70       --                 notconnec 1         auto    auto    10g
+Eth1/71       --                 notconnec 1         auto    auto    10g
+Eth1/72       --                 notconnec 1         auto    auto    10g
+Eth1/73       --                 notconnec 1         auto    auto    10g
+Eth1/74       --                 notconnec 1         auto    auto    10g
+Eth1/75       --                 notconnec 1         auto    auto    10g
+Eth1/76       --                 notconnec 1         auto    auto    10g
+Eth1/77       --                 notconnec 1         auto    auto    10g
+Eth1/78       --                 notconnec 1         auto    auto    10g
+Eth1/79       --                 notconnec 1         auto    auto    10g
+Eth1/80       --                 notconnec 1         auto    auto    10g
+Eth1/81       --                 notconnec 1         auto    auto    10g
+Eth1/82       --                 notconnec 1         auto    auto    10g
+Eth1/83       --                 notconnec 1         auto    auto    10g
+Eth1/84       --                 notconnec 1         auto    auto    10g
+Eth1/85       --                 notconnec 1         auto    auto    10g
+Eth1/86       --                 notconnec 1         auto    auto    10g
+Eth1/87       --                 notconnec 1         auto    auto    10g
+Eth1/88       --                 notconnec 1         auto    auto    10g
+Eth1/89       --                 notconnec 1         auto    auto    10g
+Eth1/90       --                 notconnec 1         auto    auto    10g
+Eth1/91       --                 notconnec 1         auto    auto    10g
+Eth1/92       --                 notconnec 1         auto    auto    10g
+Eth1/93       --                 notconnec 1         auto    auto    10g
+Eth1/94       --                 notconnec 1         auto    auto    10g
+Eth1/95       --                 notconnec 1         auto    auto    10g
+Eth1/96       --                 notconnec 1         auto    auto    10g
+Eth1/97       --                 notconnec 1         auto    auto    10g
+Eth1/98       --                 notconnec 1         auto    auto    10g
+Eth1/99       --                 notconnec 1         auto    auto    10g
+Eth1/100      --                 notconnec 1         auto    auto    10g
+Eth1/101      --                 notconnec 1         auto    auto    10g
+Eth1/102      --                 notconnec 1         auto    auto    10g
+Eth1/103      --                 notconnec 1         auto    auto    10g
+Eth1/104      --                 notconnec 1         auto    auto    10g
+Eth1/105      --                 notconnec 1         auto    auto    10g
+Eth1/106      --                 notconnec 1         auto    auto    10g
+Eth1/107      --                 notconnec 1         auto    auto    10g
+Eth1/108      --                 notconnec 1         auto    auto    10g
+Eth1/109      --                 notconnec 1         auto    auto    10g
+Eth1/110      --                 notconnec 1         auto    auto    10g
+Eth1/111      --                 notconnec 1         auto    auto    10g
+Eth1/112      --                 notconnec 1         auto    auto    10g
+Eth1/113      --                 notconnec 1         auto    auto    10g
+Eth1/114      --                 notconnec 1         auto    auto    10g
+Eth1/115      --                 notconnec 1         auto    auto    10g
+Eth1/116      --                 notconnec 1         auto    auto    10g
+Eth1/117      --                 notconnec 1         auto    auto    10g
+Eth1/118      --                 notconnec 1         auto    auto    10g
+Eth1/119      --                 notconnec 1         auto    auto    10g
+Eth1/120      --                 notconnec 1         auto    auto    10g
+Eth1/121      --                 notconnec 1         auto    auto    10g
+Eth1/122      --                 notconnec 1         auto    auto    10g
+Eth1/123      --                 notconnec 1         auto    auto    10g
+Eth1/124      --                 notconnec 1         auto    auto    10g
+Eth1/125      --                 notconnec 1         auto    auto    10g
+Eth1/126      --                 notconnec 1         auto    auto    10g
+Eth1/127      --                 notconnec 1         auto    auto    10g
+Eth1/128      --                 notconnec 1         auto    auto    10g
+Po10          vPC peer link      connected trunk     full    1000    --
+Po11          DC-SW1             connected trunk     full    1000    --
+Po12          LAN2-MSTP-SW1      connected trunk     full    1000    --
+Po13          LAN2-MSTP-SW4      connected trunk     full    1000    --
+Lo0           --                 connected routed    auto    auto    --
+Vlan1         --                 down      routed    auto    auto    --
+Vlan241       LAN2-SEGMENT-1     connected routed    auto    auto    --
+Vlan242       LAN2-SEGMENT-2     connected routed    auto    auto    --
+Vlan243       LAN2-SEGMENT-3     connected routed    auto    auto    --
+Vlan251       NET-MGMT-VLAN      connected routed    auto    auto    --
+Vlan254       ROUTER-TRANSIT-NET connected routed    auto    auto    --
+
+DC-VPC-SW2# show int trunk
+
+--------------------------------------------------------------------------------
+Port          Native  Status        Port
+              Vlan                  Channel
+--------------------------------------------------------------------------------
+Eth1/1        1       trnk-bndl     Po10
+Eth1/2        1       trnk-bndl     Po10
+Eth1/6        1       trnk-bndl     Po12
+Eth1/7        1       trnk-bndl     Po13
+Eth1/9        1       trnk-bndl     Po11
+Po10          1       trunking      --
+Po11          1       trunking      --
+Po12          1       trunking      --
+Po13          1       trunking      --
+
+--------------------------------------------------------------------------------
+Port          Vlans Allowed on Trunk
+--------------------------------------------------------------------------------
+Eth1/1        1-4094
+Eth1/2        1-4094
+Eth1/6        1-4094
+Eth1/7        1-4094
+Eth1/9        1-4094
+Po10          1-4094
+Po11          1-4094
+Po12          1-4094
+Po13          1-4094
+
+--------------------------------------------------------------------------------
+Port          Vlans Err-disabled on Trunk
+--------------------------------------------------------------------------------
+Eth1/1        none
+Eth1/2        none
+Eth1/6        none
+Eth1/7        none
+Eth1/9        none
+Po10          none
+Po11          none
+Po12          none
+Po13          none
+
+--------------------------------------------------------------------------------
+Port          STP Forwarding
+--------------------------------------------------------------------------------
+Eth1/1        none
+Eth1/2        none
+Eth1/6        none
+Eth1/7        none
+Eth1/9        none
+Po10          1,241-243,251,254
+Po11          1,241-243,251,254
+Po12          1,241-243,251,254
+Po13          1,241-243,251,254
+
+--------------------------------------------------------------------------------
+Port          Vlans in spanning tree forwarding state and not pruned
+--------------------------------------------------------------------------------
+Eth1/1        Feature VTP is not enabled
+none
+Eth1/2        Feature VTP is not enabled
+none
+Eth1/6        Feature VTP is not enabled
+none
+Eth1/7        Feature VTP is not enabled
+none
+Eth1/9        Feature VTP is not enabled
+none
+Po10          Feature VTP is not enabled
+1,241-243,251,254
+Po11          Feature VTP is not enabled
+1,241-243,251,254
+Po12          Feature VTP is not enabled
+1,241-243,251,254
+Po13          Feature VTP is not enabled
+1,241-243,251,254
+
+DC-VPC-SW2# show spanning-tree
+
+MST0000
+  Spanning tree enabled protocol mstp
+  Root ID    Priority    32768
+             Address     0c08.fc50.0007
+             This bridge is the root
+             Hello Time  2  sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32768  (priority 32768 sys-id-ext 0)
+             Address     0c08.fc50.0007
+             Hello Time  2  sec  Max Age 20 sec  Forward Delay 15 sec
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 10000     128.4105 (vPC peer-link) Network P2p
+Po11             Desg FWD 200       128.4106 (vPC) P2p Bound(PVST)
+Po12             Desg FWD 200       128.4107 (vPC) P2p
+Po13             Desg FWD 200       128.4108 (vPC) P2p
+Eth1/3           Desg FWD 20000     128.3    P2p
+Eth1/4           Desg FWD 20000     128.4    P2p
+Eth1/5           Desg FWD 20000     128.5    P2p
+Eth1/8           Desg FWD 20000     128.8    P2p
+
+
+MST0001
+  Spanning tree enabled protocol mstp
+  Root ID    Priority    4097
+             Address     0c08.fc50.0007
+             This bridge is the root
+             Hello Time  2  sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    4097   (priority 4096 sys-id-ext 1)
+             Address     0c08.fc50.0007
+             Hello Time  2  sec  Max Age 20 sec  Forward Delay 15 sec
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 10000     128.4105 (vPC peer-link) Network P2p
+Po11             Desg FWD 200       128.4106 (vPC) P2p Bound(PVST)
+Po12             Desg FWD 200       128.4107 (vPC) P2p
+Po13             Desg FWD 200       128.4108 (vPC) P2p
+
+
+MST0002
+  Spanning tree enabled protocol mstp
+  Root ID    Priority    4098
+             Address     0c08.fc50.0007
+             This bridge is the root
+             Hello Time  2  sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    4098   (priority 4096 sys-id-ext 2)
+             Address     0c08.fc50.0007
+             Hello Time  2  sec  Max Age 20 sec  Forward Delay 15 sec
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 10000     128.4105 (vPC peer-link) Network P2p
+Po11             Desg FWD 200       128.4106 (vPC) P2p Bound(PVST)
+Po12             Desg FWD 200       128.4107 (vPC) P2p
+Po13             Desg FWD 200       128.4108 (vPC) P2p
+
+DC-VPC-SW2# show spanning-tree mst
+
+##### MST0    vlans mapped:   1-240,244-250,252-4094
+Bridge        address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+Root          this switch for the CIST
+Regional Root this switch
+Operational   hello time 2 , forward delay 15, max age 20, txholdcount 6
+Configured    hello time 2 , forward delay 15, max age 20, max hops    20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 10000     128.4105 (vPC peer-link) Network P2p
+Po11             Desg FWD 200       128.4106 (vPC) P2p Bound(PVST)
+Po12             Desg FWD 200       128.4107 (vPC) P2p
+Po13             Desg FWD 200       128.4108 (vPC) P2p
+Eth1/3           Desg FWD 20000     128.3    P2p
+Eth1/4           Desg FWD 20000     128.4    P2p
+Eth1/5           Desg FWD 20000     128.5    P2p
+Eth1/8           Desg FWD 20000     128.8    P2p
+
+
+##### MST1    vlans mapped:   241-242
+Bridge        address 0c08.fc50.0007  priority      4097  (4096 sysid 1)
+Root          this switch for MST1
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 10000     128.4105 (vPC peer-link) Network P2p
+Po11             Desg FWD 200       128.4106 (vPC) P2p Bound(PVST)
+Po12             Desg FWD 200       128.4107 (vPC) P2p
+Po13             Desg FWD 200       128.4108 (vPC) P2p
+
+
+##### MST2    vlans mapped:   243,251
+Bridge        address 0c08.fc50.0007  priority      4098  (4096 sysid 2)
+Root          this switch for MST2
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 10000     128.4105 (vPC peer-link) Network P2p
+Po11             Desg FWD 200       128.4106 (vPC) P2p Bound(PVST)
+Po12             Desg FWD 200       128.4107 (vPC) P2p
+Po13             Desg FWD 200       128.4108 (vPC) P2p
+
+DC-VPC-SW2# sh vpc
+Legend:
+                (*) - local vPC is down, forwarding via vPC peer-link
+
+vPC domain id                     : 1
+Peer status                       : peer adjacency formed ok
+vPC keep-alive status             : peer is alive
+Configuration consistency status  : success
+Per-vlan consistency status       : success
+Type-2 consistency status         : success
+vPC role                          : secondary
+Number of vPCs configured         : 3
+Peer Gateway                      : Enabled
+Dual-active excluded VLANs        : -
+Graceful Consistency Check        : Enabled
+Auto-recovery status              : Enabled, timer is off.(timeout = 240s)
+Delay-restore status              : Timer is off.(timeout = 120s)
+Delay-restore SVI status          : Timer is off.(timeout = 10s)
+Operational Layer3 Peer-router    : Disabled
+Virtual-peerlink mode             : Disabled
+
+vPC Peer-link status
+---------------------------------------------------------------------
+id    Port   Status Active vlans
+--    ----   ------ -------------------------------------------------
+1     Po10   up     1,241-243,251,254
+
+vPC status
+----------------------------------------------------------------------------
+Id    Port          Status Consistency Reason                Active vlans
+--    ------------  ------ ----------- ------                ---------------
+11    Po11          up     success     success               1,241-243,251,
+                                                             254
+12    Po12          up     success     success               1,241-243,251,
+                                                             254
+13    Po13          up     success     success               1,241-243,251,
+                                                             254
+
+Please check "show vpc consistency-parameters vpc <vpc-num>" for the
+consistency reason of down vpc and for type-2 consistency reasons for
+any vpc.
+
+DC-VPC-SW2# show vpc consistency-parameters vpc 11
+
+    Legend:
+        Type 1 : vPC will be suspended in case of mismatch
+
+Name                        Type  Local Value            Peer Value
+-------------               ----  ---------------------- -----------------------
+delayed-lacp                1     disabled               disabled
+mode                        1     active                 active
+Switchport Isolated         1     0                      0
+Interface type              1     port-channel           port-channel
+LACP Mode                   1     on                     on
+Virtual-ethernet-bridge     1     Disabled               Disabled
+Speed                       1     1000 Mb/s              1000 Mb/s
+Duplex                      1     full                   full
+MTU                         1     1500                   1500
+Port Mode                   1     trunk                  trunk
+Native Vlan                 1     1                      1
+Admin port mode             1     trunk                  trunk
+STP Port Guard              1     Default                Default
+STP Port Type               1     Default                Default
+STP MST Simulate PVST       1     Default                Default
+lag-id                      1     [(7f9b,                [(7f9b,
+                                  0-23-4-ee-be-1, 800b,  0-23-4-ee-be-1, 800b,
+                                  0, 0), (8000,          0, 0), (8000,
+                                  c-7f-97-19-80-0, b, 0, c-7f-97-19-80-0, b, 0,
+                                   0)]                    0)]
+Allow-Multi-Tag             1     Disabled               Disabled
+Vlan xlt mapping            1     Disabled               Disabled
+vPC card type               1     N9K TOR                N9K TOR
+Allowed VLANs               -     1,241-243,251,254      1,241-243,251,254
+Local suspended VLANs       -     -                      -
+DC-VPC-SW2#
+DC-VPC-SW2# show vpc consistency-parameters vpc 12
+
+    Legend:
+        Type 1 : vPC will be suspended in case of mismatch
+
+Name                        Type  Local Value            Peer Value
+-------------               ----  ---------------------- -----------------------
+delayed-lacp                1     disabled               disabled
+mode                        1     active                 active
+Switchport Isolated         1     0                      0
+Interface type              1     port-channel           port-channel
+LACP Mode                   1     on                     on
+Virtual-ethernet-bridge     1     Disabled               Disabled
+Speed                       1     1000 Mb/s              1000 Mb/s
+Duplex                      1     full                   full
+MTU                         1     1500                   1500
+Port Mode                   1     trunk                  trunk
+Native Vlan                 1     1                      1
+Admin port mode             1     trunk                  trunk
+STP Port Guard              1     Default                Default
+STP Port Type               1     Default                Default
+STP MST Simulate PVST       1     Default                Default
+lag-id                      1     [(7f9b,                [(7f9b,
+                                  0-23-4-ee-be-1, 800c,  0-23-4-ee-be-1, 800c,
+                                  0, 0), (8000,          0, 0), (8000,
+                                  c-bc-46-ad-80-0, c, 0, c-bc-46-ad-80-0, c, 0,
+                                   0)]                    0)]
+Allow-Multi-Tag             1     Disabled               Disabled
+Vlan xlt mapping            1     Disabled               Disabled
+vPC card type               1     N9K TOR                N9K TOR
+Allowed VLANs               -     1,241-243,251,254      1,241-243,251,254
+Local suspended VLANs       -     -                      -
+DC-VPC-SW2#
+DC-VPC-SW2# show vpc consistency-parameters vpc 13
+
+    Legend:
+        Type 1 : vPC will be suspended in case of mismatch
+
+Name                        Type  Local Value            Peer Value
+-------------               ----  ---------------------- -----------------------
+delayed-lacp                1     disabled               disabled
+mode                        1     active                 active
+Switchport Isolated         1     0                      0
+Interface type              1     port-channel           port-channel
+LACP Mode                   1     on                     on
+Virtual-ethernet-bridge     1     Disabled               Disabled
+Speed                       1     1000 Mb/s              1000 Mb/s
+Duplex                      1     full                   full
+MTU                         1     1500                   1500
+Port Mode                   1     trunk                  trunk
+Native Vlan                 1     1                      1
+Admin port mode             1     trunk                  trunk
+STP Port Guard              1     Default                Default
+STP Port Type               1     Default                Default
+STP MST Simulate PVST       1     Default                Default
+lag-id                      1     [(7f9b,                [(7f9b,
+                                  0-23-4-ee-be-1, 800d,  0-23-4-ee-be-1, 800d,
+                                  0, 0), (8000,          0, 0), (8000,
+                                  c-f3-91-38-80-0, d, 0, c-f3-91-38-80-0, d, 0,
+                                   0)]                    0)]
+Allow-Multi-Tag             1     Disabled               Disabled
+Vlan xlt mapping            1     Disabled               Disabled
+vPC card type               1     N9K TOR                N9K TOR
+Allowed VLANs               -     1,241-243,251,254      1,241-243,251,254
+Local suspended VLANs       -     -                      -
+
+DC-VPC-SW2# show run | section router
+router eigrp 65535
+  eigrp router-id 172.31.255.5
+  network 172.31.241.0/24
+  network 172.31.242.0/24
+  network 172.31.243.0/24
+  network 172.31.251.0/24
+  network 172.31.254.0/24
+  network 172.31.255.0/24
+
+DC-VPC-SW2# sh ip route
+IP Route Table for VRF "default"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+172.21.0.0/24, ubest/mbest: 1/0
+    *via 172.31.254.2, Vlan254, [90/3072], 04:36:20, eigrp-65535, internal
+172.22.0.0/24, ubest/mbest: 1/0
+    *via 172.31.254.3, Vlan254, [90/3072], 04:36:17, eigrp-65535, internal
+172.31.241.0/24, ubest/mbest: 1/0, attached
+    *via 172.31.241.3, Vlan241, [0/0], 04:39:02, direct
+172.31.241.1/32, ubest/mbest: 1/0, attached
+    *via 172.31.241.1, Vlan241, [0/0], 04:38:20, hsrp
+172.31.241.3/32, ubest/mbest: 1/0, attached
+    *via 172.31.241.3, Vlan241, [0/0], 04:39:02, local
+172.31.242.0/24, ubest/mbest: 1/0, attached
+    *via 172.31.242.3, Vlan242, [0/0], 04:39:02, direct
+172.31.242.1/32, ubest/mbest: 1/0, attached
+    *via 172.31.242.1, Vlan242, [0/0], 04:38:20, hsrp
+172.31.242.3/32, ubest/mbest: 1/0, attached
+    *via 172.31.242.3, Vlan242, [0/0], 04:39:02, local
+172.31.243.0/24, ubest/mbest: 1/0, attached
+    *via 172.31.243.3, Vlan243, [0/0], 04:39:02, direct
+172.31.243.1/32, ubest/mbest: 1/0, attached
+    *via 172.31.243.1, Vlan243, [0/0], 04:38:20, hsrp
+172.31.243.3/32, ubest/mbest: 1/0, attached
+    *via 172.31.243.3, Vlan243, [0/0], 04:39:02, local
+172.31.251.0/24, ubest/mbest: 1/0, attached
+    *via 172.31.251.3, Vlan251, [0/0], 04:39:02, direct
+172.31.251.1/32, ubest/mbest: 1/0, attached
+    *via 172.31.251.1, Vlan251, [0/0], 04:38:20, hsrp
+172.31.251.3/32, ubest/mbest: 1/0, attached
+    *via 172.31.251.3, Vlan251, [0/0], 04:39:02, local
+172.31.254.0/24, ubest/mbest: 1/0, attached
+    *via 172.31.254.5, Vlan254, [0/0], 04:39:02, direct
+172.31.254.5/32, ubest/mbest: 1/0, attached
+    *via 172.31.254.5, Vlan254, [0/0], 04:39:02, local
+172.31.255.1/32, ubest/mbest: 2/0
+    *via 172.31.254.2, Vlan254, [90/131072], 04:36:20, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/131072], 04:36:17, eigrp-65535, internal
+172.31.255.2/32, ubest/mbest: 1/0
+    *via 172.31.254.2, Vlan254, [90/130816], 04:36:20, eigrp-65535, internal
+172.31.255.3/32, ubest/mbest: 1/0
+    *via 172.31.254.3, Vlan254, [90/130816], 04:36:17, eigrp-65535, internal
+172.31.255.4/32, ubest/mbest: 5/0
+    *via 172.31.241.2, Vlan241, [90/130816], 04:38:59, eigrp-65535, internal
+    *via 172.31.242.2, Vlan242, [90/130816], 04:38:59, eigrp-65535, internal
+    *via 172.31.243.2, Vlan243, [90/130816], 04:38:59, eigrp-65535, internal
+    *via 172.31.251.2, Vlan251, [90/130816], 04:38:59, eigrp-65535, internal
+    *via 172.31.254.4, Vlan254, [90/130816], 04:38:59, eigrp-65535, internal
+172.31.255.5/32, ubest/mbest: 2/0, attached
+    *via 172.31.255.5, Lo0, [0/0], 04:42:12, local
+    *via 172.31.255.5, Lo0, [0/0], 04:42:12, direct
+
+DC-VPC-SW2# sh run | section domain
+vpc domain 1
+  role priority 20
+  peer-keepalive destination 172.31.250.1 source 172.31.250.2
+  delay restore 120
+  peer-gateway
+  auto-recovery
+  ipv6 nd synchronize
+  ip arp synchronize
+
+DC-VPC-SW2# sh hsrp
+Vlan241 - Group 241 (HSRP-V1) (IPv4)
+  Local state is Standby, priority 100 (Cfged 100), may preempt
+    Forwarding threshold(for vPC), lower: 0 upper: 100
+  Hellotime 3 sec, holdtime 10 sec
+  Next hello sent in 0.282000 sec(s)
+  Virtual IP address is 172.31.241.1 (Cfged)
+  Active router is 172.31.241.2, priority 110 expires in 8.417000 sec(s)
+  Standby router is local
+  Authentication text "cisco"
+  Virtual mac address is 0000.0c07.acf1 (Default MAC)
+  1 state changes, last state change 04:39:12
+  IP redundancy name is hsrp-Vlan241-241 (default)
+
+Vlan242 - Group 242 (HSRP-V1) (IPv4)
+  Local state is Standby, priority 100 (Cfged 100), may preempt
+    Forwarding threshold(for vPC), lower: 0 upper: 100
+  Hellotime 3 sec, holdtime 10 sec
+  Next hello sent in 1.766000 sec(s)
+  Virtual IP address is 172.31.242.1 (Cfged)
+  Active router is 172.31.242.2, priority 110 expires in 7.917000 sec(s)
+  Standby router is local
+  Authentication text "cisco"
+  Virtual mac address is 0000.0c07.acf2 (Default MAC)
+  1 state changes, last state change 04:39:12
+  IP redundancy name is hsrp-Vlan242-242 (default)
+
+Vlan243 - Group 243 (HSRP-V1) (IPv4)
+  Local state is Standby, priority 100 (Cfged 100), may preempt
+    Forwarding threshold(for vPC), lower: 0 upper: 100
+  Hellotime 3 sec, holdtime 10 sec
+  Next hello sent in 1.792000 sec(s)
+  Virtual IP address is 172.31.243.1 (Cfged)
+  Active router is 172.31.243.2, priority 110 expires in 9.477000 sec(s)
+  Standby router is local
+  Authentication text "cisco"
+  Virtual mac address is 0000.0c07.acf3 (Default MAC)
+  1 state changes, last state change 04:39:12
+  IP redundancy name is hsrp-Vlan243-243 (default)
+
+Vlan251 - Group 251 (HSRP-V1) (IPv4)
+  Local state is Standby, priority 100 (Cfged 100), may preempt
+    Forwarding threshold(for vPC), lower: 0 upper: 100
+  Hellotime 3 sec, holdtime 10 sec
+  Next hello sent in 1.489000 sec(s)
+  Virtual IP address is 172.31.251.1 (Cfged)
+  Active router is 172.31.251.2, priority 110 expires in 8.039000 sec(s)
+  Standby router is local
+  Authentication text "cisco"
+  Virtual mac address is 0000.0c07.acfb (Default MAC)
+  1 state changes, last state change 04:39:12
+  IP redundancy name is hsrp-Vlan251-251 (default)
+
+DC-VPC-SW2# show feature | exclude disabled
+Feature Name          Instance  State
+--------------------  --------  --------
+eigrp                  1          enabled
+eigrp                  2          enabled(not-running)
+eigrp                  3          enabled(not-running)
+eigrp                  4          enabled(not-running)
+eigrp                  5          enabled(not-running)
+eigrp                  6          enabled(not-running)
+eigrp                  7          enabled(not-running)
+eigrp                  8          enabled(not-running)
+eigrp                  9          enabled(not-running)
+eigrp                  10         enabled(not-running)
+eigrp                  11         enabled(not-running)
+eigrp                  12         enabled(not-running)
+eigrp                  13         enabled(not-running)
+eigrp                  14         enabled(not-running)
+eigrp                  15         enabled(not-running)
+eigrp                  16         enabled(not-running)
+hsrp_engine            1          enabled
+interface-vlan         1          enabled
+lacp                   1          enabled
+sshServer              1          enabled
+vpc                    1          enabled

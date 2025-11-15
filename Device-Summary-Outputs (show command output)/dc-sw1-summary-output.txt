@@ -1,0 +1,137 @@
+!Summary output from DC-SW1
+
+DC-SW1#sh int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0                        notconnect   1          a-full   auto RJ45
+Gi0/1                        notconnect   1          a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0                        notconnect   1          a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2     R2                 connected    trunk      a-full   auto RJ45
+Gi2/3     R3                 connected    trunk      a-full   auto RJ45
+Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/1     Trunk-to-DC-VPC-SW connected    trunk      a-full   auto RJ45
+Gi3/2     Trunk-to-DC-VPC-SW connected    trunk      a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+Po11      Link_to_DC-VPC-SWs connected    trunk      a-full   auto
+
+DC-SW1#sh int desc
+Interface                      Status         Protocol Description
+Gi0/0                          down           down
+Gi0/1                          down           down
+Gi0/2                          down           down
+Gi0/3                          down           down
+Gi1/0                          down           down
+Gi1/1                          down           down
+Gi1/2                          down           down
+Gi1/3                          down           down
+Gi2/0                          down           down
+Gi2/1                          down           down
+Gi2/2                          up             up       R2
+Gi2/3                          up             up       R3
+Gi3/0                          down           down
+Gi3/1                          up             up       Trunk-to-DC-VPC-SW1
+Gi3/2                          up             up       Trunk-to-DC-VPC-SW2
+Gi3/3                          down           down
+Lo0                            up             up
+Po11                           up             up       Link_to_DC-VPC-SWs
+
+DC-SW1#sh etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      N - not in use, no aggregation
+        f - failed to allocate aggregator
+
+        M - not in use, minimum links not met
+        m - not in use, port not aggregated due to minimum links not met
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+        A - formed by Auto LAG
+
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+11     Po11(SU)        LACP      Gi3/1(P)    Gi3/2(P)
+
+DC-SW1#sh cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+EIGRP-R2         Gig 2/2           132               R    7206VXR   Gig 1/0
+EIGRP-R3         Gig 2/3           150               R    7206VXR   Gig 6/0
+DC-VPC-SW2(976MYWRI6UU)
+                 Gig 3/2           132            R S I C N9K-9000v Eth 1/9
+DC-VPC-SW1(9CG64GSMIDD)
+                 Gig 3/1           132            R S I C N9K-9000v Eth 1/9
+
+Total cdp entries displayed : 4
+
+DC-SW1#sh spanning-tree
+
+VLAN0001
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    32768
+             Address     0c08.fc50.0007
+             Cost        3
+             Port        65 (Port-channel11)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0c7f.9719.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi0/0               Desg FWD 4         128.1    P2p
+Gi0/1               Desg FWD 4         128.2    P2p
+Gi0/2               Desg FWD 4         128.3    P2p
+Gi0/3               Desg FWD 4         128.4    P2p
+Gi1/0               Desg FWD 4         128.5    P2p
+Gi1/1               Desg FWD 4         128.6    P2p
+Gi1/2               Desg FWD 4         128.7    P2p
+Gi1/3               Desg FWD 4         128.8    P2p
+Gi2/0               Desg FWD 4         128.9    P2p
+Gi2/1               Desg FWD 4         128.10   P2p
+Gi2/2               Desg FWD 4         128.11   P2p
+Gi2/3               Desg FWD 4         128.12   P2p
+Gi3/0               Desg FWD 4         128.13   P2p
+Gi3/3               Desg FWD 4         128.16   P2p
+Po11                Root FWD 3         128.65   P2p Peer(STP)
+
+
+
+VLAN0254
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    32768
+             Address     0c08.fc50.0007
+             Cost        3
+             Port        65 (Port-channel11)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    33022  (priority 32768 sys-id-ext 254)
+             Address     0c7f.9719.0000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi2/2               Desg FWD 4         128.11   P2p
+Gi2/3               Desg FWD 4         128.12   P2p
+Po11                Root FWD 3         128.65   P2p Peer(STP)
+
