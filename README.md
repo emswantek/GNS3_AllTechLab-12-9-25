@@ -29,9 +29,6 @@ CE2 connected to ISP via BGP
 CE2, EIGRP-R2, EIGRP-R3 connected via EIGRP 65535  
 DC-SW1 - Layer 2 switch  
 
-Config summaries
-
-
 
 
 
