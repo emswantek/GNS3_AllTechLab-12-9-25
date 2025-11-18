@@ -20,3 +20,100 @@ term leng 0
 sh run
 
 
+!ISP summary output commands
+term length 0
+
+
+show run | section interface
+
+show run | s router
+
+sh vrf brief
+
+show ip route
+
+show isis neighbor
+
+show isis database
+
+show isis topology
+
+show clns interface
+
+show mpls ldp neighbor
+
+show mpls interfaces
+
+show mpls ldp bindings
+
+sh mpls forwarding-table
+
+show ip bgp neighbors
+
+show ip bgp summary
+
+show ip cef
+
+
+
+!CE1 summary commands
+
+term length 0
+
+
+show run | section interface
+
+show run | s router
+
+show ip route
+
+show ip ospf neighbor
+
+sh ip ospf int br
+
+show ip ospf database
+
+show ip protocols
+
+show ip bgp neighbors
+
+show ip bgp summary
+
+show ip cef
+
+
+!CE2 summary commands
+
+term length 0
+
+
+show run | section interface
+
+show run | s router
+
+show ip route
+
+show ip protocols
+
+show eigrp protocols
+
+show ip eigrp neighbors
+
+show ip eigrp topology
+
+show ip eigrp interfaces
+
+show ip bgp neighbors
+
+show ip bgp summary
+
+show ip cef
+
+
+!DC-VPC switch summary output commands
+
+!LAN 1 switch summary output commands
+
+
+!LAN 2 switch summary output commands
+

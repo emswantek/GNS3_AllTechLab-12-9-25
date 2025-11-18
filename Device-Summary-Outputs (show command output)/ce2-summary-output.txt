@@ -1,6 +1,6 @@
 !Summary output from CE2
 
-CE2#show run | s interface
+CE2#show run | section interface
 interface Loopback0
  ip address 172.31.255.1 255.255.255.255
 interface FastEthernet0/0
@@ -28,28 +28,8 @@ interface GigabitEthernet5/0
 interface GigabitEthernet6/0
  no ip address
  negotiation auto
-
-CE2#sh ip int br
-Interface              IP-Address      OK? Method Status                Protocol
-FastEthernet0/0        unassigned      YES NVRAM  administratively down down
-GigabitEthernet1/0     172.16.90.89    YES NVRAM  up                    up
-GigabitEthernet2/0     172.21.0.254    YES NVRAM  up                    up
-GigabitEthernet3/0     172.22.0.254    YES NVRAM  up                    up
-GigabitEthernet4/0     unassigned      YES NVRAM  up                    up
-GigabitEthernet5/0     unassigned      YES NVRAM  up                    up
-GigabitEthernet6/0     unassigned      YES NVRAM  up                    up
-Loopback0              172.31.255.1    YES NVRAM  up                    up
-
-CE2#sh ip arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  172.16.90.89            -   ca09.1930.001c  ARPA   GigabitEthernet1/0
-Internet  172.16.90.90          176   ca07.3c96.00a8  ARPA   GigabitEthernet1/0
-Internet  172.21.0.1            176   ca02.18f4.0038  ARPA   GigabitEthernet2/0
-Internet  172.21.0.254            -   ca09.1930.0038  ARPA   GigabitEthernet2/0
-Internet  172.22.0.1            176   ca08.1912.0054  ARPA   GigabitEthernet3/0
-Internet  172.22.0.254            -   ca09.1930.0054  ARPA   GigabitEthernet3/0
-
-CE2#sh run | s router
+CE2#
+CE2#show run | s router
 router eigrp 65535
  network 172.21.0.0 0.0.0.255
  network 172.22.0.0 0.0.0.255
@@ -59,8 +39,8 @@ router bgp 65202
  bgp log-neighbor-changes
  network 172.16.90.88 mask 255.255.255.252
  neighbor 172.16.90.90 remote-as 65200
-
-CE2#sh ip route
+CE2#
+CE2#show ip route
 Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
        N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
@@ -83,33 +63,192 @@ C        172.22.0.0/24 is directly connected, GigabitEthernet3/0
 L        172.22.0.254/32 is directly connected, GigabitEthernet3/0
       172.31.0.0/16 is variably subnetted, 10 subnets, 2 masks
 D        172.31.241.0/24
-           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
-           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+           [90/3328] via 172.22.0.1, 01:59:17, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 01:59:17, GigabitEthernet2/0
 D        172.31.242.0/24
-           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
-           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+           [90/3328] via 172.22.0.1, 01:59:17, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 01:59:17, GigabitEthernet2/0
 D        172.31.243.0/24
-           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
-           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+           [90/3328] via 172.22.0.1, 01:59:17, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 01:59:17, GigabitEthernet2/0
 D        172.31.251.0/24
-           [90/3328] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
-           [90/3328] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+           [90/3328] via 172.22.0.1, 01:59:17, GigabitEthernet3/0
+           [90/3328] via 172.21.0.1, 01:59:17, GigabitEthernet2/0
 D        172.31.254.0/24
-           [90/3072] via 172.22.0.1, 02:57:20, GigabitEthernet3/0
-           [90/3072] via 172.21.0.1, 02:57:20, GigabitEthernet2/0
+           [90/3072] via 172.22.0.1, 02:05:37, GigabitEthernet3/0
+           [90/3072] via 172.21.0.1, 02:05:37, GigabitEthernet2/0
 C        172.31.255.1/32 is directly connected, Loopback0
 D        172.31.255.2/32
-           [90/130816] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+           [90/130816] via 172.21.0.1, 01:59:22, GigabitEthernet2/0
 D        172.31.255.3/32
-           [90/130816] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
+           [90/130816] via 172.22.0.1, 01:59:22, GigabitEthernet3/0
 D        172.31.255.4/32
-           [90/131072] via 172.22.0.1, 02:48:54, GigabitEthernet3/0
-           [90/131072] via 172.21.0.1, 02:48:54, GigabitEthernet2/0
+           [90/131072] via 172.22.0.1, 01:59:17, GigabitEthernet3/0
+           [90/131072] via 172.21.0.1, 01:59:17, GigabitEthernet2/0
 D        172.31.255.5/32
-           [90/131072] via 172.22.0.1, 02:48:51, GigabitEthernet3/0
-           [90/131072] via 172.21.0.1, 02:48:51, GigabitEthernet2/0
+           [90/131072] via 172.22.0.1, 01:59:17, GigabitEthernet3/0
+           [90/131072] via 172.21.0.1, 01:59:17, GigabitEthernet2/0
+CE2#
+CE2#show ip protocols
+*** IP Routing is NSF aware ***
 
-CE2#sh ip bgp summary
+Routing Protocol is "eigrp 65535"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP-IPv4 Protocol for AS(65535)
+    Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    NSF-aware route hold timer is 240
+    Router-ID: 172.31.255.1
+    Topology : 0 (base)
+      Active Timer: 3 min
+      Distance: internal 90 external 170
+      Maximum path: 4
+      Maximum hopcount 100
+      Maximum metric variance 1
+
+  Automatic Summarization: disabled
+  Maximum path: 4
+  Routing for Networks:
+    172.21.0.0/24
+    172.22.0.0/24
+    172.31.255.0/24
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    172.21.0.1            90      01:59:16
+    172.22.0.1            90      01:59:16
+  Distance: internal 90 external 170
+
+Routing Protocol is "bgp 65202"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  IGP synchronization is disabled
+  Automatic route summarization is disabled
+  Neighbor(s):
+    Address          FiltIn FiltOut DistIn DistOut Weight RouteMap
+    172.16.90.90
+  Maximum path: 1
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+  Distance: external 20 internal 200 local 200
+
+CE2#
+CE2#show eigrp protocols
+EIGRP-IPv4 Protocol for AS(65535)
+  Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  NSF-aware route hold timer is 240
+  Router-ID: 172.31.255.1
+  Topology : 0 (base)
+    Active Timer: 3 min
+    Distance: internal 90 external 170
+    Maximum path: 4
+    Maximum hopcount 100
+    Maximum metric variance 1
+
+CE2#
+CE2#show ip eigrp neighbors
+EIGRP-IPv4 Neighbors for AS(65535)
+H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
+                                                   (sec)         (ms)       Cnt Num
+1   172.22.0.1              Gi3/0                    11 02:05:44   11   100  0  22
+0   172.21.0.1              Gi2/0                    14 02:05:44  787  4722  0  21
+CE2#
+CE2#show ip eigrp topology
+EIGRP-IPv4 Topology Table for AS(65535)/ID(172.31.255.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+
+P 172.31.255.2/32, 1 successors, FD is 130816
+        via 172.21.0.1 (130816/128256), GigabitEthernet2/0
+P 172.31.241.0/24, 2 successors, FD is 3328
+        via 172.21.0.1 (3328/3072), GigabitEthernet2/0
+        via 172.22.0.1 (3328/3072), GigabitEthernet3/0
+P 172.31.255.1/32, 1 successors, FD is 128256
+        via Connected, Loopback0
+P 172.31.255.5/32, 2 successors, FD is 131072
+        via 172.21.0.1 (131072/130816), GigabitEthernet2/0
+        via 172.22.0.1 (131072/130816), GigabitEthernet3/0
+P 172.31.255.4/32, 2 successors, FD is 131072
+        via 172.21.0.1 (131072/130816), GigabitEthernet2/0
+        via 172.22.0.1 (131072/130816), GigabitEthernet3/0
+P 172.22.0.0/24, 1 successors, FD is 2816
+        via Connected, GigabitEthernet3/0
+P 172.31.251.0/24, 2 successors, FD is 3328
+        via 172.21.0.1 (3328/3072), GigabitEthernet2/0
+        via 172.22.0.1 (3328/3072), GigabitEthernet3/0
+P 172.21.0.0/24, 1 successors, FD is 2816
+        via Connected, GigabitEthernet2/0
+P 172.31.254.0/24, 2 successors, FD is 3072
+        via 172.21.0.1 (3072/2816), GigabitEthernet2/0
+        via 172.22.0.1 (3072/2816), GigabitEthernet3/0
+P 172.31.243.0/24, 2 successors, FD is 3328
+        via 172.21.0.1 (3328/3072), GigabitEthernet2/0
+        via 172.22.0.1 (3328/3072), GigabitEthernet3/0
+P 172.31.242.0/24, 2 successors, FD is 3328
+        via 172.21.0.1 (3328/3072), GigabitEthernet2/0
+        via 172.22.0.1 (3328/3072), GigabitEthernet3/0
+P 172.31.255.3/32, 1 successors, FD is 130816
+        via 172.22.0.1 (130816/128256), GigabitEthernet3/0
+
+CE2#
+CE2#show ip eigrp interfaces
+EIGRP-IPv4 Interfaces for AS(65535)
+                              Xmit Queue   PeerQ        Mean   Pacing Time   Multicast    Pending
+Interface              Peers  Un/Reliable  Un/Reliable  SRTT   Un/Reliable   Flow Timer   Routes
+Gi2/0                    1        0/0       0/0         787       0/0         3924           0
+Gi3/0                    1        0/0       0/0          11       0/0           50           0
+Lo0                      0        0/0       0/0           0       0/0            0           0
+CE2#
+CE2#show ip bgp neighbors
+BGP neighbor is 172.16.90.90,  remote AS 65200, external link
+  BGP version 4, remote router ID 0.0.0.0
+  BGP state = Idle
+  Neighbor sessions:
+    0 active, is not multisession capable (disabled)
+    Stateful switchover support enabled: NO
+  Default minimum time between advertisement runs is 30 seconds
+
+ For address family: IPv4 Unicast
+  BGP table version 2, neighbor version 1/2
+  Output queue size : 0
+  Index 0, Advertise bit 0
+  Slow-peer detection is disabled
+  Slow-peer split-update-group dynamic is disabled
+                                 Sent       Rcvd
+  Prefix activity:               ----       ----
+    Prefixes Current:               0          0
+    Prefixes Total:                 0          0
+    Implicit Withdraw:              0          0
+    Explicit Withdraw:              0          0
+    Used as bestpath:             n/a          0
+    Used as multipath:            n/a          0
+
+                                   Outbound    Inbound
+  Local Policy Denied Prefixes:    --------    -------
+    Total:                                0          0
+  Number of NLRIs in the update sent: max 0, min 0
+  Last detected as dynamic slow peer: never
+  Dynamic slow peer recovered: never
+  Refresh Epoch: 1
+  Last Sent Refresh Start-of-rib: never
+  Last Sent Refresh End-of-rib: never
+  Last Received Refresh Start-of-rib: never
+  Last Received Refresh End-of-rib: never
+                                       Sent       Rcvd
+        Refresh activity:              ----       ----
+          Refresh Start-of-RIB          0          0
+          Refresh End-of-RIB            0          0
+
+  Address tracking is enabled, the RIB does have a route to 172.16.90.90
+  Connections established 0; dropped 0
+  Last reset never
+  Transport(tcp) path-mtu-discovery is enabled
+  Graceful-Restart is disabled
+  No active TCP connection
+
+CE2#
+CE2#show ip bgp summary
 BGP router identifier 172.31.255.1, local AS number 65202
 BGP table version is 2, main routing table version 2
 1 network entries using 144 bytes of memory
@@ -122,15 +261,46 @@ BGP activity 1/0 prefixes, 1/0 paths, scan interval 60 secs
 
 Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 172.16.90.90    4        65200       0       0        1    0    0 never    Idle
-
-CE2#show eigrp protocols
-EIGRP-IPv4 Protocol for AS(65535)
-  Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
-  NSF-aware route hold timer is 240
-  Router-ID: 172.31.255.1
-  Topology : 0 (base)
-    Active Timer: 3 min
-    Distance: internal 90 external 170
-    Maximum path: 4
-    Maximum hopcount 100
-    Maximum metric variance 1
+CE2#
+CE2#show ip cef
+Prefix               Next Hop             Interface
+0.0.0.0/0            no route
+0.0.0.0/8            drop
+0.0.0.0/32           receive
+127.0.0.0/8          drop
+172.16.90.88/30      attached             GigabitEthernet1/0
+172.16.90.88/32      receive              GigabitEthernet1/0
+172.16.90.89/32      receive              GigabitEthernet1/0
+172.16.90.90/32      attached             GigabitEthernet1/0
+172.16.90.91/32      receive              GigabitEthernet1/0
+172.21.0.0/24        attached             GigabitEthernet2/0
+172.21.0.0/32        receive              GigabitEthernet2/0
+172.21.0.1/32        attached             GigabitEthernet2/0
+172.21.0.254/32      receive              GigabitEthernet2/0
+172.21.0.255/32      receive              GigabitEthernet2/0
+172.22.0.0/24        attached             GigabitEthernet3/0
+172.22.0.0/32        receive              GigabitEthernet3/0
+172.22.0.1/32        attached             GigabitEthernet3/0
+172.22.0.254/32      receive              GigabitEthernet3/0
+172.22.0.255/32      receive              GigabitEthernet3/0
+172.31.241.0/24      172.21.0.1           GigabitEthernet2/0
+                     172.22.0.1           GigabitEthernet3/0
+172.31.242.0/24      172.21.0.1           GigabitEthernet2/0
+                     172.22.0.1           GigabitEthernet3/0
+172.31.243.0/24      172.21.0.1           GigabitEthernet2/0
+                     172.22.0.1           GigabitEthernet3/0
+172.31.251.0/24      172.21.0.1           GigabitEthernet2/0
+                     172.22.0.1           GigabitEthernet3/0
+172.31.254.0/24      172.21.0.1           GigabitEthernet2/0
+                     172.22.0.1           GigabitEthernet3/0
+172.31.255.1/32      receive              Loopback0
+172.31.255.2/32      172.21.0.1           GigabitEthernet2/0
+172.31.255.3/32      172.22.0.1           GigabitEthernet3/0
+172.31.255.4/32      172.21.0.1           GigabitEthernet2/0
+                     172.22.0.1           GigabitEthernet3/0
+172.31.255.5/32      172.21.0.1           GigabitEthernet2/0
+                     172.22.0.1           GigabitEthernet3/0
+224.0.0.0/4          drop
+224.0.0.0/24         receive
+240.0.0.0/4          drop
+255.255.255.255/32   receive
