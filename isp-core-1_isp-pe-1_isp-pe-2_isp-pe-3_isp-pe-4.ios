@@ -1,0 +1,739 @@
+!This file contains the running configurations for the following MPLS/IS-IS routers:
+!ISP-CORE-1
+!ISP-PE-1
+!ISP-PE-2
+!ISP-PE-3
+!ISP-PE-4
+
+ISP-CORE-1#show run
+Building configuration...
+
+Current configuration : 2388 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname ISP-CORE-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+ip cef
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+no ipv6 cef
+!
+!
+mpls label protocol ldp
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 1.115.115.1 255.255.255.255
+ ip router isis CORE
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface GigabitEthernet1/0
+ description ISP-PE-1
+ ip address 10.115.1.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet2/0
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ description ISP-PE-3
+ ip address 10.115.3.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet4/0
+ description ISP-PE-2
+ ip address 10.115.2.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet5/0
+ description ISP-PE-4
+ ip address 10.115.4.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet6/0
+ no ip address
+ negotiation auto
+!
+router isis CORE
+ net 49.0001.1150.1150.1150.00
+ is-type level-2-only
+ metric-style wide
+ log-adjacency-changes
+!
+router bgp 65000
+ bgp cluster-id 1
+ bgp log-neighbor-changes
+ neighbor 2.115.115.1 remote-as 65000
+ neighbor 2.115.115.1 update-source Loopback0
+ neighbor 3.115.115.1 remote-as 65000
+ neighbor 3.115.115.1 update-source Loopback0
+ neighbor 4.115.115.1 remote-as 65000
+ neighbor 4.115.115.1 update-source Loopback0
+ neighbor 5.115.115.1 remote-as 65000
+ neighbor 5.115.115.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 2.115.115.1 activate
+  neighbor 2.115.115.1 send-community extended
+  neighbor 3.115.115.1 activate
+  neighbor 3.115.115.1 send-community extended
+  neighbor 4.115.115.1 activate
+  neighbor 4.115.115.1 send-community extended
+  neighbor 5.115.115.1 activate
+  neighbor 5.115.115.1 send-community extended
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+mpls ldp router-id Loopback0 force
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+
+ISP-PE-1#show run
+Building configuration...
+
+Current configuration : 2151 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname ISP-PE-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+ip cef
+!
+ip vrf CE1
+ rd 100:1
+ route-target export 100:1
+ route-target import 100:1
+!
+!
+!
+!
+!
+!
+no ipv6 cef
+!
+!
+mpls label protocol ldp
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.115.115.1 255.255.255.255
+ ip router isis CORE
+!
+interface FastEthernet0/0
+ no ip address
+ duplex full
+!
+interface GigabitEthernet1/0
+ description CE1
+ ip vrf forwarding CE1
+ ip address 10.0.0.1 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ description ISP-CORE-1
+ ip address 10.115.1.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet3/0
+ description ISP-PE-3
+ ip address 10.115.13.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet4/0
+ description ISP-PE-2
+ ip address 10.115.12.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet5/0
+ description ISP-PE-4
+ ip address 10.115.14.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet6/0
+ no ip address
+ negotiation auto
+!
+router isis CORE
+ net 49.0001.1150.1150.1151.00
+ is-type level-2-only
+ metric-style wide
+ log-adjacency-changes
+!
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor 1.115.115.1 remote-as 65000
+ neighbor 1.115.115.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 1.115.115.1 activate
+  neighbor 1.115.115.1 send-community extended
+ exit-address-family
+ !
+ address-family ipv4 vrf CE1
+  network 10.0.0.0 mask 255.255.255.252
+  neighbor 10.0.0.2 remote-as 65001
+  neighbor 10.0.0.2 activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+mpls ldp router-id Loopback0 force
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+
+ISP-PE-2#show run
+Building configuration...
+
+Current configuration : 2167 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname ISP-PE-2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+ip cef
+!
+ip vrf CE2
+ rd 100:2
+ route-target export 100:2
+ route-target import 100:2
+!
+!
+!
+!
+!
+!
+no ipv6 cef
+!
+!
+mpls label protocol ldp
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 3.115.115.1 255.255.255.255
+ ip router isis CORE
+!
+interface FastEthernet0/0
+ no ip address
+ duplex full
+!
+interface GigabitEthernet1/0
+ description ISP-PE-1
+ ip address 10.115.12.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet2/0
+ description ISP-CORE-1
+ ip address 10.115.2.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet3/0
+ description ISP-PE-3
+ ip address 10.115.23.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet4/0
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet5/0
+ description ISP-PE-4
+ ip address 10.115.24.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet6/0
+ description CE2
+ ip vrf forwarding CE2
+ ip address 172.16.90.90 255.255.255.252
+ negotiation auto
+!
+router isis CORE
+ net 49.0001.1150.1150.1152.00
+ is-type level-2-only
+ metric-style wide
+ log-adjacency-changes
+!
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor 1.115.115.1 remote-as 65000
+ neighbor 1.115.115.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 1.115.115.1 activate
+  neighbor 1.115.115.1 send-community extended
+ exit-address-family
+ !
+ address-family ipv4 vrf CE2
+  network 172.16.90.88 mask 255.255.255.252
+  neighbor 172.16.90.89 remote-as 65202
+  neighbor 172.16.90.89 activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+mpls ldp router-id Loopback0 force
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+
+ISP-PE-3#show run
+Building configuration...
+
+Current configuration : 1854 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname ISP-PE-3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+ip cef
+!
+!
+!
+!
+!
+!
+no ipv6 cef
+!
+!
+mpls label protocol ldp
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 4.115.115.1 255.255.255.255
+ ip router isis CORE
+!
+interface FastEthernet0/0
+ no ip address
+ duplex full
+!
+interface GigabitEthernet1/0
+ description ISP-PE-1
+ ip address 10.115.13.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet2/0
+ description ISP-CORE-1
+ ip address 10.115.3.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet3/0
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet4/0
+ description ISP-PE-2
+ ip address 10.115.23.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet5/0
+ description ISP-PE-4
+ ip address 10.115.34.1 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet6/0
+ no ip address
+ negotiation auto
+!
+router isis CORE
+ net 49.0001.1150.1150.1153.00
+ is-type level-2-only
+ metric-style wide
+ log-adjacency-changes
+!
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor 1.115.115.1 remote-as 65000
+ neighbor 1.115.115.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 1.115.115.1 activate
+  neighbor 1.115.115.1 send-community extended
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+mpls ldp router-id Loopback0 force
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+
+ISP-PE-4#show run
+Building configuration...
+
+Current configuration : 1877 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname ISP-PE-4
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+ip cef
+!
+!
+!
+!
+!
+!
+no ipv6 cef
+!
+!
+mpls label protocol ldp
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 5.115.115.1 255.255.255.255
+ ip router isis CORE
+!
+interface FastEthernet0/0
+ no ip address
+ duplex full
+!
+interface GigabitEthernet1/0
+ description ISP-PE-1
+ ip address 10.115.14.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet2/0
+ description ISP-CORE-1
+ ip address 10.115.4.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet3/0
+ description ISP-PE-3
+ ip address 10.115.34.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet4/0
+ description ISP-PE-2
+ ip address 10.115.24.2 255.255.255.252
+ ip router isis CORE
+ negotiation auto
+ mpls ip
+ isis network point-to-point
+!
+interface GigabitEthernet5/0
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet6/0
+ no ip address
+ negotiation auto
+!
+router isis CORE
+ net 49.0001.1150.1154.1151.00
+ is-type level-2-only
+ metric-style wide
+ log-adjacency-changes
+!
+router isis ISP-PE-4
+!
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor 1.115.115.1 remote-as 65000
+ neighbor 1.115.115.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 1.115.115.1 activate
+  neighbor 1.115.115.1 send-community extended
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+mpls ldp router-id Loopback0 force
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
