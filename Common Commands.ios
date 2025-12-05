@@ -196,7 +196,10 @@ show ip cef
 !DC-VPC switch summary output commands
 
 !LAN 1 switch summary output commands
+term leng 0
 
+show ver | i Ver|file
+show spanning-tree
 
 !LAN 2 switch summary output commands
 

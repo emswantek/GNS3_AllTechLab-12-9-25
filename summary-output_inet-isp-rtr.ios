@@ -1,0 +1,78 @@
+!--START OF INTERNET-ISP-RTR OUTPUT--!
+
+INTERNET-ISP-RTR#show ver | i Ver|file
+Cisco IOS Software, 7200 Software (C7200-ADVIPSERVICESK9-M), Version 15.2(4)S5, RELEASE SOFTWARE (fc1)
+BOOTLDR: 7200 Software (C7200-ADVIPSERVICESK9-M), Version 15.2(4)S5, RELEASE SOFTWARE (fc1)
+System image file is "tftp://255.255.255.255/unknown"
+6 slot VXR midplane, Version 2.1
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show ip int brief | exclude unassigned
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     203.0.113.2     YES NVRAM  up                    up
+GigabitEthernet1/0     198.51.100.2    YES NVRAM  up                    up
+
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show int description | e down
+Interface                      Status         Protocol Description
+Gi0/0                          up             up       INET-GW-ASA1
+Gi1/0                          up             up       INET-GW-ASA2
+
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show run | s router
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show ip protocols
+*** IP Routing is NSF aware ***
+
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 0.0.0.0 to network 0.0.0.0
+
+S*    0.0.0.0/0 is directly connected, Null0
+      198.51.100.0/24 is variably subnetted, 2 subnets, 2 masks
+C        198.51.100.0/30 is directly connected, GigabitEthernet1/0
+L        198.51.100.2/32 is directly connected, GigabitEthernet1/0
+      203.0.113.0/24 is variably subnetted, 2 subnets, 2 masks
+C        203.0.113.0/30 is directly connected, GigabitEthernet0/0
+L        203.0.113.2/32 is directly connected, GigabitEthernet0/0
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show ip cef
+Prefix               Next Hop             Interface
+0.0.0.0/0            attached             Null0
+0.0.0.0/8            drop
+0.0.0.0/32           receive
+127.0.0.0/8          drop
+198.51.100.0/30      attached             GigabitEthernet1/0
+198.51.100.0/32      receive              GigabitEthernet1/0
+198.51.100.1/32      attached             GigabitEthernet1/0
+198.51.100.2/32      receive              GigabitEthernet1/0
+198.51.100.3/32      receive              GigabitEthernet1/0
+203.0.113.0/30       attached             GigabitEthernet0/0
+203.0.113.0/32       receive              GigabitEthernet0/0
+203.0.113.1/32       attached             GigabitEthernet0/0
+203.0.113.2/32       receive              GigabitEthernet0/0
+203.0.113.3/32       receive              GigabitEthernet0/0
+224.0.0.0/4          drop
+224.0.0.0/24         receive
+240.0.0.0/4          drop
+255.255.255.255/32   receive
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  198.51.100.1          137   0c76.73f9.0002  ARPA   GigabitEthernet1/0
+Internet  198.51.100.2            -   ca0a.084f.001c  ARPA   GigabitEthernet1/0
+Internet  203.0.113.1           137   0c8b.da6e.0002  ARPA   GigabitEthernet0/0
+Internet  203.0.113.2             -   ca0a.084f.0008  ARPA   GigabitEthernet0/0
+INTERNET-ISP-RTR#
+INTERNET-ISP-RTR#show cdp
+% CDP is not enabled
+
+!--END OF INTERNET-ISP-RTR OUTPUT--!
