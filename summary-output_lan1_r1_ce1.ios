@@ -42,6 +42,29 @@ router ospf 1
  network 172.16.33.0 0.0.0.255 area 1
  network 192.168.1.0 0.0.0.3 area 0
 R1#
+R1#show run | s dhcp
+ip dhcp pool VLAN11
+ network 172.16.11.0 255.255.255.0
+ default-router 172.16.11.1
+ domain-name lan1
+ip dhcp pool VLAN22
+ network 172.16.22.0 255.255.255.0
+ default-router 172.16.22.1
+ domain-name lan1
+ip dhcp pool VLAN33
+ network 172.16.33.0 255.255.255.0
+ default-router 172.16.33.1
+ domain-name lan1
+R1#
+R1#show ip dhcp binding
+Bindings from all pools not associated with VRF:
+IP address      Client-ID/              Lease expiration        Type       State      Interface
+                Hardware address/
+                User name
+172.16.11.2     010c.e222.5100.00       Dec 08 2025 12:06 PM    Automatic  Active     GigabitEthernet1/0.11
+172.16.22.2     010c.c58e.0b00.00       Dec 08 2025 12:06 PM    Automatic  Active     GigabitEthernet1/0.22
+172.16.33.2     010c.2ee5.0a00.00       Dec 08 2025 12:06 PM    Automatic  Active     GigabitEthernet1/0.33
+R1#
 R1#show ip protocols
 *** IP Routing is NSF aware ***
 
@@ -60,7 +83,7 @@ Routing Protocol is "ospf 1"
     192.168.1.0 0.0.0.3 area 0
   Routing Information Sources:
     Gateway         Distance      Last Update
-    172.16.0.2           110      00:27:01
+    172.16.0.2           110      00:03:12
   Distance: (default is 110)
 
 R1#
@@ -78,7 +101,7 @@ Gateway of last resort is 192.168.1.2 to network 0.0.0.0
 
 S*    0.0.0.0/0 [1/0] via 192.168.1.2
       10.0.0.0/30 is subnetted, 1 subnets
-O E2     10.0.0.0 [110/1] via 192.168.1.2, 00:27:02, GigabitEthernet2/0
+O E2     10.0.0.0 [110/1] via 192.168.1.2, 00:03:13, GigabitEthernet2/0
       172.16.0.0/16 is variably subnetted, 9 subnets, 2 masks
 C        172.16.0.1/32 is directly connected, Loopback0
 C        172.16.10.0/24 is directly connected, GigabitEthernet1/0.10
@@ -104,9 +127,6 @@ Prefix               Next Hop             Interface
 172.16.10.0/24       attached             GigabitEthernet1/0.10
 172.16.10.0/32       receive              GigabitEthernet1/0.10
 172.16.10.1/32       receive              GigabitEthernet1/0.10
-172.16.10.11/32      attached             GigabitEthernet1/0.10
-172.16.10.21/32      attached             GigabitEthernet1/0.10
-172.16.10.31/32      attached             GigabitEthernet1/0.10
 172.16.10.255/32     receive              GigabitEthernet1/0.10
 172.16.11.0/24       attached             GigabitEthernet1/0.11
 172.16.11.0/32       receive              GigabitEthernet1/0.11
@@ -136,26 +156,15 @@ R1#
 R1#show ip arp
 Protocol  Address          Age (min)  Hardware Addr   Type   Interface
 Internet  172.16.10.1             -   ca0b.17ee.001c  ARPA   GigabitEthernet1/0.10
-Internet  172.16.10.11           25   0c97.f386.800a  ARPA   GigabitEthernet1/0.10
-Internet  172.16.10.21           23   0cf8.2320.800a  ARPA   GigabitEthernet1/0.10
-Internet  172.16.10.31           23   0ccb.e301.800a  ARPA   GigabitEthernet1/0.10
 Internet  172.16.11.1             -   ca0b.17ee.001c  ARPA   GigabitEthernet1/0.11
-Internet  172.16.11.2            19   0ce2.2251.0000  ARPA   GigabitEthernet1/0.11
+Internet  172.16.11.2             2   0ce2.2251.0000  ARPA   GigabitEthernet1/0.11
 Internet  172.16.22.1             -   ca0b.17ee.001c  ARPA   GigabitEthernet1/0.22
-Internet  172.16.22.2            99   0cc5.8e0b.0000  ARPA   GigabitEthernet1/0.22
+Internet  172.16.22.2             2   0cc5.8e0b.0000  ARPA   GigabitEthernet1/0.22
 Internet  172.16.33.1             -   ca0b.17ee.001c  ARPA   GigabitEthernet1/0.33
-Internet  172.16.33.2            19   0c2e.e50a.0000  ARPA   GigabitEthernet1/0.33
+Internet  172.16.33.2             2   0c2e.e50a.0000  ARPA   GigabitEthernet1/0.33
 Internet  192.168.1.1             -   ca0b.17ee.0038  ARPA   GigabitEthernet2/0
-Internet  192.168.1.2           100   ca01.186f.0038  ARPA   GigabitEthernet2/0
+Internet  192.168.1.2             3   ca01.186f.0038  ARPA   GigabitEthernet2/0
 
-R1#show cdp neighbors
-Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
-                  D - Remote, C - CVTA, M - Two-port Mac Relay
-
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-SW4              Gig 1/0.4001      121             R S I            Gig 0/0
-CE1.lan1         Gig 2/0           156               R    7206VXR   Gig 2/0
 
 !--END OF R1 OUTPUT--!
 

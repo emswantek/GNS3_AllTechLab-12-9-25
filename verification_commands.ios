@@ -34,6 +34,10 @@ show ip int brief | exclude admin
 
 show run | s router
 
+show run | s dhcp
+
+show ip dhcp binding
+
 show ip protocols
 
 show ip route
