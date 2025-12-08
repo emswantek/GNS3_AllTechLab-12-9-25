@@ -18,7 +18,7 @@ Management0/0              unassigned      YES unset  administratively down down
 INET-GW-ASA2#
 INET-GW-ASA2# show run route
 route outside 0.0.0.0 0.0.0.0 198.51.100.2 1
-route inside 172.31.0.0 255.255.0.0 172.31.2.2 5
+route inside 172.31.240.0 255.255.240.0 172.31.2.2 5
 INET-GW-ASA2#
 INET-GW-ASA2# show route
 
@@ -32,9 +32,9 @@ Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 Gateway of last resort is 198.51.100.2 to network 0.0.0.0
 
 S*       0.0.0.0 0.0.0.0 [1/0] via 198.51.100.2, outside
-S        172.31.0.0 255.255.0.0 [5/0] via 172.31.2.2, inside
 C        172.31.2.0 255.255.255.252 is directly connected, inside
 L        172.31.2.1 255.255.255.255 is directly connected, inside
+S        172.31.240.0 255.255.240.0 [5/0] via 172.31.2.2, inside
 C        198.51.100.0 255.255.255.252 is directly connected, outside
 L        198.51.100.1 255.255.255.255 is directly connected, outside
 
@@ -94,10 +94,10 @@ interface: outside
       current_peer: 203.0.113.1
 
 
-      #pkts encaps: 0, #pkts encrypt: 0, #pkts digest: 0
+      #pkts encaps: 1, #pkts encrypt: 1, #pkts digest: 1
       #pkts decaps: 0, #pkts decrypt: 0, #pkts verify: 0
       #pkts compressed: 0, #pkts decompressed: 0
-      #pkts not compressed: 0, #pkts comp failed: 0, #pkts decomp failed: 0
+      #pkts not compressed: 1, #pkts comp failed: 0, #pkts decomp failed: 0
       #pre-frag successes: 0, #pre-frag failures: 0, #fragments created: 0
       #PMTUs sent: 0, #PMTUs rcvd: 0, #decapsulated frgs needing reassembly: 0
       #TFC rcvd: 0, #TFC sent: 0
@@ -108,27 +108,27 @@ interface: outside
       path mtu 1500, ipsec overhead 78(44), media mtu 1500
       PMTU time remaining (sec): 0, DF policy: copy-df
       ICMP error validation: disabled, TFC packets: disabled
-      current outbound spi: 6FCAF252
-      current inbound spi : E21EEF0E
+      current outbound spi: 1572EA38
+      current inbound spi : 9B176BA1
 
     inbound esp sas:
-      spi: 0xE21EEF0E (3793678094)
+      spi: 0x9B176BA1 (2602003361)
          SA State: active
          transform: esp-aes-256 esp-sha-256-hmac no compression
          in use settings ={L2L, Tunnel, IKEv2, }
-         slot: 0, conn_id: 239, crypto-map: VPN-MAP
-         sa timing: remaining key lifetime (kB/sec): (4147200/2979)
+         slot: 0, conn_id: 54, crypto-map: VPN-MAP
+         sa timing: remaining key lifetime (kB/sec): (4147200/3539)
          IV size: 16 bytes
          replay detection support: Y
          Anti replay bitmap:
           0x00000000 0x00000001
     outbound esp sas:
-      spi: 0x6FCAF252 (1875571282)
+      spi: 0x1572EA38 (359852600)
          SA State: active
          transform: esp-aes-256 esp-sha-256-hmac no compression
          in use settings ={L2L, Tunnel, IKEv2, }
-         slot: 0, conn_id: 239, crypto-map: VPN-MAP
-         sa timing: remaining key lifetime (kB/sec): (4285440/2979)
+         slot: 0, conn_id: 54, crypto-map: VPN-MAP
+         sa timing: remaining key lifetime (kB/sec): (4193279/3539)
          IV size: 16 bytes
          replay detection support: Y
          Anti replay bitmap:
@@ -139,14 +139,22 @@ INET-GW-ASA2# show crypto ikev2 sa
 
 IKEv2 SAs:
 
-Session-id:239, Status:UP-ACTIVE, IKE count:1, CHILD count:1
+Session-id:54, Status:UP-ACTIVE, IKE count:1, CHILD count:1
 
 Tunnel-id Local                                               Remote                                                  Status         Role
- 20500679 198.51.100.1/500                                    203.0.113.1/500                                          READY    INITIATOR
+465817449 198.51.100.1/500                                    203.0.113.1/500                                          READY    INITIATOR
       Encr: AES-CBC, keysize: 256, Hash: SHA256, DH Grp:14, Auth sign: PSK, Auth verify: PSK
-      Life/Active Time: 28800/621 sec
+      Life/Active Time: 28800/61 sec
 Child sa: local selector  172.21.0.0/0 - 172.21.0.255/65535
           remote selector 172.16.11.0/0 - 172.16.11.255/65535
-          ESP spi in/out: 0xe21eef0e/0x6fcaf252
+          ESP spi in/out: 0x9b176ba1/0x1572ea38
+INET-GW-ASA2#
+INET-GW-ASA2# show run nat
+nat (inside,outside) source static OBJECT-LAN2 OBJECT-LAN2 destination static OBJECT-LAN1-VLAN11 OBJECT-LAN1-VLAN11 no-proxy-arp route-lookup
+nat (inside,outside) source static OBJECT-LAN2 OBJECT-LAN2 destination static OBJECT-LAN1-VLAN22 OBJECT-LAN1-VLAN22 no-proxy-arp route-lookup
+nat (inside,outside) source static OBJECT-LAN2 OBJECT-LAN2 destination static OBJECT-LAN1-VLAN33 OBJECT-LAN1-VLAN33 no-proxy-arp route-lookup
+!
+nat (inside,outside) after-auto source dynamic OBJECT-LAN2 interface
+
 
 !---END OF INET-GW-ASA2 OUTPUT--!

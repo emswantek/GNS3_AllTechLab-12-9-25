@@ -76,6 +76,8 @@ show crypto ipsec sa
 
 show crypto ikev2 sa
 
+show run nat
+
 !INET-ISP-RTR
 
 term length 0

@@ -19,15 +19,9 @@ Tunnel10                   169.254.10.1    YES CONFIG up                    up
 INET-GW-ASA1#
 INET-GW-ASA1# show run route
 route outisde 0.0.0.0 0.0.0.0 203.0.113.2 1
-route inside 172.16.0.0 255.255.0.0 172.31.1.1 1
-route ipsec 172.21.0.0 255.255.255.0 169.254.10.2 1
-route ipsec 172.22.0.0 255.255.255.0 169.254.10.2 1
-route ipsec 172.31.2.0 255.255.255.0 169.254.10.2 1
-route ipsec 172.31.241.0 255.255.255.0 169.254.10.2 1
-route ipsec 172.31.242.0 255.255.255.0 169.254.10.2 1
-route ipsec 172.31.243.0 255.255.255.0 169.254.10.2 1
-route ipsec 172.31.254.0 255.255.255.0 169.254.10.2 1
-route ipsec 172.31.255.0 255.255.255.0 169.254.10.2 1
+route inside 172.16.0.0 255.255.192.0 172.31.1.1 5
+route ipsec 172.20.0.0 255.252.0.0 169.254.10.2 1
+route ipsec 172.31.240.0 255.255.240.0 169.254.10.2 1
 INET-GW-ASA1#
 INET-GW-ASA1# show route
 
@@ -43,17 +37,11 @@ Gateway of last resort is 203.0.113.2 to network 0.0.0.0
 S*       0.0.0.0 0.0.0.0 [1/0] via 203.0.113.2, outisde
 C        169.254.10.0 255.255.255.252 is directly connected, ipsec
 L        169.254.10.1 255.255.255.255 is directly connected, ipsec
-S        172.16.0.0 255.255.0.0 [1/0] via 172.31.1.1, inside
-S        172.21.0.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
-S        172.22.0.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
+S        172.16.0.0 255.255.192.0 [5/0] via 172.31.1.1, inside
+S        172.20.0.0 255.252.0.0 [1/0] via 169.254.10.2, ipsec
 C        172.31.1.0 255.255.255.252 is directly connected, inside
 L        172.31.1.2 255.255.255.255 is directly connected, inside
-S        172.31.2.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
-S        172.31.241.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
-S        172.31.242.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
-S        172.31.243.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
-S        172.31.254.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
-S        172.31.255.0 255.255.255.0 [1/0] via 169.254.10.2, ipsec
+S        172.31.240.0 255.255.240.0 [1/0] via 169.254.10.2, ipsec
 C        203.0.113.0 255.255.255.252 is directly connected, outisde
 L        203.0.113.1 255.255.255.255 is directly connected, outisde
 
@@ -111,27 +99,27 @@ interface: ipsec
       path mtu 1500, ipsec overhead 78(44), media mtu 1500
       PMTU time remaining (sec): 0, DF policy: copy-df
       ICMP error validation: disabled, TFC packets: disabled
-      current outbound spi: E21EEF0E
-      current inbound spi : 6FCAF252
+      current outbound spi: 9B176BA1
+      current inbound spi : 1572EA38
 
     inbound esp sas:
-      spi: 0x6FCAF252 (1875571282)
+      spi: 0x1572EA38 (359852600)
          SA State: active
          transform: esp-aes-256 esp-sha-256-hmac no compression
          in use settings ={L2L, Tunnel, PFS Group 14, IKEv2, VTI, }
-         slot: 0, conn_id: 239, crypto-map: __vti-crypto-map-4-0-10
-         sa timing: remaining key lifetime (kB/sec): (4147200/3095)
+         slot: 0, conn_id: 54, crypto-map: __vti-crypto-map-4-0-10
+         sa timing: remaining key lifetime (kB/sec): (3916800/3538)
          IV size: 16 bytes
          replay detection support: Y
          Anti replay bitmap:
           0x00000000 0x00000001
     outbound esp sas:
-      spi: 0xE21EEF0E (3793678094)
+      spi: 0x9B176BA1 (2602003361)
          SA State: active
          transform: esp-aes-256 esp-sha-256-hmac no compression
          in use settings ={L2L, Tunnel, PFS Group 14, IKEv2, VTI, }
-         slot: 0, conn_id: 239, crypto-map: __vti-crypto-map-4-0-10
-         sa timing: remaining key lifetime (kB/sec): (4008960/3095)
+         slot: 0, conn_id: 54, crypto-map: __vti-crypto-map-4-0-10
+         sa timing: remaining key lifetime (kB/sec): (3962880/3538)
          IV size: 16 bytes
          replay detection support: Y
          Anti replay bitmap:
@@ -142,14 +130,18 @@ INET-GW-ASA1# show crypto ikev2 sa
 
 IKEv2 SAs:
 
-Session-id:239, Status:UP-ACTIVE, IKE count:1, CHILD count:1
+Session-id:54, Status:UP-ACTIVE, IKE count:1, CHILD count:1
 
 Tunnel-id Local                                               Remote                                                  Status         Role
-656743135 203.0.113.1/500                                     198.51.100.1/500                                         READY    RESPONDER
+398523573 203.0.113.1/500                                     198.51.100.1/500                                         READY    RESPONDER
       Encr: AES-CBC, keysize: 256, Hash: SHA256, DH Grp:14, Auth sign: PSK, Auth verify: PSK
-      Life/Active Time: 28800/505 sec
+      Life/Active Time: 28800/62 sec
 Child sa: local selector  172.16.11.0/0 - 172.16.11.255/65535
           remote selector 172.21.0.0/0 - 172.21.0.255/65535
-          ESP spi in/out: 0x6fcaf252/0xe21eef0e
+          ESP spi in/out: 0x1572ea38/0x9b176ba1
+INET-GW-ASA1#
+INET-GW-ASA1# show run nat
+INET-GW-ASA1#
+
 
 !--END OF INET-GW-ASA1 OUTPUT--!
