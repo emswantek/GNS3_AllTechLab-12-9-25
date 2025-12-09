@@ -22,22 +22,22 @@ DC-SW1#
 DC-SW1#show int status
 
 Port      Name               Status       Vlan       Duplex  Speed Type
-Gi0/0                        notconnect   1          a-full   auto RJ45
-Gi0/1                        notconnect   1          a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
-Gi1/0                        notconnect   1          a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi0/0                        disabled     1            auto   auto RJ45
+Gi0/1                        disabled     1            auto   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
+Gi1/0                        disabled     1            auto   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
 Gi2/2     R2                 connected    trunk      a-full   auto RJ45
 Gi2/3     R3                 connected    trunk      a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
 Gi3/1     Trunk-to-DC-VPC-SW connected    trunk      a-full   auto RJ45
 Gi3/2     Trunk-to-DC-VPC-SW connected    trunk      a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 Po11      Link_to_DC-VPC-SWs connected    trunk      a-full   auto
 DC-SW1#
 DC-SW1#show vlan brief
@@ -70,10 +70,10 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     0         0        0         15         15
+VLAN0001                     0         0        0          3          3
 VLAN0254                     0         0        0          3          3
 ---------------------- -------- --------- -------- ---------- ----------
-2 vlans                      0         0        0         18         18
+2 vlans                      0         0        0          6          6
 DC-SW1#
 DC-SW1#show spanning-tree root
 
@@ -89,12 +89,12 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-EIGRP-R2         Gig 2/2           166               R    7206VXR   Gig 1/0
-EIGRP-R3         Gig 2/3           159               R    7206VXR   Gig 6/0
+EIGRP-R2         Gig 2/2           142               R    7206VXR   Gig 1/0
+EIGRP-R3         Gig 2/3           133               R    7206VXR   Gig 6/0
 DC-VPC-SW2(976MYWRI6UU)
-                 Gig 3/2           132            R S I C N9K-9000v Eth 1/9
+                 Gig 3/2           153            R S I C N9K-9000v Eth 1/9
 DC-VPC-SW1(9CG64GSMIDD)
-                 Gig 3/1           132            R S I C N9K-9000v Eth 1/9
+                 Gig 3/1           153            R S I C N9K-9000v Eth 1/9
 
 Total cdp entries displayed : 4
 DC-SW1#
@@ -119,5 +119,6 @@ MD5 digest                        : 0xD3 0x56 0x83 0xE9 0xBA 0x1F 0x07 0xFC
 DC-SW1#
 DC-SW1#show run | include gateway
 ip default-gateway 10.172.172.1
+
 
 !--END OF DC-SW1 OUTPUT--!
