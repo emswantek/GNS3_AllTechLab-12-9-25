@@ -9,24 +9,42 @@ ISP-CORE-1#
 ISP-CORE-1#show int description | e down
 Interface                      Status         Protocol Description
 Gi1/0                          up             up       ISP-PE-1
-Gi2/0                          up             up
 Gi3/0                          up             up       ISP-PE-3
 Gi4/0                          up             up       ISP-PE-2
 Gi5/0                          up             up       ISP-PE-4
-Gi6/0                          up             up
 Lo0                            up             up
 
 ISP-CORE-1#
 ISP-CORE-1#show ip int brief | exclude admin
 Interface              IP-Address      OK? Method Status                Protocol
 GigabitEthernet1/0     10.115.1.1      YES NVRAM  up                    up
-GigabitEthernet2/0     unassigned      YES NVRAM  up                    up
 GigabitEthernet3/0     10.115.3.1      YES NVRAM  up                    up
 GigabitEthernet4/0     10.115.2.1      YES NVRAM  up                    up
 GigabitEthernet5/0     10.115.4.1      YES NVRAM  up                    up
-GigabitEthernet6/0     unassigned      YES NVRAM  up                    up
 Loopback0              1.115.115.1     YES NVRAM  up                    up
 
+ISP-CORE-1#
+ISP-CORE-1#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.115.1.1              -   ca04.3c3b.001c  ARPA   GigabitEthernet1/0
+Internet  10.115.1.2            241   ca03.3c1d.0038  ARPA   GigabitEthernet1/0
+Internet  10.115.2.1              -   ca04.3c3b.0070  ARPA   GigabitEthernet4/0
+Internet  10.115.2.2            241   ca07.3c96.0038  ARPA   GigabitEthernet4/0
+Internet  10.115.3.1              -   ca04.3c3b.0054  ARPA   GigabitEthernet3/0
+Internet  10.115.3.2            241   ca06.3c78.0038  ARPA   GigabitEthernet3/0
+Internet  10.115.4.1              -   ca04.3c3b.008c  ARPA   GigabitEthernet5/0
+Internet  10.115.4.2            241   ca05.3c5a.0038  ARPA   GigabitEthernet5/0
+ISP-CORE-1#
+ISP-CORE-1#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+ISP-PE-4         Gig 5/0           166               R    7206VXR   Gig 2/0
+ISP-PE-3         Gig 3/0           138               R    7206VXR   Gig 2/0
+ISP-PE-2         Gig 4/0           127               R    7206VXR   Gig 2/0
+ISP-PE-1         Gig 1/0           127               R    7206VXR   Gig 2/0
 ISP-CORE-1#
 ISP-CORE-1#show run | s router
  ip router isis CORE
@@ -63,6 +81,8 @@ router bgp 65000
  exit-address-family
 mpls ldp router-id Loopback0 force
 ISP-CORE-1#
+ISP-CORE-1#show vrf
+ISP-CORE-1#
 ISP-CORE-1#show ip protocols
 *** IP Routing is NSF aware ***
 
@@ -81,10 +101,10 @@ Routing Protocol is "isis CORE"
     GigabitEthernet5/0
   Routing Information Sources:
     Gateway         Distance      Last Update
-    3.115.115.1          115      00:14:59
-    2.115.115.1          115      00:14:59
-    5.115.115.1          115      00:14:59
-    4.115.115.1          115      00:14:59
+    3.115.115.1          115      00:01:11
+    2.115.115.1          115      00:01:11
+    5.115.115.1          115      00:01:11
+    4.115.115.1          115      00:01:11
   Distance: (default is 115)
 
 Routing Protocol is "bgp 65000"
@@ -125,13 +145,13 @@ Gateway of last resort is not set
       1.0.0.0/32 is subnetted, 1 subnets
 C        1.115.115.1 is directly connected, Loopback0
       2.0.0.0/32 is subnetted, 1 subnets
-i L2     2.115.115.1 [115/20] via 10.115.1.2, 03:45:00, GigabitEthernet1/0
+i L2     2.115.115.1 [115/20] via 10.115.1.2, 04:01:10, GigabitEthernet1/0
       3.0.0.0/32 is subnetted, 1 subnets
-i L2     3.115.115.1 [115/20] via 10.115.2.2, 03:44:50, GigabitEthernet4/0
+i L2     3.115.115.1 [115/20] via 10.115.2.2, 04:01:00, GigabitEthernet4/0
       4.0.0.0/32 is subnetted, 1 subnets
-i L2     4.115.115.1 [115/20] via 10.115.3.2, 03:44:50, GigabitEthernet3/0
+i L2     4.115.115.1 [115/20] via 10.115.3.2, 04:01:00, GigabitEthernet3/0
       5.0.0.0/32 is subnetted, 1 subnets
-i L2     5.115.115.1 [115/20] via 10.115.4.2, 03:45:00, GigabitEthernet5/0
+i L2     5.115.115.1 [115/20] via 10.115.4.2, 04:01:10, GigabitEthernet5/0
       10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
 C        10.115.1.0/30 is directly connected, GigabitEthernet1/0
 L        10.115.1.1/32 is directly connected, GigabitEthernet1/0
@@ -141,18 +161,18 @@ C        10.115.3.0/30 is directly connected, GigabitEthernet3/0
 L        10.115.3.1/32 is directly connected, GigabitEthernet3/0
 C        10.115.4.0/30 is directly connected, GigabitEthernet5/0
 L        10.115.4.1/32 is directly connected, GigabitEthernet5/0
-i L2     10.115.12.0/30 [115/20] via 10.115.2.2, 03:44:50, GigabitEthernet4/0
-                        [115/20] via 10.115.1.2, 03:44:50, GigabitEthernet1/0
-i L2     10.115.13.0/30 [115/20] via 10.115.3.2, 03:44:50, GigabitEthernet3/0
-                        [115/20] via 10.115.1.2, 03:44:50, GigabitEthernet1/0
-i L2     10.115.14.0/30 [115/20] via 10.115.4.2, 03:45:00, GigabitEthernet5/0
-                        [115/20] via 10.115.1.2, 03:45:00, GigabitEthernet1/0
-i L2     10.115.23.0/30 [115/20] via 10.115.3.2, 03:44:50, GigabitEthernet3/0
-                        [115/20] via 10.115.2.2, 03:44:50, GigabitEthernet4/0
-i L2     10.115.24.0/30 [115/20] via 10.115.4.2, 03:44:50, GigabitEthernet5/0
-                        [115/20] via 10.115.2.2, 03:44:50, GigabitEthernet4/0
-i L2     10.115.34.0/30 [115/20] via 10.115.4.2, 03:44:50, GigabitEthernet5/0
-                        [115/20] via 10.115.3.2, 03:44:50, GigabitEthernet3/0
+i L2     10.115.12.0/30 [115/20] via 10.115.2.2, 04:01:00, GigabitEthernet4/0
+                        [115/20] via 10.115.1.2, 04:01:00, GigabitEthernet1/0
+i L2     10.115.13.0/30 [115/20] via 10.115.3.2, 04:01:00, GigabitEthernet3/0
+                        [115/20] via 10.115.1.2, 04:01:00, GigabitEthernet1/0
+i L2     10.115.14.0/30 [115/20] via 10.115.4.2, 04:01:10, GigabitEthernet5/0
+                        [115/20] via 10.115.1.2, 04:01:10, GigabitEthernet1/0
+i L2     10.115.23.0/30 [115/20] via 10.115.3.2, 04:01:00, GigabitEthernet3/0
+                        [115/20] via 10.115.2.2, 04:01:00, GigabitEthernet4/0
+i L2     10.115.24.0/30 [115/20] via 10.115.4.2, 04:01:00, GigabitEthernet5/0
+                        [115/20] via 10.115.2.2, 04:01:00, GigabitEthernet4/0
+i L2     10.115.34.0/30 [115/20] via 10.115.4.2, 04:01:00, GigabitEthernet5/0
+                        [115/20] via 10.115.3.2, 04:01:00, GigabitEthernet3/0
 ISP-CORE-1#
 ISP-CORE-1#show ip route vrf CE1
 % IP routing table vrf CE1 does not exist
@@ -163,94 +183,94 @@ ISP-CORE-1#
 ISP-CORE-1#show mpls ldp binding
   lib entry: 1.115.115.1/32, rev 2
         local binding:  label: imp-null
-        remote binding: lsr: 5.115.115.1:0, label: 17
         remote binding: lsr: 2.115.115.1:0, label: 17
-        remote binding: lsr: 4.115.115.1:0, label: 17
+        remote binding: lsr: 5.115.115.1:0, label: 17
         remote binding: lsr: 3.115.115.1:0, label: 17
+        remote binding: lsr: 4.115.115.1:0, label: 17
   lib entry: 2.115.115.1/32, rev 14
         local binding:  label: 17
-        remote binding: lsr: 5.115.115.1:0, label: 16
         remote binding: lsr: 2.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 18
+        remote binding: lsr: 5.115.115.1:0, label: 16
         remote binding: lsr: 3.115.115.1:0, label: 18
+        remote binding: lsr: 4.115.115.1:0, label: 18
   lib entry: 3.115.115.1/32, rev 26
         local binding:  label: 23
-        remote binding: lsr: 4.115.115.1:0, label: 19
-        remote binding: lsr: 3.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 24
         remote binding: lsr: 2.115.115.1:0, label: 23
+        remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 19
   lib entry: 4.115.115.1/32, rev 28
         local binding:  label: 24
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
-        remote binding: lsr: 3.115.115.1:0, label: 19
         remote binding: lsr: 5.115.115.1:0, label: 23
         remote binding: lsr: 2.115.115.1:0, label: 24
+        remote binding: lsr: 3.115.115.1:0, label: 19
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 5.115.115.1/32, rev 12
         local binding:  label: 16
-        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 16
-        remote binding: lsr: 4.115.115.1:0, label: 16
+        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 16
+        remote binding: lsr: 4.115.115.1:0, label: 16
   lib entry: 10.115.1.0/30, rev 4
         local binding:  label: imp-null
-        remote binding: lsr: 5.115.115.1:0, label: 18
         remote binding: lsr: 2.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 23
+        remote binding: lsr: 5.115.115.1:0, label: 18
         remote binding: lsr: 3.115.115.1:0, label: 23
+        remote binding: lsr: 4.115.115.1:0, label: 23
   lib entry: 10.115.2.0/30, rev 8
         local binding:  label: imp-null
-        remote binding: lsr: 5.115.115.1:0, label: 21
         remote binding: lsr: 2.115.115.1:0, label: 21
-        remote binding: lsr: 4.115.115.1:0, label: 24
+        remote binding: lsr: 5.115.115.1:0, label: 21
         remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 24
   lib entry: 10.115.3.0/30, rev 6
         local binding:  label: imp-null
-        remote binding: lsr: 5.115.115.1:0, label: 22
         remote binding: lsr: 2.115.115.1:0, label: 22
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
+        remote binding: lsr: 5.115.115.1:0, label: 22
         remote binding: lsr: 3.115.115.1:0, label: 24
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 10.115.4.0/30, rev 10
         local binding:  label: imp-null
-        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 18
-        remote binding: lsr: 4.115.115.1:0, label: 20
+        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 20
+        remote binding: lsr: 4.115.115.1:0, label: 20
   lib entry: 10.115.12.0/30, rev 22
         local binding:  label: 21
-        remote binding: lsr: 5.115.115.1:0, label: 19
         remote binding: lsr: 2.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 25
+        remote binding: lsr: 5.115.115.1:0, label: 19
         remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 25
   lib entry: 10.115.13.0/30, rev 24
         local binding:  label: 22
-        remote binding: lsr: 5.115.115.1:0, label: 20
         remote binding: lsr: 2.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
+        remote binding: lsr: 5.115.115.1:0, label: 20
         remote binding: lsr: 3.115.115.1:0, label: 25
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 10.115.14.0/30, rev 16
         local binding:  label: 18
-        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 21
+        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 21
+        remote binding: lsr: 4.115.115.1:0, label: 21
   lib entry: 10.115.23.0/30, rev 30
         local binding:  label: 25
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
-        remote binding: lsr: 3.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 25
         remote binding: lsr: 2.115.115.1:0, label: 25
+        remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 10.115.24.0/30, rev 18
         local binding:  label: 19
-        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 19
-        remote binding: lsr: 4.115.115.1:0, label: 22
+        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 22
   lib entry: 10.115.34.0/30, rev 20
         local binding:  label: 20
-        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 20
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
+        remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 22
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
 ISP-CORE-1#
 ISP-CORE-1#show mpls interfaces
 Interface              IP            Tunnel   BGP Static Operational
@@ -319,29 +339,19 @@ Prefix               Next Hop             Interface
 240.0.0.0/4          drop
 255.255.255.255/32   receive
 ISP-CORE-1#
-ISP-CORE-1#show ip arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.115.1.1              -   ca04.3c3b.001c  ARPA   GigabitEthernet1/0
-Internet  10.115.1.2            225   ca03.3c1d.0038  ARPA   GigabitEthernet1/0
-Internet  10.115.2.1              -   ca04.3c3b.0070  ARPA   GigabitEthernet4/0
-Internet  10.115.2.2            224   ca07.3c96.0038  ARPA   GigabitEthernet4/0
-Internet  10.115.3.1              -   ca04.3c3b.0054  ARPA   GigabitEthernet3/0
-Internet  10.115.3.2            224   ca06.3c78.0038  ARPA   GigabitEthernet3/0
-Internet  10.115.4.1              -   ca04.3c3b.008c  ARPA   GigabitEthernet5/0
-Internet  10.115.4.2            225   ca05.3c5a.0038  ARPA   GigabitEthernet5/0
-ISP-CORE-1#
-ISP-CORE-1#show cdp neighbors
-Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
-                  D - Remote, C - CVTA, M - Two-port Mac Relay
+ISP-CORE-1#show ip cef vrf CE1
+                           ^
+% Invalid input detected at '^' marker.
 
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-ISP-PE-4         Gig 5/0           145               R    7206VXR   Gig 2/0
-ISP-PE-3         Gig 3/0           158               R    7206VXR   Gig 2/0
-ISP-PE-2         Gig 4/0           134               R    7206VXR   Gig 2/0
-ISP-PE-1         Gig 1/0           173               R    7206VXR   Gig 2/0
+ISP-CORE-1#
+ISP-CORE-1#show ip cef vrf CE2
+                           ^
+% Invalid input detected at '^' marker.
+
+ISP-CORE-1#
 
 !--END OF ISP-CORE-1 OUTPUT--!
+
 
 !--START OF ISP-PE-1 OUTPUT--!
 
@@ -358,21 +368,41 @@ Gi2/0                          up             up       ISP-CORE-1
 Gi3/0                          up             up       ISP-PE-3
 Gi4/0                          up             up       ISP-PE-2
 Gi5/0                          up             up       ISP-PE-4
-Gi6/0                          up             up
 Lo0                            up             up
 
 ISP-PE-1#
 ISP-PE-1#show ip int brief | exclude admin
 Interface              IP-Address      OK? Method Status                Protocol
-FastEthernet0/0        unassigned      YES NVRAM  up                    down
 GigabitEthernet1/0     10.0.0.1        YES NVRAM  up                    up
 GigabitEthernet2/0     10.115.1.2      YES NVRAM  up                    up
 GigabitEthernet3/0     10.115.13.1     YES NVRAM  up                    up
 GigabitEthernet4/0     10.115.12.1     YES NVRAM  up                    up
 GigabitEthernet5/0     10.115.14.1     YES NVRAM  up                    up
-GigabitEthernet6/0     unassigned      YES NVRAM  up                    up
 Loopback0              2.115.115.1     YES NVRAM  up                    up
 
+ISP-PE-1#
+ISP-PE-1#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.115.1.1            241   ca04.3c3b.001c  ARPA   GigabitEthernet2/0
+Internet  10.115.1.2              -   ca03.3c1d.0038  ARPA   GigabitEthernet2/0
+Internet  10.115.12.1             -   ca03.3c1d.0070  ARPA   GigabitEthernet4/0
+Internet  10.115.12.2           241   ca07.3c96.001c  ARPA   GigabitEthernet4/0
+Internet  10.115.13.1             -   ca03.3c1d.0054  ARPA   GigabitEthernet3/0
+Internet  10.115.13.2           241   ca06.3c78.001c  ARPA   GigabitEthernet3/0
+Internet  10.115.14.1             -   ca03.3c1d.008c  ARPA   GigabitEthernet5/0
+Internet  10.115.14.2           241   ca05.3c5a.001c  ARPA   GigabitEthernet5/0
+ISP-PE-1#
+ISP-PE-1#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+CE1.lan1         Gig 1/0           136               R    7206VXR   Gig 1/0
+ISP-CORE-1       Gig 2/0           156               R    7206VXR   Gig 1/0
+ISP-PE-4         Gig 5/0           150               R    7206VXR   Gig 1/0
+ISP-PE-3         Gig 3/0           143               R    7206VXR   Gig 1/0
+ISP-PE-2         Gig 4/0           132               R    7206VXR   Gig 1/0
 ISP-PE-1#
 ISP-PE-1#show run | s router
  ip router isis CORE
@@ -402,6 +432,10 @@ router bgp 65000
  exit-address-family
 mpls ldp router-id Loopback0 force
 ISP-PE-1#
+ISP-PE-1#show vrf
+  Name                             Default RD          Protocols   Interfaces
+  CE1                              100:1               ipv4        Gi1/0
+ISP-PE-1#
 ISP-PE-1#show ip protocols
 *** IP Routing is NSF aware ***
 
@@ -420,10 +454,10 @@ Routing Protocol is "isis CORE"
     GigabitEthernet5/0
   Routing Information Sources:
     Gateway         Distance      Last Update
-    1.115.115.1          115      00:00:03
-    3.115.115.1          115      00:00:03
-    5.115.115.1          115      00:00:03
-    4.115.115.1          115      00:00:03
+    1.115.115.1          115      00:01:12
+    3.115.115.1          115      00:01:12
+    5.115.115.1          115      00:01:12
+    4.115.115.1          115      00:01:12
   Distance: (default is 115)
 
 Routing Protocol is "bgp 65000"
@@ -454,7 +488,6 @@ Routing Protocol is "bgp 65000"
   Maximum path: 1
   Routing Information Sources:
     Gateway         Distance      Last Update
-    10.0.0.2              20      02:32:59
   Distance: external 20 internal 200 local 200
 
 ISP-PE-1#
@@ -474,36 +507,36 @@ Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 Gateway of last resort is not set
 
       1.0.0.0/32 is subnetted, 1 subnets
-i L2     1.115.115.1 [115/20] via 10.115.1.1, 03:45:04, GigabitEthernet2/0
+i L2     1.115.115.1 [115/20] via 10.115.1.1, 04:01:12, GigabitEthernet2/0
       2.0.0.0/32 is subnetted, 1 subnets
 C        2.115.115.1 is directly connected, Loopback0
       3.0.0.0/32 is subnetted, 1 subnets
-i L2     3.115.115.1 [115/20] via 10.115.12.2, 03:44:54, GigabitEthernet4/0
+i L2     3.115.115.1 [115/20] via 10.115.12.2, 04:01:02, GigabitEthernet4/0
       4.0.0.0/32 is subnetted, 1 subnets
-i L2     4.115.115.1 [115/20] via 10.115.13.2, 03:44:54, GigabitEthernet3/0
+i L2     4.115.115.1 [115/20] via 10.115.13.2, 04:01:01, GigabitEthernet3/0
       5.0.0.0/32 is subnetted, 1 subnets
-i L2     5.115.115.1 [115/20] via 10.115.14.2, 03:45:04, GigabitEthernet5/0
+i L2     5.115.115.1 [115/20] via 10.115.14.2, 04:01:12, GigabitEthernet5/0
       10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
 C        10.115.1.0/30 is directly connected, GigabitEthernet2/0
 L        10.115.1.2/32 is directly connected, GigabitEthernet2/0
-i L2     10.115.2.0/30 [115/20] via 10.115.12.2, 03:44:54, GigabitEthernet4/0
-                       [115/20] via 10.115.1.1, 03:44:54, GigabitEthernet2/0
-i L2     10.115.3.0/30 [115/20] via 10.115.13.2, 03:44:54, GigabitEthernet3/0
-                       [115/20] via 10.115.1.1, 03:44:54, GigabitEthernet2/0
-i L2     10.115.4.0/30 [115/20] via 10.115.14.2, 03:45:04, GigabitEthernet5/0
-                       [115/20] via 10.115.1.1, 03:45:04, GigabitEthernet2/0
+i L2     10.115.2.0/30 [115/20] via 10.115.12.2, 04:01:01, GigabitEthernet4/0
+                       [115/20] via 10.115.1.1, 04:01:01, GigabitEthernet2/0
+i L2     10.115.3.0/30 [115/20] via 10.115.13.2, 04:01:01, GigabitEthernet3/0
+                       [115/20] via 10.115.1.1, 04:01:01, GigabitEthernet2/0
+i L2     10.115.4.0/30 [115/20] via 10.115.14.2, 04:01:12, GigabitEthernet5/0
+                       [115/20] via 10.115.1.1, 04:01:12, GigabitEthernet2/0
 C        10.115.12.0/30 is directly connected, GigabitEthernet4/0
 L        10.115.12.1/32 is directly connected, GigabitEthernet4/0
 C        10.115.13.0/30 is directly connected, GigabitEthernet3/0
 L        10.115.13.1/32 is directly connected, GigabitEthernet3/0
 C        10.115.14.0/30 is directly connected, GigabitEthernet5/0
 L        10.115.14.1/32 is directly connected, GigabitEthernet5/0
-i L2     10.115.23.0/30 [115/20] via 10.115.13.2, 03:44:54, GigabitEthernet3/0
-                        [115/20] via 10.115.12.2, 03:44:54, GigabitEthernet4/0
-i L2     10.115.24.0/30 [115/20] via 10.115.14.2, 03:44:54, GigabitEthernet5/0
-                        [115/20] via 10.115.12.2, 03:44:54, GigabitEthernet4/0
-i L2     10.115.34.0/30 [115/20] via 10.115.14.2, 03:44:54, GigabitEthernet5/0
-                        [115/20] via 10.115.13.2, 03:44:54, GigabitEthernet3/0
+i L2     10.115.23.0/30 [115/20] via 10.115.13.2, 04:01:01, GigabitEthernet3/0
+                        [115/20] via 10.115.12.2, 04:01:01, GigabitEthernet4/0
+i L2     10.115.24.0/30 [115/20] via 10.115.14.2, 04:01:01, GigabitEthernet5/0
+                        [115/20] via 10.115.12.2, 04:01:01, GigabitEthernet4/0
+i L2     10.115.34.0/30 [115/20] via 10.115.14.2, 04:01:01, GigabitEthernet5/0
+                        [115/20] via 10.115.13.2, 04:01:01, GigabitEthernet3/0
 ISP-PE-1#
 ISP-PE-1#show ip route vrf CE1
 
@@ -522,13 +555,6 @@ Gateway of last resort is not set
       10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
 C        10.0.0.0/30 is directly connected, GigabitEthernet1/0
 L        10.0.0.1/32 is directly connected, GigabitEthernet1/0
-      172.16.0.0/24 is subnetted, 4 subnets
-B        172.16.10.0 [20/2] via 10.0.0.2, 02:33:00
-B        172.16.11.0 [20/2] via 10.0.0.2, 02:33:00
-B        172.16.22.0 [20/2] via 10.0.0.2, 02:33:00
-B        172.16.33.0 [20/2] via 10.0.0.2, 02:33:00
-      192.168.1.0/30 is subnetted, 1 subnets
-B        192.168.1.0 [20/0] via 10.0.0.2, 02:33:00
 ISP-PE-1#
 ISP-PE-1#show ip route vrf CE2
 % IP routing table vrf CE2 does not exist
@@ -538,92 +564,92 @@ ISP-PE-1#show mpls ldp binding
         local binding:  label: 17
         remote binding: lsr: 5.115.115.1:0, label: 17
         remote binding: lsr: 1.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 17
         remote binding: lsr: 3.115.115.1:0, label: 17
+        remote binding: lsr: 4.115.115.1:0, label: 17
   lib entry: 2.115.115.1/32, rev 2
         local binding:  label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 16
         remote binding: lsr: 1.115.115.1:0, label: 17
-        remote binding: lsr: 4.115.115.1:0, label: 18
         remote binding: lsr: 3.115.115.1:0, label: 18
+        remote binding: lsr: 4.115.115.1:0, label: 18
   lib entry: 3.115.115.1/32, rev 26
         local binding:  label: 23
-        remote binding: lsr: 4.115.115.1:0, label: 19
-        remote binding: lsr: 3.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 24
         remote binding: lsr: 1.115.115.1:0, label: 23
+        remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 19
   lib entry: 4.115.115.1/32, rev 28
         local binding:  label: 24
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
-        remote binding: lsr: 3.115.115.1:0, label: 19
         remote binding: lsr: 5.115.115.1:0, label: 23
         remote binding: lsr: 1.115.115.1:0, label: 24
+        remote binding: lsr: 3.115.115.1:0, label: 19
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 5.115.115.1/32, rev 12
         local binding:  label: 16
         remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 1.115.115.1:0, label: 16
-        remote binding: lsr: 4.115.115.1:0, label: 16
         remote binding: lsr: 3.115.115.1:0, label: 16
+        remote binding: lsr: 4.115.115.1:0, label: 16
   lib entry: 10.115.1.0/30, rev 4
         local binding:  label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 18
         remote binding: lsr: 1.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 23
         remote binding: lsr: 3.115.115.1:0, label: 23
+        remote binding: lsr: 4.115.115.1:0, label: 23
   lib entry: 10.115.2.0/30, rev 22
         local binding:  label: 21
         remote binding: lsr: 5.115.115.1:0, label: 21
         remote binding: lsr: 1.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 24
         remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 24
   lib entry: 10.115.3.0/30, rev 24
         local binding:  label: 22
         remote binding: lsr: 5.115.115.1:0, label: 22
         remote binding: lsr: 1.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 24
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 10.115.4.0/30, rev 16
         local binding:  label: 18
         remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 1.115.115.1:0, label: imp-null
-        remote binding: lsr: 4.115.115.1:0, label: 20
         remote binding: lsr: 3.115.115.1:0, label: 20
+        remote binding: lsr: 4.115.115.1:0, label: 20
   lib entry: 10.115.12.0/30, rev 8
         local binding:  label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 19
         remote binding: lsr: 1.115.115.1:0, label: 21
-        remote binding: lsr: 4.115.115.1:0, label: 25
         remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 25
   lib entry: 10.115.13.0/30, rev 6
         local binding:  label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 20
         remote binding: lsr: 1.115.115.1:0, label: 22
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 25
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 10.115.14.0/30, rev 10
         local binding:  label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 1.115.115.1:0, label: 18
-        remote binding: lsr: 4.115.115.1:0, label: 21
         remote binding: lsr: 3.115.115.1:0, label: 21
+        remote binding: lsr: 4.115.115.1:0, label: 21
   lib entry: 10.115.23.0/30, rev 30
         local binding:  label: 25
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
-        remote binding: lsr: 3.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 25
         remote binding: lsr: 1.115.115.1:0, label: 25
+        remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
   lib entry: 10.115.24.0/30, rev 18
         local binding:  label: 19
         remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 1.115.115.1:0, label: 19
-        remote binding: lsr: 4.115.115.1:0, label: 22
         remote binding: lsr: 3.115.115.1:0, label: imp-null
+        remote binding: lsr: 4.115.115.1:0, label: 22
   lib entry: 10.115.34.0/30, rev 20
         local binding:  label: 20
         remote binding: lsr: 5.115.115.1:0, label: imp-null
         remote binding: lsr: 1.115.115.1:0, label: 20
-        remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 22
+        remote binding: lsr: 4.115.115.1:0, label: imp-null
 ISP-PE-1#
 ISP-PE-1#show mpls interfaces
 Interface              IP            Tunnel   BGP Static Operational
@@ -692,28 +718,27 @@ Prefix               Next Hop             Interface
 240.0.0.0/4          drop
 255.255.255.255/32   receive
 ISP-PE-1#
-ISP-PE-1#show ip arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.115.1.1            225   ca04.3c3b.001c  ARPA   GigabitEthernet2/0
-Internet  10.115.1.2              -   ca03.3c1d.0038  ARPA   GigabitEthernet2/0
-Internet  10.115.12.1             -   ca03.3c1d.0070  ARPA   GigabitEthernet4/0
-Internet  10.115.12.2           225   ca07.3c96.001c  ARPA   GigabitEthernet4/0
-Internet  10.115.13.1             -   ca03.3c1d.0054  ARPA   GigabitEthernet3/0
-Internet  10.115.13.2           225   ca06.3c78.001c  ARPA   GigabitEthernet3/0
-Internet  10.115.14.1             -   ca03.3c1d.008c  ARPA   GigabitEthernet5/0
-Internet  10.115.14.2           225   ca05.3c5a.001c  ARPA   GigabitEthernet5/0
+ISP-PE-1#show ip cef vrf CE1
+Prefix               Next Hop             Interface
+0.0.0.0/0            no route
+0.0.0.0/8            drop
+0.0.0.0/32           receive
+10.0.0.0/30          attached             GigabitEthernet1/0
+10.0.0.0/32          receive              GigabitEthernet1/0
+10.0.0.1/32          receive              GigabitEthernet1/0
+10.0.0.2/32          attached             GigabitEthernet1/0
+10.0.0.3/32          receive              GigabitEthernet1/0
+127.0.0.0/8          drop
+224.0.0.0/4          drop
+224.0.0.0/24         receive
+240.0.0.0/4          drop
+255.255.255.255/32   receive
 ISP-PE-1#
-ISP-PE-1#show cdp neighbors
-Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
-                  D - Remote, C - CVTA, M - Two-port Mac Relay
+ISP-PE-1#show ip cef vrf CE2
+                           ^
+% Invalid input detected at '^' marker.
 
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-CE1.lan1         Gig 1/0           169               R    7206VXR   Gig 1/0
-ISP-CORE-1       Gig 2/0           157               R    7206VXR   Gig 1/0
-ISP-PE-4         Gig 5/0           171               R    7206VXR   Gig 1/0
-ISP-PE-3         Gig 3/0           127               R    7206VXR   Gig 1/0
-ISP-PE-2         Gig 4/0           163               R    7206VXR   Gig 1/0
+ISP-PE-1#
 
 !--END OF ISP-PE-1 OUTPUT--!
 
@@ -730,7 +755,6 @@ Interface                      Status         Protocol Description
 Gi1/0                          up             up       ISP-PE-1
 Gi2/0                          up             up       ISP-CORE-1
 Gi3/0                          up             up       ISP-PE-3
-Gi4/0                          up             up
 Gi5/0                          up             up       ISP-PE-4
 Gi6/0                          up             up       CE2
 Lo0                            up             up
@@ -738,15 +762,36 @@ Lo0                            up             up
 ISP-PE-2#
 ISP-PE-2#show ip int brief | exclude admin
 Interface              IP-Address      OK? Method Status                Protocol
-FastEthernet0/0        unassigned      YES NVRAM  up                    down
 GigabitEthernet1/0     10.115.12.2     YES NVRAM  up                    up
 GigabitEthernet2/0     10.115.2.2      YES NVRAM  up                    up
 GigabitEthernet3/0     10.115.23.1     YES NVRAM  up                    up
-GigabitEthernet4/0     unassigned      YES NVRAM  up                    up
 GigabitEthernet5/0     10.115.24.1     YES NVRAM  up                    up
 GigabitEthernet6/0     172.16.90.90    YES NVRAM  up                    up
 Loopback0              3.115.115.1     YES NVRAM  up                    up
 
+ISP-PE-2#
+ISP-PE-2#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.115.2.1            241   ca04.3c3b.0070  ARPA   GigabitEthernet2/0
+Internet  10.115.2.2              -   ca07.3c96.0038  ARPA   GigabitEthernet2/0
+Internet  10.115.12.1           241   ca03.3c1d.0070  ARPA   GigabitEthernet1/0
+Internet  10.115.12.2             -   ca07.3c96.001c  ARPA   GigabitEthernet1/0
+Internet  10.115.23.1             -   ca07.3c96.0054  ARPA   GigabitEthernet3/0
+Internet  10.115.23.2           241   ca06.3c78.0070  ARPA   GigabitEthernet3/0
+Internet  10.115.24.1             -   ca07.3c96.008c  ARPA   GigabitEthernet5/0
+Internet  10.115.24.2           241   ca05.3c5a.0070  ARPA   GigabitEthernet5/0
+ISP-PE-2#
+ISP-PE-2#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+CE2              Gig 6/0           159               R    7206VXR   Gig 1/0
+ISP-CORE-1       Gig 2/0           175               R    7206VXR   Gig 4/0
+ISP-PE-4         Gig 5/0           145               R    7206VXR   Gig 4/0
+ISP-PE-3         Gig 3/0           135               R    7206VXR   Gig 4/0
+ISP-PE-1         Gig 1/0           129               R    7206VXR   Gig 4/0
 ISP-PE-2#
 ISP-PE-2#show run | s router
  ip router isis CORE
@@ -776,6 +821,10 @@ router bgp 65000
  exit-address-family
 mpls ldp router-id Loopback0 force
 ISP-PE-2#
+ISP-PE-2#show vrf
+  Name                             Default RD          Protocols   Interfaces
+  CE2                              100:2               ipv4        Gi6/0
+ISP-PE-2#
 ISP-PE-2#show ip protocols
 *** IP Routing is NSF aware ***
 
@@ -794,10 +843,10 @@ Routing Protocol is "isis CORE"
     GigabitEthernet5/0
   Routing Information Sources:
     Gateway         Distance      Last Update
-    1.115.115.1          115      00:00:00
-    2.115.115.1          115      00:00:00
-    5.115.115.1          115      00:00:00
-    4.115.115.1          115      00:00:00
+    1.115.115.1          115      00:01:10
+    2.115.115.1          115      00:01:10
+    5.115.115.1          115      00:01:10
+    4.115.115.1          115      00:01:10
   Distance: (default is 115)
 
 Routing Protocol is "bgp 65000"
@@ -847,36 +896,36 @@ Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 Gateway of last resort is not set
 
       1.0.0.0/32 is subnetted, 1 subnets
-i L2     1.115.115.1 [115/20] via 10.115.2.1, 03:45:00, GigabitEthernet2/0
+i L2     1.115.115.1 [115/20] via 10.115.2.1, 04:01:10, GigabitEthernet2/0
       2.0.0.0/32 is subnetted, 1 subnets
-i L2     2.115.115.1 [115/20] via 10.115.12.1, 03:45:00, GigabitEthernet1/0
+i L2     2.115.115.1 [115/20] via 10.115.12.1, 04:01:10, GigabitEthernet1/0
       3.0.0.0/32 is subnetted, 1 subnets
 C        3.115.115.1 is directly connected, Loopback0
       4.0.0.0/32 is subnetted, 1 subnets
-i L2     4.115.115.1 [115/20] via 10.115.23.2, 03:45:00, GigabitEthernet3/0
+i L2     4.115.115.1 [115/20] via 10.115.23.2, 04:01:10, GigabitEthernet3/0
       5.0.0.0/32 is subnetted, 1 subnets
-i L2     5.115.115.1 [115/20] via 10.115.24.2, 03:45:00, GigabitEthernet5/0
+i L2     5.115.115.1 [115/20] via 10.115.24.2, 04:01:10, GigabitEthernet5/0
       10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
-i L2     10.115.1.0/30 [115/20] via 10.115.12.1, 03:45:00, GigabitEthernet1/0
-                       [115/20] via 10.115.2.1, 03:45:00, GigabitEthernet2/0
+i L2     10.115.1.0/30 [115/20] via 10.115.12.1, 04:01:10, GigabitEthernet1/0
+                       [115/20] via 10.115.2.1, 04:01:10, GigabitEthernet2/0
 C        10.115.2.0/30 is directly connected, GigabitEthernet2/0
 L        10.115.2.2/32 is directly connected, GigabitEthernet2/0
-i L2     10.115.3.0/30 [115/20] via 10.115.23.2, 03:45:00, GigabitEthernet3/0
-                       [115/20] via 10.115.2.1, 03:45:00, GigabitEthernet2/0
-i L2     10.115.4.0/30 [115/20] via 10.115.24.2, 03:45:00, GigabitEthernet5/0
-                       [115/20] via 10.115.2.1, 03:45:00, GigabitEthernet2/0
+i L2     10.115.3.0/30 [115/20] via 10.115.23.2, 04:01:10, GigabitEthernet3/0
+                       [115/20] via 10.115.2.1, 04:01:10, GigabitEthernet2/0
+i L2     10.115.4.0/30 [115/20] via 10.115.24.2, 04:01:10, GigabitEthernet5/0
+                       [115/20] via 10.115.2.1, 04:01:10, GigabitEthernet2/0
 C        10.115.12.0/30 is directly connected, GigabitEthernet1/0
 L        10.115.12.2/32 is directly connected, GigabitEthernet1/0
-i L2     10.115.13.0/30 [115/20] via 10.115.23.2, 03:45:00, GigabitEthernet3/0
-                        [115/20] via 10.115.12.1, 03:45:00, GigabitEthernet1/0
-i L2     10.115.14.0/30 [115/20] via 10.115.24.2, 03:45:00, GigabitEthernet5/0
-                        [115/20] via 10.115.12.1, 03:45:00, GigabitEthernet1/0
+i L2     10.115.13.0/30 [115/20] via 10.115.23.2, 04:01:10, GigabitEthernet3/0
+                        [115/20] via 10.115.12.1, 04:01:10, GigabitEthernet1/0
+i L2     10.115.14.0/30 [115/20] via 10.115.24.2, 04:01:10, GigabitEthernet5/0
+                        [115/20] via 10.115.12.1, 04:01:10, GigabitEthernet1/0
 C        10.115.23.0/30 is directly connected, GigabitEthernet3/0
 L        10.115.23.1/32 is directly connected, GigabitEthernet3/0
 C        10.115.24.0/30 is directly connected, GigabitEthernet5/0
 L        10.115.24.1/32 is directly connected, GigabitEthernet5/0
-i L2     10.115.34.0/30 [115/20] via 10.115.24.2, 03:45:00, GigabitEthernet5/0
-                        [115/20] via 10.115.23.2, 03:45:00, GigabitEthernet3/0
+i L2     10.115.34.0/30 [115/20] via 10.115.24.2, 04:01:10, GigabitEthernet5/0
+                        [115/20] via 10.115.23.2, 04:01:10, GigabitEthernet3/0
 ISP-PE-2#
 ISP-PE-2#show ip route vrf CE1
 % IP routing table vrf CE1 does not exist
@@ -904,92 +953,92 @@ ISP-PE-2#show mpls ldp binding
         local binding:  label: 17
         remote binding: lsr: 4.115.115.1:0, label: 17
         remote binding: lsr: 5.115.115.1:0, label: 17
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 17
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
   lib entry: 2.115.115.1/32, rev 16
         local binding:  label: 18
         remote binding: lsr: 4.115.115.1:0, label: 18
         remote binding: lsr: 5.115.115.1:0, label: 16
-        remote binding: lsr: 1.115.115.1:0, label: 17
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 17
   lib entry: 3.115.115.1/32, rev 2
         local binding:  label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 19
         remote binding: lsr: 5.115.115.1:0, label: 24
-        remote binding: lsr: 1.115.115.1:0, label: 23
         remote binding: lsr: 2.115.115.1:0, label: 23
+        remote binding: lsr: 1.115.115.1:0, label: 23
   lib entry: 4.115.115.1/32, rev 18
         local binding:  label: 19
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 23
-        remote binding: lsr: 1.115.115.1:0, label: 24
         remote binding: lsr: 2.115.115.1:0, label: 24
+        remote binding: lsr: 1.115.115.1:0, label: 24
   lib entry: 5.115.115.1/32, rev 12
         local binding:  label: 16
         remote binding: lsr: 4.115.115.1:0, label: 16
         remote binding: lsr: 5.115.115.1:0, label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 16
         remote binding: lsr: 2.115.115.1:0, label: 16
+        remote binding: lsr: 1.115.115.1:0, label: 16
   lib entry: 10.115.1.0/30, rev 26
         local binding:  label: 23
         remote binding: lsr: 4.115.115.1:0, label: 23
         remote binding: lsr: 5.115.115.1:0, label: 18
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
   lib entry: 10.115.2.0/30, rev 6
         local binding:  label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 24
         remote binding: lsr: 5.115.115.1:0, label: 21
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 21
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
   lib entry: 10.115.3.0/30, rev 28
         local binding:  label: 24
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 22
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 22
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
   lib entry: 10.115.4.0/30, rev 20
         local binding:  label: 20
         remote binding: lsr: 4.115.115.1:0, label: 20
         remote binding: lsr: 5.115.115.1:0, label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 18
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
   lib entry: 10.115.12.0/30, rev 4
         local binding:  label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 25
         remote binding: lsr: 5.115.115.1:0, label: 19
-        remote binding: lsr: 1.115.115.1:0, label: 21
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 21
   lib entry: 10.115.13.0/30, rev 30
         local binding:  label: 25
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 20
-        remote binding: lsr: 1.115.115.1:0, label: 22
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 22
   lib entry: 10.115.14.0/30, rev 22
         local binding:  label: 21
         remote binding: lsr: 4.115.115.1:0, label: 21
         remote binding: lsr: 5.115.115.1:0, label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 18
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 18
   lib entry: 10.115.23.0/30, rev 8
         local binding:  label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: 25
-        remote binding: lsr: 1.115.115.1:0, label: 25
         remote binding: lsr: 2.115.115.1:0, label: 25
+        remote binding: lsr: 1.115.115.1:0, label: 25
   lib entry: 10.115.24.0/30, rev 10
         local binding:  label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 22
         remote binding: lsr: 5.115.115.1:0, label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 19
         remote binding: lsr: 2.115.115.1:0, label: 19
+        remote binding: lsr: 1.115.115.1:0, label: 19
   lib entry: 10.115.34.0/30, rev 24
         local binding:  label: 22
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 5.115.115.1:0, label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 20
         remote binding: lsr: 2.115.115.1:0, label: 20
+        remote binding: lsr: 1.115.115.1:0, label: 20
 ISP-PE-2#
 ISP-PE-2#show mpls interfaces
 Interface              IP            Tunnel   BGP Static Operational
@@ -1058,28 +1107,27 @@ Prefix               Next Hop             Interface
 240.0.0.0/4          drop
 255.255.255.255/32   receive
 ISP-PE-2#
-ISP-PE-2#show ip arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.115.2.1            225   ca04.3c3b.0070  ARPA   GigabitEthernet2/0
-Internet  10.115.2.2              -   ca07.3c96.0038  ARPA   GigabitEthernet2/0
-Internet  10.115.12.1           225   ca03.3c1d.0070  ARPA   GigabitEthernet1/0
-Internet  10.115.12.2             -   ca07.3c96.001c  ARPA   GigabitEthernet1/0
-Internet  10.115.23.1             -   ca07.3c96.0054  ARPA   GigabitEthernet3/0
-Internet  10.115.23.2           225   ca06.3c78.0070  ARPA   GigabitEthernet3/0
-Internet  10.115.24.1             -   ca07.3c96.008c  ARPA   GigabitEthernet5/0
-Internet  10.115.24.2           225   ca05.3c5a.0070  ARPA   GigabitEthernet5/0
-ISP-PE-2#
-ISP-PE-2#show cdp neighbors
-Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
-                  D - Remote, C - CVTA, M - Two-port Mac Relay
+ISP-PE-2#show ip cef vrf CE1
+                           ^
+% Invalid input detected at '^' marker.
 
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-CE2              Gig 6/0           149               R    7206VXR   Gig 1/0
-ISP-CORE-1       Gig 2/0           136               R    7206VXR   Gig 4/0
-ISP-PE-4         Gig 5/0           140               R    7206VXR   Gig 4/0
-ISP-PE-3         Gig 3/0           130               R    7206VXR   Gig 4/0
-ISP-PE-1         Gig 1/0           170               R    7206VXR   Gig 4/0
+ISP-PE-2#
+ISP-PE-2#show ip cef vrf CE2
+Prefix               Next Hop             Interface
+0.0.0.0/0            no route
+0.0.0.0/8            drop
+0.0.0.0/32           receive
+127.0.0.0/8          drop
+172.16.90.88/30      attached             GigabitEthernet6/0
+172.16.90.88/32      receive              GigabitEthernet6/0
+172.16.90.89/32      attached             GigabitEthernet6/0
+172.16.90.90/32      receive              GigabitEthernet6/0
+172.16.90.91/32      receive              GigabitEthernet6/0
+224.0.0.0/4          drop
+224.0.0.0/24         receive
+240.0.0.0/4          drop
+255.255.255.255/32   receive
+ISP-PE-2#
 
 !--END OF ISP-PE-2 OUTPUT--!
 
@@ -1095,24 +1143,41 @@ ISP-PE-3#show int description | e down
 Interface                      Status         Protocol Description
 Gi1/0                          up             up       ISP-PE-1
 Gi2/0                          up             up       ISP-CORE-1
-Gi3/0                          up             up
 Gi4/0                          up             up       ISP-PE-2
 Gi5/0                          up             up       ISP-PE-4
-Gi6/0                          up             up
 Lo0                            up             up
 
 ISP-PE-3#
 ISP-PE-3#show ip int brief | exclude admin
 Interface              IP-Address      OK? Method Status                Protocol
-FastEthernet0/0        unassigned      YES NVRAM  up                    down
 GigabitEthernet1/0     10.115.13.2     YES NVRAM  up                    up
 GigabitEthernet2/0     10.115.3.2      YES NVRAM  up                    up
-GigabitEthernet3/0     unassigned      YES NVRAM  up                    up
 GigabitEthernet4/0     10.115.23.2     YES NVRAM  up                    up
 GigabitEthernet5/0     10.115.34.1     YES NVRAM  up                    up
-GigabitEthernet6/0     unassigned      YES NVRAM  up                    up
 Loopback0              4.115.115.1     YES NVRAM  up                    up
 
+ISP-PE-3#
+ISP-PE-3#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.115.3.1            241   ca04.3c3b.0054  ARPA   GigabitEthernet2/0
+Internet  10.115.3.2              -   ca06.3c78.0038  ARPA   GigabitEthernet2/0
+Internet  10.115.13.1           241   ca03.3c1d.0054  ARPA   GigabitEthernet1/0
+Internet  10.115.13.2             -   ca06.3c78.001c  ARPA   GigabitEthernet1/0
+Internet  10.115.23.1           241   ca07.3c96.0054  ARPA   GigabitEthernet4/0
+Internet  10.115.23.2             -   ca06.3c78.0070  ARPA   GigabitEthernet4/0
+Internet  10.115.34.1             -   ca06.3c78.008c  ARPA   GigabitEthernet5/0
+Internet  10.115.34.2           241   ca05.3c5a.0054  ARPA   GigabitEthernet5/0
+ISP-PE-3#
+ISP-PE-3#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+ISP-CORE-1       Gig 2/0           143               R    7206VXR   Gig 3/0
+ISP-PE-4         Gig 5/0           158               R    7206VXR   Gig 3/0
+ISP-PE-2         Gig 4/0           174               R    7206VXR   Gig 3/0
+ISP-PE-1         Gig 1/0           140               R    7206VXR   Gig 3/0
 ISP-PE-3#
 ISP-PE-3#show run | s router
  ip router isis CORE
@@ -1136,6 +1201,8 @@ router bgp 65000
  exit-address-family
 mpls ldp router-id Loopback0 force
 ISP-PE-3#
+ISP-PE-3#show vrf
+ISP-PE-3#
 ISP-PE-3#show ip protocols
 *** IP Routing is NSF aware ***
 
@@ -1154,10 +1221,10 @@ Routing Protocol is "isis CORE"
     GigabitEthernet5/0
   Routing Information Sources:
     Gateway         Distance      Last Update
-    1.115.115.1          115      00:00:02
-    3.115.115.1          115      00:00:02
-    2.115.115.1          115      00:00:02
-    5.115.115.1          115      00:00:02
+    1.115.115.1          115      00:01:12
+    3.115.115.1          115      00:01:12
+    2.115.115.1          115      00:01:12
+    5.115.115.1          115      00:01:12
   Distance: (default is 115)
 
 Routing Protocol is "bgp 65000"
@@ -1193,34 +1260,34 @@ Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 Gateway of last resort is not set
 
       1.0.0.0/32 is subnetted, 1 subnets
-i L2     1.115.115.1 [115/20] via 10.115.3.1, 03:45:02, GigabitEthernet2/0
+i L2     1.115.115.1 [115/20] via 10.115.3.1, 04:01:12, GigabitEthernet2/0
       2.0.0.0/32 is subnetted, 1 subnets
-i L2     2.115.115.1 [115/20] via 10.115.13.1, 03:45:02, GigabitEthernet1/0
+i L2     2.115.115.1 [115/20] via 10.115.13.1, 04:01:12, GigabitEthernet1/0
       3.0.0.0/32 is subnetted, 1 subnets
-i L2     3.115.115.1 [115/20] via 10.115.23.1, 03:45:02, GigabitEthernet4/0
+i L2     3.115.115.1 [115/20] via 10.115.23.1, 04:01:12, GigabitEthernet4/0
       4.0.0.0/32 is subnetted, 1 subnets
 C        4.115.115.1 is directly connected, Loopback0
       5.0.0.0/32 is subnetted, 1 subnets
-i L2     5.115.115.1 [115/20] via 10.115.34.2, 03:45:02, GigabitEthernet5/0
+i L2     5.115.115.1 [115/20] via 10.115.34.2, 04:01:12, GigabitEthernet5/0
       10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
-i L2     10.115.1.0/30 [115/20] via 10.115.13.1, 03:45:02, GigabitEthernet1/0
-                       [115/20] via 10.115.3.1, 03:45:02, GigabitEthernet2/0
-i L2     10.115.2.0/30 [115/20] via 10.115.23.1, 03:45:02, GigabitEthernet4/0
-                       [115/20] via 10.115.3.1, 03:45:02, GigabitEthernet2/0
+i L2     10.115.1.0/30 [115/20] via 10.115.13.1, 04:01:12, GigabitEthernet1/0
+                       [115/20] via 10.115.3.1, 04:01:12, GigabitEthernet2/0
+i L2     10.115.2.0/30 [115/20] via 10.115.23.1, 04:01:12, GigabitEthernet4/0
+                       [115/20] via 10.115.3.1, 04:01:12, GigabitEthernet2/0
 C        10.115.3.0/30 is directly connected, GigabitEthernet2/0
 L        10.115.3.2/32 is directly connected, GigabitEthernet2/0
-i L2     10.115.4.0/30 [115/20] via 10.115.34.2, 03:45:02, GigabitEthernet5/0
-                       [115/20] via 10.115.3.1, 03:45:02, GigabitEthernet2/0
-i L2     10.115.12.0/30 [115/20] via 10.115.23.1, 03:45:02, GigabitEthernet4/0
-                        [115/20] via 10.115.13.1, 03:45:02, GigabitEthernet1/0
+i L2     10.115.4.0/30 [115/20] via 10.115.34.2, 04:01:12, GigabitEthernet5/0
+                       [115/20] via 10.115.3.1, 04:01:12, GigabitEthernet2/0
+i L2     10.115.12.0/30 [115/20] via 10.115.23.1, 04:01:12, GigabitEthernet4/0
+                        [115/20] via 10.115.13.1, 04:01:12, GigabitEthernet1/0
 C        10.115.13.0/30 is directly connected, GigabitEthernet1/0
 L        10.115.13.2/32 is directly connected, GigabitEthernet1/0
-i L2     10.115.14.0/30 [115/20] via 10.115.34.2, 03:45:02, GigabitEthernet5/0
-                        [115/20] via 10.115.13.1, 03:45:02, GigabitEthernet1/0
+i L2     10.115.14.0/30 [115/20] via 10.115.34.2, 04:01:12, GigabitEthernet5/0
+                        [115/20] via 10.115.13.1, 04:01:12, GigabitEthernet1/0
 C        10.115.23.0/30 is directly connected, GigabitEthernet4/0
 L        10.115.23.2/32 is directly connected, GigabitEthernet4/0
-i L2     10.115.24.0/30 [115/20] via 10.115.34.2, 03:45:02, GigabitEthernet5/0
-                        [115/20] via 10.115.23.1, 03:45:02, GigabitEthernet4/0
+i L2     10.115.24.0/30 [115/20] via 10.115.34.2, 04:01:12, GigabitEthernet5/0
+                        [115/20] via 10.115.23.1, 04:01:12, GigabitEthernet4/0
 C        10.115.34.0/30 is directly connected, GigabitEthernet5/0
 L        10.115.34.1/32 is directly connected, GigabitEthernet5/0
 ISP-PE-3#
@@ -1389,27 +1456,16 @@ Prefix               Next Hop             Interface
 240.0.0.0/4          drop
 255.255.255.255/32   receive
 ISP-PE-3#
-ISP-PE-3#show ip arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.115.3.1            225   ca04.3c3b.0054  ARPA   GigabitEthernet2/0
-Internet  10.115.3.2              -   ca06.3c78.0038  ARPA   GigabitEthernet2/0
-Internet  10.115.13.1           225   ca03.3c1d.0054  ARPA   GigabitEthernet1/0
-Internet  10.115.13.2             -   ca06.3c78.001c  ARPA   GigabitEthernet1/0
-Internet  10.115.23.1           225   ca07.3c96.0054  ARPA   GigabitEthernet4/0
-Internet  10.115.23.2             -   ca06.3c78.0070  ARPA   GigabitEthernet4/0
-Internet  10.115.34.1             -   ca06.3c78.008c  ARPA   GigabitEthernet5/0
-Internet  10.115.34.2           225   ca05.3c5a.0054  ARPA   GigabitEthernet5/0
-ISP-PE-3#
-ISP-PE-3#show cdp neighbors
-Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
-                  D - Remote, C - CVTA, M - Two-port Mac Relay
+ISP-PE-3#show ip cef vrf CE1
+                         ^
+% Invalid input detected at '^' marker.
 
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-ISP-CORE-1       Gig 2/0           135               R    7206VXR   Gig 3/0
-ISP-PE-4         Gig 5/0           159               R    7206VXR   Gig 3/0
-ISP-PE-2         Gig 4/0           165               R    7206VXR   Gig 3/0
-ISP-PE-1         Gig 1/0           145               R    7206VXR   Gig 3/0
+ISP-PE-3#
+ISP-PE-3#show ip cef vrf CE2
+                         ^
+% Invalid input detected at '^' marker.
+
+ISP-PE-3#
 
 !--END OF ISP-PE-3 OUTPUT--!
 
@@ -1427,22 +1483,39 @@ Gi1/0                          up             up       ISP-PE-1
 Gi2/0                          up             up       ISP-CORE-1
 Gi3/0                          up             up       ISP-PE-3
 Gi4/0                          up             up       ISP-PE-2
-Gi5/0                          up             up
-Gi6/0                          up             up
 Lo0                            up             up
 
 ISP-PE-4#
 ISP-PE-4#show ip int brief | exclude admin
 Interface              IP-Address      OK? Method Status                Protocol
-FastEthernet0/0        unassigned      YES NVRAM  up                    down
 GigabitEthernet1/0     10.115.14.2     YES NVRAM  up                    up
 GigabitEthernet2/0     10.115.4.2      YES NVRAM  up                    up
 GigabitEthernet3/0     10.115.34.2     YES NVRAM  up                    up
 GigabitEthernet4/0     10.115.24.2     YES NVRAM  up                    up
-GigabitEthernet5/0     unassigned      YES NVRAM  up                    up
-GigabitEthernet6/0     unassigned      YES NVRAM  up                    up
 Loopback0              5.115.115.1     YES NVRAM  up                    up
 
+ISP-PE-4#
+ISP-PE-4#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.115.4.1            241   ca04.3c3b.008c  ARPA   GigabitEthernet2/0
+Internet  10.115.4.2              -   ca05.3c5a.0038  ARPA   GigabitEthernet2/0
+Internet  10.115.14.1           241   ca03.3c1d.008c  ARPA   GigabitEthernet1/0
+Internet  10.115.14.2             -   ca05.3c5a.001c  ARPA   GigabitEthernet1/0
+Internet  10.115.24.1           241   ca07.3c96.008c  ARPA   GigabitEthernet4/0
+Internet  10.115.24.2             -   ca05.3c5a.0070  ARPA   GigabitEthernet4/0
+Internet  10.115.34.1           241   ca06.3c78.008c  ARPA   GigabitEthernet3/0
+Internet  10.115.34.2             -   ca05.3c5a.0054  ARPA   GigabitEthernet3/0
+ISP-PE-4#
+ISP-PE-4#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+ISP-CORE-1       Gig 2/0           131               R    7206VXR   Gig 5/0
+ISP-PE-3         Gig 3/0           161               R    7206VXR   Gig 5/0
+ISP-PE-2         Gig 4/0           176               R    7206VXR   Gig 5/0
+ISP-PE-1         Gig 1/0           146               R    7206VXR   Gig 5/0
 ISP-PE-4#
 ISP-PE-4#show run | s router
  ip router isis CORE
@@ -1467,6 +1540,8 @@ router bgp 65000
  exit-address-family
 mpls ldp router-id Loopback0 force
 ISP-PE-4#
+ISP-PE-4#show vrf
+ISP-PE-4#
 ISP-PE-4#show ip protocols
 *** IP Routing is NSF aware ***
 
@@ -1485,10 +1560,10 @@ Routing Protocol is "isis CORE"
     GigabitEthernet4/0
   Routing Information Sources:
     Gateway         Distance      Last Update
-    1.115.115.1          115      00:00:10
-    3.115.115.1          115      00:00:10
-    2.115.115.1          115      00:00:10
-    4.115.115.1          115      00:00:10
+    1.115.115.1          115      00:01:17
+    3.115.115.1          115      00:01:17
+    2.115.115.1          115      00:01:17
+    4.115.115.1          115      00:01:17
   Distance: (default is 115)
 
 Routing Protocol is "bgp 65000"
@@ -1524,32 +1599,32 @@ Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 Gateway of last resort is not set
 
       1.0.0.0/32 is subnetted, 1 subnets
-i L2     1.115.115.1 [115/20] via 10.115.4.1, 03:45:10, GigabitEthernet2/0
+i L2     1.115.115.1 [115/20] via 10.115.4.1, 04:01:17, GigabitEthernet2/0
       2.0.0.0/32 is subnetted, 1 subnets
-i L2     2.115.115.1 [115/20] via 10.115.14.1, 03:45:10, GigabitEthernet1/0
+i L2     2.115.115.1 [115/20] via 10.115.14.1, 04:01:17, GigabitEthernet1/0
       3.0.0.0/32 is subnetted, 1 subnets
-i L2     3.115.115.1 [115/20] via 10.115.24.1, 03:45:00, GigabitEthernet4/0
+i L2     3.115.115.1 [115/20] via 10.115.24.1, 04:01:07, GigabitEthernet4/0
       4.0.0.0/32 is subnetted, 1 subnets
-i L2     4.115.115.1 [115/20] via 10.115.34.1, 03:45:00, GigabitEthernet3/0
+i L2     4.115.115.1 [115/20] via 10.115.34.1, 04:01:07, GigabitEthernet3/0
       5.0.0.0/32 is subnetted, 1 subnets
 C        5.115.115.1 is directly connected, Loopback0
       10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
-i L2     10.115.1.0/30 [115/20] via 10.115.14.1, 03:45:10, GigabitEthernet1/0
-                       [115/20] via 10.115.4.1, 03:45:10, GigabitEthernet2/0
-i L2     10.115.2.0/30 [115/20] via 10.115.24.1, 03:45:00, GigabitEthernet4/0
-                       [115/20] via 10.115.4.1, 03:45:00, GigabitEthernet2/0
-i L2     10.115.3.0/30 [115/20] via 10.115.34.1, 03:45:00, GigabitEthernet3/0
-                       [115/20] via 10.115.4.1, 03:45:00, GigabitEthernet2/0
+i L2     10.115.1.0/30 [115/20] via 10.115.14.1, 04:01:17, GigabitEthernet1/0
+                       [115/20] via 10.115.4.1, 04:01:17, GigabitEthernet2/0
+i L2     10.115.2.0/30 [115/20] via 10.115.24.1, 04:01:07, GigabitEthernet4/0
+                       [115/20] via 10.115.4.1, 04:01:07, GigabitEthernet2/0
+i L2     10.115.3.0/30 [115/20] via 10.115.34.1, 04:01:07, GigabitEthernet3/0
+                       [115/20] via 10.115.4.1, 04:01:07, GigabitEthernet2/0
 C        10.115.4.0/30 is directly connected, GigabitEthernet2/0
 L        10.115.4.2/32 is directly connected, GigabitEthernet2/0
-i L2     10.115.12.0/30 [115/20] via 10.115.24.1, 03:45:00, GigabitEthernet4/0
-                        [115/20] via 10.115.14.1, 03:45:00, GigabitEthernet1/0
-i L2     10.115.13.0/30 [115/20] via 10.115.34.1, 03:45:00, GigabitEthernet3/0
-                        [115/20] via 10.115.14.1, 03:45:00, GigabitEthernet1/0
+i L2     10.115.12.0/30 [115/20] via 10.115.24.1, 04:01:07, GigabitEthernet4/0
+                        [115/20] via 10.115.14.1, 04:01:07, GigabitEthernet1/0
+i L2     10.115.13.0/30 [115/20] via 10.115.34.1, 04:01:07, GigabitEthernet3/0
+                        [115/20] via 10.115.14.1, 04:01:07, GigabitEthernet1/0
 C        10.115.14.0/30 is directly connected, GigabitEthernet1/0
 L        10.115.14.2/32 is directly connected, GigabitEthernet1/0
-i L2     10.115.23.0/30 [115/20] via 10.115.34.1, 03:45:00, GigabitEthernet3/0
-                        [115/20] via 10.115.24.1, 03:45:00, GigabitEthernet4/0
+i L2     10.115.23.0/30 [115/20] via 10.115.34.1, 04:01:07, GigabitEthernet3/0
+                        [115/20] via 10.115.24.1, 04:01:07, GigabitEthernet4/0
 C        10.115.24.0/30 is directly connected, GigabitEthernet4/0
 L        10.115.24.2/32 is directly connected, GigabitEthernet4/0
 C        10.115.34.0/30 is directly connected, GigabitEthernet3/0
@@ -1564,92 +1639,92 @@ ISP-PE-4#
 ISP-PE-4#show mpls ldp binding
   lib entry: 1.115.115.1/32, rev 14
         local binding:  label: 17
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 17
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 17
         remote binding: lsr: 3.115.115.1:0, label: 17
   lib entry: 2.115.115.1/32, rev 12
         local binding:  label: 16
-        remote binding: lsr: 1.115.115.1:0, label: 17
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 17
         remote binding: lsr: 4.115.115.1:0, label: 18
         remote binding: lsr: 3.115.115.1:0, label: 18
   lib entry: 3.115.115.1/32, rev 28
         local binding:  label: 24
         remote binding: lsr: 4.115.115.1:0, label: 19
         remote binding: lsr: 3.115.115.1:0, label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 23
         remote binding: lsr: 2.115.115.1:0, label: 23
+        remote binding: lsr: 1.115.115.1:0, label: 23
   lib entry: 4.115.115.1/32, rev 26
         local binding:  label: 23
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 19
-        remote binding: lsr: 1.115.115.1:0, label: 24
         remote binding: lsr: 2.115.115.1:0, label: 24
+        remote binding: lsr: 1.115.115.1:0, label: 24
   lib entry: 5.115.115.1/32, rev 2
         local binding:  label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 16
         remote binding: lsr: 2.115.115.1:0, label: 16
+        remote binding: lsr: 1.115.115.1:0, label: 16
         remote binding: lsr: 4.115.115.1:0, label: 16
         remote binding: lsr: 3.115.115.1:0, label: 16
   lib entry: 10.115.1.0/30, rev 16
         local binding:  label: 18
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 23
         remote binding: lsr: 3.115.115.1:0, label: 23
   lib entry: 10.115.2.0/30, rev 22
         local binding:  label: 21
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 21
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 24
         remote binding: lsr: 3.115.115.1:0, label: imp-null
   lib entry: 10.115.3.0/30, rev 24
         local binding:  label: 22
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 22
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 24
   lib entry: 10.115.4.0/30, rev 6
         local binding:  label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 2.115.115.1:0, label: 18
+        remote binding: lsr: 1.115.115.1:0, label: imp-null
         remote binding: lsr: 4.115.115.1:0, label: 20
         remote binding: lsr: 3.115.115.1:0, label: 20
   lib entry: 10.115.12.0/30, rev 18
         local binding:  label: 19
-        remote binding: lsr: 1.115.115.1:0, label: 21
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 21
         remote binding: lsr: 4.115.115.1:0, label: 25
         remote binding: lsr: 3.115.115.1:0, label: imp-null
   lib entry: 10.115.13.0/30, rev 20
         local binding:  label: 20
-        remote binding: lsr: 1.115.115.1:0, label: 22
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 22
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 25
   lib entry: 10.115.14.0/30, rev 4
         local binding:  label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 18
         remote binding: lsr: 2.115.115.1:0, label: imp-null
+        remote binding: lsr: 1.115.115.1:0, label: 18
         remote binding: lsr: 4.115.115.1:0, label: 21
         remote binding: lsr: 3.115.115.1:0, label: 21
   lib entry: 10.115.23.0/30, rev 30
         local binding:  label: 25
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 25
         remote binding: lsr: 2.115.115.1:0, label: 25
+        remote binding: lsr: 1.115.115.1:0, label: 25
   lib entry: 10.115.24.0/30, rev 10
         local binding:  label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 19
         remote binding: lsr: 2.115.115.1:0, label: 19
+        remote binding: lsr: 1.115.115.1:0, label: 19
         remote binding: lsr: 4.115.115.1:0, label: 22
         remote binding: lsr: 3.115.115.1:0, label: imp-null
   lib entry: 10.115.34.0/30, rev 8
         local binding:  label: imp-null
-        remote binding: lsr: 1.115.115.1:0, label: 20
         remote binding: lsr: 2.115.115.1:0, label: 20
+        remote binding: lsr: 1.115.115.1:0, label: 20
         remote binding: lsr: 4.115.115.1:0, label: imp-null
         remote binding: lsr: 3.115.115.1:0, label: 22
 ISP-PE-4#
@@ -1722,26 +1797,15 @@ Prefix               Next Hop             Interface
 240.0.0.0/4          drop
 255.255.255.255/32   receive
 ISP-PE-4#
-ISP-PE-4#show ip arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.115.4.1            225   ca04.3c3b.008c  ARPA   GigabitEthernet2/0
-Internet  10.115.4.2              -   ca05.3c5a.0038  ARPA   GigabitEthernet2/0
-Internet  10.115.14.1           225   ca03.3c1d.008c  ARPA   GigabitEthernet1/0
-Internet  10.115.14.2             -   ca05.3c5a.001c  ARPA   GigabitEthernet1/0
-Internet  10.115.24.1           225   ca07.3c96.008c  ARPA   GigabitEthernet4/0
-Internet  10.115.24.2             -   ca05.3c5a.0070  ARPA   GigabitEthernet4/0
-Internet  10.115.34.1           225   ca06.3c78.008c  ARPA   GigabitEthernet3/0
-Internet  10.115.34.2             -   ca05.3c5a.0054  ARPA   GigabitEthernet3/0
-ISP-PE-4#
-ISP-PE-4#show cdp neighbors
-Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
-                  D - Remote, C - CVTA, M - Two-port Mac Relay
+ISP-PE-4#show ip cef vrf CE1
+                         ^
+% Invalid input detected at '^' marker.
 
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-ISP-CORE-1       Gig 2/0           150               R    7206VXR   Gig 5/0
-ISP-PE-3         Gig 3/0           146               R    7206VXR   Gig 5/0
-ISP-PE-2         Gig 4/0           174               R    7206VXR   Gig 5/0
-ISP-PE-1         Gig 1/0           137               R    7206VXR   Gig 5/0
+ISP-PE-4#
+ISP-PE-4#show ip cef vrf CE2
+                         ^
+% Invalid input detected at '^' marker.
+
+ISP-PE-4#
 
 !--END OF ISP-PE-4 OUTPUT--!
