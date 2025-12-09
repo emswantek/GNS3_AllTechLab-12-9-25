@@ -22,21 +22,21 @@ LAN2-ACCESS-SW1#show int status
 
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     PC4                connected    241        a-full   auto RJ45
-Gi0/1                        notconnect   1          a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi0/1                        disabled     1            auto   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
 Gi1/0     LAN2-MSTP-SW2      connected    trunk      a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 LAN2-ACCESS-SW1#
 LAN2-ACCESS-SW1#show vlan brief
 
@@ -70,11 +70,11 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     0         0        0         15         15
+VLAN0001                     0         0        0          1          1
 VLAN0241                     0         0        0          2          2
 VLAN0251                     0         0        0          1          1
 ---------------------- -------- --------- -------- ---------- ----------
-3 vlans                      0         0        0         18         18
+3 vlans                      0         0        0          4          4
 LAN2-ACCESS-SW1#
 LAN2-ACCESS-SW1#show spanning-tree root
 
@@ -91,7 +91,7 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-LAN2-MSTP-SW2    Gig 1/0           156             R S I            Gig 1/0
+LAN2-MSTP-SW2    Gig 1/0           153             R S I            Gig 1/0
 
 Total cdp entries displayed : 1
 LAN2-ACCESS-SW1#
@@ -116,6 +116,25 @@ MD5 digest                        : 0xDC 0x60 0xDE 0xB0 0x84 0x74 0xE2 0x9E
 LAN2-ACCESS-SW1#
 LAN2-ACCESS-SW1#show run | include gateway
 ip default-gateway 172.31.251.1
+LAN2-ACCESS-SW1#
+LAN2-ACCESS-SW1#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0c2c.6ab4.0004    DYNAMIC     Gi1/0
+   1    ca02.18f4.001c    DYNAMIC     Gi1/0
+   1    ca08.1912.00a8    DYNAMIC     Gi1/0
+ 241    0000.0c07.acf1    DYNAMIC     Gi1/0
+ 241    0c08.fc50.0007    DYNAMIC     Gi1/0
+ 241    0c2c.6ab4.0004    DYNAMIC     Gi1/0
+ 241    0c9f.43a5.0007    DYNAMIC     Gi1/0
+ 251    0000.0c07.acfb    DYNAMIC     Gi1/0
+ 251    0c08.fc50.0007    DYNAMIC     Gi1/0
+ 251    0c2c.6ab4.0004    DYNAMIC     Gi1/0
+ 251    0c9f.43a5.0007    DYNAMIC     Gi1/0
+Total Mac Addresses for this criterion: 11
 
 !--END OF LAN2-ACCESS-SW1 OUTPUT--!
 
@@ -145,20 +164,20 @@ LAN2-ACCESS-SW2#show int status
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     PC5                connected    242        a-full   auto RJ45
 Gi0/1     PC7 (admin)        connected    251        a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
 Gi1/0     LAN2-MSTP-SW3      connected    trunk      a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 LAN2-ACCESS-SW2#
 LAN2-ACCESS-SW2#show vlan brief
 
@@ -192,11 +211,11 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     0         0        0         14         14
+VLAN0001                     0         0        0          1          1
 VLAN0242                     0         0        0          2          2
 VLAN0251                     0         0        0          2          2
 ---------------------- -------- --------- -------- ---------- ----------
-3 vlans                      0         0        0         18         18
+3 vlans                      0         0        0          5          5
 LAN2-ACCESS-SW2#
 LAN2-ACCESS-SW2#show spanning-tree root
 
@@ -213,7 +232,7 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-LAN2-MSTP-SW3    Gig 1/0           164             R S I            Gig 1/0
+LAN2-MSTP-SW3    Gig 1/0           156             R S I            Gig 1/0
 
 Total cdp entries displayed : 1
 LAN2-ACCESS-SW2#
@@ -238,6 +257,25 @@ MD5 digest                        : 0x34 0x27 0x0B 0x83 0xB9 0x12 0xB2 0x68
 LAN2-ACCESS-SW2#
 LAN2-ACCESS-SW2#show run | include gateway
 ip default-gateway 172.31.251.1
+LAN2-ACCESS-SW2#
+LAN2-ACCESS-SW2#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0c13.567d.0004    DYNAMIC     Gi1/0
+   1    ca02.18f4.001c    DYNAMIC     Gi1/0
+   1    ca08.1912.00a8    DYNAMIC     Gi1/0
+ 242    0000.0c07.acf2    DYNAMIC     Gi1/0
+ 242    0c08.fc50.0007    DYNAMIC     Gi1/0
+ 242    0c13.567d.0004    DYNAMIC     Gi1/0
+ 242    0c9f.43a5.0007    DYNAMIC     Gi1/0
+ 251    0000.0c07.acfb    DYNAMIC     Gi1/0
+ 251    0c08.fc50.0007    DYNAMIC     Gi1/0
+ 251    0c13.567d.0004    DYNAMIC     Gi1/0
+ 251    0c9f.43a5.0007    DYNAMIC     Gi1/0
+Total Mac Addresses for this criterion: 11
 
 !--END OF LAN2-ACCESS-SW2 OUTPUT--!
 
@@ -265,21 +303,21 @@ LAN2-ACCESS-SW3#show int status
 
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     PC6                connected    243        a-full   auto RJ45
-Gi0/1                        notconnect   1          a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi0/1                        disabled     1            auto   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
 Gi1/0     LAN2-MSTP-SW4      connected    trunk      a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 LAN2-ACCESS-SW3#
 LAN2-ACCESS-SW3#show vlan brief
 
@@ -313,11 +351,11 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     0         0        0         15         15
+VLAN0001                     0         0        0          1          1
 VLAN0243                     0         0        0          2          2
 VLAN0251                     0         0        0          1          1
 ---------------------- -------- --------- -------- ---------- ----------
-3 vlans                      0         0        0         18         18
+3 vlans                      0         0        0          4          4
 LAN2-ACCESS-SW3#
 LAN2-ACCESS-SW3#show spanning-tree root
 
@@ -334,7 +372,7 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-LAN2-MSTP-SW4    Gig 1/0           162             R S I            Gig 1/0
+LAN2-MSTP-SW4    Gig 1/0           132             R S I            Gig 1/0
 
 Total cdp entries displayed : 1
 LAN2-ACCESS-SW3#
@@ -359,5 +397,24 @@ MD5 digest                        : 0x3E 0x22 0x6D 0xD5 0x6A 0x73 0xA2 0x56
 LAN2-ACCESS-SW3#
 LAN2-ACCESS-SW3#show run | include gateway
 ip default-gateway 172.31.251.1
+LAN2-ACCESS-SW3#
+LAN2-ACCESS-SW3#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0cf3.9138.0004    DYNAMIC     Gi1/0
+   1    ca02.18f4.001c    DYNAMIC     Gi1/0
+   1    ca08.1912.00a8    DYNAMIC     Gi1/0
+ 243    0000.0c07.acf3    DYNAMIC     Gi1/0
+ 243    0c08.fc50.0007    DYNAMIC     Gi1/0
+ 243    0c9f.43a5.0007    DYNAMIC     Gi1/0
+ 243    0cf3.9138.0004    DYNAMIC     Gi1/0
+ 251    0000.0c07.acfb    DYNAMIC     Gi1/0
+ 251    0c08.fc50.0007    DYNAMIC     Gi1/0
+ 251    0c9f.43a5.0007    DYNAMIC     Gi1/0
+ 251    0cf3.9138.0004    DYNAMIC     Gi1/0
+Total Mac Addresses for this criterion: 11
 
 !--END OF LAN2-ACCESS-SW3 OUTPUT--!
