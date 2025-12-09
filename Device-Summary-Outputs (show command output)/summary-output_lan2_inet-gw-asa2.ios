@@ -66,7 +66,7 @@ access-list OUTSIDE-IN extended permit udp host 203.0.113.1 host 198.51.100.1 eq
 access-list OUTSIDE-IN extended permit udp host 203.0.113.1 host 198.51.100.1 eq 4500
 access-list OUTSIDE-IN extended permit esp host 203.0.113.1 host 198.51.100.1
 access-list OUTSIDE-IN extended permit icmp host 203.0.113.1 host 198.51.100.1
-access-list VPN-TRAFFIC extended permit ip object OBJECT-LAN2 object-group GROUP-LAN1
+access-list VPN-TRAFFIC extended permit ip object OBJ-LAN2-VPN object OBJ-LAN1-VPN
 INET-GW-ASA2#
 INET-GW-ASA2# show run object
 object network OBJECT-LAN2
@@ -77,6 +77,10 @@ object network OBJECT-LAN1-VLAN22
  subnet 172.16.22.0 255.255.255.0
 object network OBJECT-LAN1-VLAN33
  subnet 172.16.33.0 255.255.255.0
+object network OBJ-LAN2-VPN
+ subnet 172.31.240.0 255.255.240.0
+object network OBJ-LAN1-VPN
+ subnet 172.16.0.0 255.255.192.0
 INET-GW-ASA2#
 INET-GW-ASA2# show run object-group
 object-group network GROUP-LAN1
@@ -88,16 +92,16 @@ INET-GW-ASA2# show crypto ipsec sa
 interface: outside
     Crypto map tag: VPN-MAP, seq num: 10, local addr: 198.51.100.1
 
-      access-list VPN-TRAFFIC extended permit ip 172.21.0.0 255.255.255.0 172.16.11.0 255.255.255.0
-      local ident (addr/mask/prot/port): (172.21.0.0/255.255.255.0/0/0)
-      remote ident (addr/mask/prot/port): (172.16.11.0/255.255.255.0/0/0)
+      access-list VPN-TRAFFIC extended permit ip 172.31.240.0 255.255.240.0 172.16.0.0 255.255.192.0
+      local ident (addr/mask/prot/port): (172.31.240.0/255.255.240.0/0/0)
+      remote ident (addr/mask/prot/port): (172.16.0.0/255.255.192.0/0/0)
       current_peer: 203.0.113.1
 
 
-      #pkts encaps: 1, #pkts encrypt: 1, #pkts digest: 1
-      #pkts decaps: 0, #pkts decrypt: 0, #pkts verify: 0
+      #pkts encaps: 7, #pkts encrypt: 7, #pkts digest: 7
+      #pkts decaps: 7, #pkts decrypt: 7, #pkts verify: 7
       #pkts compressed: 0, #pkts decompressed: 0
-      #pkts not compressed: 1, #pkts comp failed: 0, #pkts decomp failed: 0
+      #pkts not compressed: 7, #pkts comp failed: 0, #pkts decomp failed: 0
       #pre-frag successes: 0, #pre-frag failures: 0, #fragments created: 0
       #PMTUs sent: 0, #PMTUs rcvd: 0, #decapsulated frgs needing reassembly: 0
       #TFC rcvd: 0, #TFC sent: 0
@@ -108,27 +112,27 @@ interface: outside
       path mtu 1500, ipsec overhead 78(44), media mtu 1500
       PMTU time remaining (sec): 0, DF policy: copy-df
       ICMP error validation: disabled, TFC packets: disabled
-      current outbound spi: 1572EA38
-      current inbound spi : 9B176BA1
+      current outbound spi: 78B97A6E
+      current inbound spi : 926EBD49
 
     inbound esp sas:
-      spi: 0x9B176BA1 (2602003361)
+      spi: 0x926EBD49 (2456730953)
          SA State: active
          transform: esp-aes-256 esp-sha-256-hmac no compression
          in use settings ={L2L, Tunnel, IKEv2, }
-         slot: 0, conn_id: 54, crypto-map: VPN-MAP
-         sa timing: remaining key lifetime (kB/sec): (4147200/3539)
+         slot: 0, conn_id: 236, crypto-map: VPN-MAP
+         sa timing: remaining key lifetime (kB/sec): (4147199/3472)
          IV size: 16 bytes
          replay detection support: Y
          Anti replay bitmap:
-          0x00000000 0x00000001
+          0x00000000 0x000000FF
     outbound esp sas:
-      spi: 0x1572EA38 (359852600)
+      spi: 0x78B97A6E (2025421422)
          SA State: active
          transform: esp-aes-256 esp-sha-256-hmac no compression
          in use settings ={L2L, Tunnel, IKEv2, }
-         slot: 0, conn_id: 54, crypto-map: VPN-MAP
-         sa timing: remaining key lifetime (kB/sec): (4193279/3539)
+         slot: 0, conn_id: 236, crypto-map: VPN-MAP
+         sa timing: remaining key lifetime (kB/sec): (4008959/3472)
          IV size: 16 bytes
          replay detection support: Y
          Anti replay bitmap:
@@ -139,22 +143,25 @@ INET-GW-ASA2# show crypto ikev2 sa
 
 IKEv2 SAs:
 
-Session-id:54, Status:UP-ACTIVE, IKE count:1, CHILD count:1
+Session-id:236, Status:UP-ACTIVE, IKE count:1, CHILD count:1
 
 Tunnel-id Local                                               Remote                                                  Status         Role
-465817449 198.51.100.1/500                                    203.0.113.1/500                                          READY    INITIATOR
+ 27155263 198.51.100.1/500                                    203.0.113.1/500                                          READY    INITIATOR
       Encr: AES-CBC, keysize: 256, Hash: SHA256, DH Grp:14, Auth sign: PSK, Auth verify: PSK
-      Life/Active Time: 28800/61 sec
-Child sa: local selector  172.21.0.0/0 - 172.21.0.255/65535
-          remote selector 172.16.11.0/0 - 172.16.11.255/65535
-          ESP spi in/out: 0x9b176ba1/0x1572ea38
+      Life/Active Time: 28800/128 sec
+Child sa: local selector  172.31.240.0/0 - 172.31.255.255/65535
+          remote selector 172.16.0.0/0 - 172.16.63.255/65535
+          ESP spi in/out: 0x926ebd49/0x78b97a6e
 INET-GW-ASA2#
 INET-GW-ASA2# show run nat
 nat (inside,outside) source static OBJECT-LAN2 OBJECT-LAN2 destination static OBJECT-LAN1-VLAN11 OBJECT-LAN1-VLAN11 no-proxy-arp route-lookup
 nat (inside,outside) source static OBJECT-LAN2 OBJECT-LAN2 destination static OBJECT-LAN1-VLAN22 OBJECT-LAN1-VLAN22 no-proxy-arp route-lookup
 nat (inside,outside) source static OBJECT-LAN2 OBJECT-LAN2 destination static OBJECT-LAN1-VLAN33 OBJECT-LAN1-VLAN33 no-proxy-arp route-lookup
+nat (inside,outside) source static OBJ-LAN2-VPN OBJ-LAN2-VPN destination static OBJ-LAN1-VPN OBJ-LAN1-VPN no-proxy-arp route-lookup
 !
 nat (inside,outside) after-auto source dynamic OBJECT-LAN2 interface
+nat (inside,outside) after-auto source dynamic OBJ-LAN2-VPN interface
+INET-GW-ASA2#
 
 
 !---END OF INET-GW-ASA2 OUTPUT--!
