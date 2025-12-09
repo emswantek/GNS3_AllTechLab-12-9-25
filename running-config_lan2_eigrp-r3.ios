@@ -1,0 +1,121 @@
+EIGRP-R3#show run
+Building configuration...
+
+Current configuration : 1371 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname EIGRP-R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+ip cef
+!
+!
+!
+!
+!
+!
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.31.255.3 255.255.255.255
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface GigabitEthernet1/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ description CE2
+ ip address 172.22.0.1 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet4/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet5/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet6/0
+ description To-DC-SW1
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet6/0.254
+ description Transit-To-DC-VPC-SWs
+ encapsulation dot1Q 254
+ ip address 172.31.254.3 255.255.255.0
+!
+!
+router eigrp 65535
+ network 172.22.0.0 0.0.0.255
+ network 172.31.254.0 0.0.0.255
+ network 172.31.255.0 0.0.0.255
+ eigrp router-id 172.31.255.3
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end

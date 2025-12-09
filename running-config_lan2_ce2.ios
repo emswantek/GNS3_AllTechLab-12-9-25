@@ -1,0 +1,130 @@
+CE2#show run
+Building configuration...
+
+Current configuration : 1815 bytes
+!
+! Last configuration change at 15:37:12 UTC Tue Dec 9 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname CE2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+ip cef
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.31.255.1 255.255.255.255
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface GigabitEthernet1/0
+ description ISP-PE-2
+ ip address 172.16.90.89 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ description EIGRP-R2
+ ip address 172.21.0.254 255.255.255.0
+ ip summary-address eigrp 65535 172.16.0.0 255.255.192.0
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ description EIGRP-R1
+ ip address 172.22.0.254 255.255.255.0
+ ip summary-address eigrp 65535 172.16.0.0 255.255.192.0
+ negotiation auto
+!
+interface GigabitEthernet4/0
+ description INET-GW-ASA2
+ ip address 172.31.2.2 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet5/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet6/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+router eigrp 65535
+ network 172.21.0.0 0.0.0.255
+ network 172.22.0.0 0.0.0.255
+ network 172.31.2.0 0.0.0.3
+ network 172.31.255.0 0.0.0.255
+ redistribute static metric 333 10 255 1 1500
+ eigrp router-id 172.31.255.1
+!
+router bgp 65202
+ bgp log-neighbor-changes
+ network 172.16.90.88 mask 255.255.255.252
+ neighbor 172.16.90.90 remote-as 65000
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 172.31.2.1
+ip route 172.16.0.0 255.255.192.0 172.31.2.1
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
