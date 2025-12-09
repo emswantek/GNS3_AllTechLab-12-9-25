@@ -8,36 +8,41 @@ SW1#show int description | e down
 Interface                      Status         Protocol Description
 Gi0/2                          up             up       SW2
 Gi0/3                          up             up       SW3
-Gi1/1                          up             up       PC1 (AlpineLinux)
-Gi2/1                          up             up       PC2 (AlpineLinux)
-Gi3/1                          up             up       PC3 (NetAdmin,AlpineLinux)
+Gi1/1                          up             up       PC1 (Alpine Linux)
+Gi2/1                          up             up       PC2 (Alpine Linux)
+Gi3/1                          up             up       PC3 (Admin Alpine Linux)
 Vl10                           up             up
 
 SW1#
-SW1#show ip int brief | exclude unassigned
+SW1#show ip int brief | exclude down
 Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/2     unassigned      YES unset  up                    up
+GigabitEthernet0/3     unassigned      YES unset  up                    up
+GigabitEthernet1/1     unassigned      YES unset  up                    up
+GigabitEthernet2/1     unassigned      YES unset  up                    up
+GigabitEthernet3/1     unassigned      YES unset  up                    up
 Vlan10                 172.16.10.11    YES NVRAM  up                    up
 
 SW1#
 SW1#show int status
 
 Port      Name               Status       Vlan       Duplex  Speed Type
-Gi0/0                        notconnect   1          a-full   auto RJ45
-Gi0/1                        notconnect   1          a-full   auto RJ45
+Gi0/0                        disabled     1            auto   auto RJ45
+Gi0/1                        disabled     1            auto   auto RJ45
 Gi0/2     SW2                connected    trunk      a-full   auto RJ45
 Gi0/3     SW3                connected    trunk      a-full   auto RJ45
-Gi1/0                        notconnect   1          a-full   auto RJ45
-Gi1/1     PC1 (AlpineLinux)  connected    11         a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1     PC2 (AlpineLinux)  connected    22         a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1     PC3 (NetAdmin,Alpi connected    33         a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi1/0                        disabled     1            auto   auto RJ45
+Gi1/1     PC1 (Alpine Linux) connected    11         a-full   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1     PC2 (Alpine Linux) connected    22         a-full   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1     PC3 (Admin Alpine  connected    33         a-full   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 SW1#
 SW1#show vlan brief
 
@@ -54,7 +59,6 @@ VLAN Name                             Status    Ports
 1003 token-ring-default               act/unsup
 1004 fddinet-default                  act/unsup
 1005 trnet-default                    act/unsup
-4001 Native                           active
 SW1#
 SW1#show spanning-tree summary
 Switch is in pvst mode
@@ -73,14 +77,13 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     1         0        0         12         13
+VLAN0001                     1         0        0          1          2
 VLAN0010                     1         0        0          1          2
 VLAN0011                     1         0        0          2          3
 VLAN0022                     1         0        0          2          3
 VLAN0033                     1         0        0          2          3
-VLAN4001                     1         0        0          1          2
 ---------------------- -------- --------- -------- ---------- ----------
-6 vlans                      6         0        0         20         26
+5 vlans                      5         0        0          8         13
 SW1#
 SW1#show spanning-tree root
 
@@ -92,7 +95,6 @@ VLAN0010         32778 0c06.254b.0000         8    2   20  15  Gi0/3
 VLAN0011         32779 0c06.254b.0000         8    2   20  15  Gi0/3
 VLAN0022         32790 0c06.254b.0000         8    2   20  15  Gi0/3
 VLAN0033         32801 0c06.254b.0000         8    2   20  15  Gi0/3
-VLAN4001         36769 0c06.254b.0000         8    2   20  15  Gi0/3
 SW1#
 SW1#show cdp neighbors
 Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
@@ -100,8 +102,8 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-SW2              Gig 0/2           123             R S I            Gig 0/1
-SW3              Gig 0/3           148             R S I            Gig 0/1
+SW2              Gig 0/2           146             R S I            Gig 0/1
+SW3              Gig 0/3           172             R S I            Gig 0/1
 
 Total cdp entries displayed : 2
 SW1#
@@ -124,7 +126,23 @@ MD5 digest                        : 0x47 0xC5 0x60 0xC7 0x46 0x6D 0x30 0x0C
                                     0xF5 0xDE 0x23 0xAA 0x1E 0x2C 0x99 0x41
 SW1#
 SW1#show run | include gateway
-ip default-gateway 172.16.10.1
+SW1#
+SW1#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0ccb.e301.0001    DYNAMIC     Gi0/3
+  11    0ccb.e301.0001    DYNAMIC     Gi0/3
+  11    ca0b.17ee.001c    DYNAMIC     Gi0/3
+  22    0ccb.e301.0001    DYNAMIC     Gi0/3
+  22    ca0b.17ee.001c    DYNAMIC     Gi0/3
+  33    0ccb.e301.0001    DYNAMIC     Gi0/3
+  33    ca0b.17ee.001c    DYNAMIC     Gi0/3
+  10    0ccb.e301.0001    DYNAMIC     Gi0/3
+  10    ca0b.17ee.001c    DYNAMIC     Gi0/3
+Total Mac Addresses for this criterion: 9
 
 !--END OF SW1 OUTPUT--!
 
@@ -141,8 +159,10 @@ Gi0/1                          up             up       SW1
 Vl10                           up             up
 
 SW2#
-SW2#show ip int brief | exclude unassigned
+SW2#show ip int brief | exclude down
 Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/1     unassigned      YES unset  up                    up
 Vlan10                 172.16.10.21    YES NVRAM  up                    up
 
 SW2#
@@ -151,20 +171,20 @@ SW2#show int status
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     SW4                connected    trunk      a-full   auto RJ45
 Gi0/1     SW1                connected    trunk      a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
-Gi1/0                        notconnect   1          a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
+Gi1/0                        disabled     1            auto   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 SW2#
 SW2#show vlan brief
 
@@ -182,7 +202,6 @@ VLAN Name                             Status    Ports
 1003 token-ring-default               act/unsup
 1004 fddinet-default                  act/unsup
 1005 trnet-default                    act/unsup
-4001 Native                           active
 SW2#
 SW2#show spanning-tree summary
 Switch is in pvst mode
@@ -201,14 +220,13 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     0         0        0         16         16
+VLAN0001                     0         0        0          2          2
 VLAN0010                     0         0        0          2          2
 VLAN0011                     0         0        0          2          2
 VLAN0022                     0         0        0          2          2
 VLAN0033                     0         0        0          2          2
-VLAN4001                     0         0        0          2          2
 ---------------------- -------- --------- -------- ---------- ----------
-6 vlans                      0         0        0         26         26
+5 vlans                      0         0        0         10         10
 SW2#
 SW2#show spanning-tree root
 
@@ -220,7 +238,6 @@ VLAN0010         32778 0c06.254b.0000         4    2   20  15  Gi0/0
 VLAN0011         32779 0c06.254b.0000         4    2   20  15  Gi0/0
 VLAN0022         32790 0c06.254b.0000         4    2   20  15  Gi0/0
 VLAN0033         32801 0c06.254b.0000         4    2   20  15  Gi0/0
-VLAN4001         36769 0c06.254b.0000         4    2   20  15  Gi0/0
 SW2#
 SW2#show cdp neighbors
 Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
@@ -228,8 +245,8 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-SW4              Gig 0/0           152             R S I            Gig 0/2
-SW1              Gig 0/1           160             R S I            Gig 0/2
+SW4              Gig 0/0           135             R S I            Gig 0/2
+SW1              Gig 0/1           146             R S I            Gig 0/2
 
 Total cdp entries displayed : 2
 SW2#
@@ -252,7 +269,24 @@ MD5 digest                        : 0x47 0xC5 0x60 0xC7 0x46 0x6D 0x30 0x0C
                                     0xF5 0xDE 0x23 0xAA 0x1E 0x2C 0x99 0x41
 SW2#
 SW2#show run | include gateway
-ip default-gateway 172.16.10.1
+SW2#
+SW2#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0c06.254b.0002    DYNAMIC     Gi0/0
+   1    0c97.f386.0002    DYNAMIC     Gi0/1
+  10    0c06.254b.0002    DYNAMIC     Gi0/0
+  10    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  11    0c06.254b.0002    DYNAMIC     Gi0/0
+  11    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  22    0c06.254b.0002    DYNAMIC     Gi0/0
+  22    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  33    0c06.254b.0002    DYNAMIC     Gi0/0
+  33    ca0b.17ee.001c    DYNAMIC     Gi0/0
+Total Mac Addresses for this criterion: 10
 
 !--END OF SW2 OUTPUT--!
 
@@ -269,8 +303,10 @@ Gi0/1                          up             up       SW1
 Vl10                           up             up
 
 SW3#
-SW3#show ip int brief | exclude unassigned
+SW3#show ip int brief | exclude down
 Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/1     unassigned      YES unset  up                    up
 Vlan10                 172.16.10.31    YES NVRAM  up                    up
 
 SW3#
@@ -279,20 +315,20 @@ SW3#show int status
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     SW4                connected    trunk      a-full   auto RJ45
 Gi0/1     SW1                connected    trunk      a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
-Gi1/0                        notconnect   1          a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
+Gi1/0                        disabled     1            auto   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 SW3#
 SW3#show vlan brief
 
@@ -310,7 +346,6 @@ VLAN Name                             Status    Ports
 1003 token-ring-default               act/unsup
 1004 fddinet-default                  act/unsup
 1005 trnet-default                    act/unsup
-4001 Native                           active
 SW3#
 SW3#show spanning-tree summary
 Switch is in pvst mode
@@ -329,14 +364,13 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     0         0        0         16         16
+VLAN0001                     0         0        0          2          2
 VLAN0010                     0         0        0          2          2
 VLAN0011                     0         0        0          2          2
 VLAN0022                     0         0        0          2          2
 VLAN0033                     0         0        0          2          2
-VLAN4001                     0         0        0          2          2
 ---------------------- -------- --------- -------- ---------- ----------
-6 vlans                      0         0        0         26         26
+5 vlans                      0         0        0         10         10
 SW3#
 SW3#show spanning-tree root
 
@@ -348,7 +382,6 @@ VLAN0010         32778 0c06.254b.0000         4    2   20  15  Gi0/0
 VLAN0011         32779 0c06.254b.0000         4    2   20  15  Gi0/0
 VLAN0022         32790 0c06.254b.0000         4    2   20  15  Gi0/0
 VLAN0033         32801 0c06.254b.0000         4    2   20  15  Gi0/0
-VLAN4001         36769 0c06.254b.0000         4    2   20  15  Gi0/0
 SW3#
 SW3#show cdp neighbors
 Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
@@ -356,8 +389,8 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-SW4              Gig 0/0           144             R S I            Gig 0/3
-SW1              Gig 0/1           158             R S I            Gig 0/3
+SW4              Gig 0/0           151             R S I            Gig 0/3
+SW1              Gig 0/1           138             R S I            Gig 0/3
 
 Total cdp entries displayed : 2
 SW3#
@@ -380,7 +413,24 @@ MD5 digest                        : 0x47 0xC5 0x60 0xC7 0x46 0x6D 0x30 0x0C
                                     0xF5 0xDE 0x23 0xAA 0x1E 0x2C 0x99 0x41
 SW3#
 SW3#show run | include gateway
-ip default-gateway 172.16.10.1
+SW3#
+SW3#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0c06.254b.0003    DYNAMIC     Gi0/0
+   1    0c97.f386.0003    DYNAMIC     Gi0/1
+  10    0c06.254b.0003    DYNAMIC     Gi0/0
+  10    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  11    0c06.254b.0003    DYNAMIC     Gi0/0
+  11    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  22    0c06.254b.0003    DYNAMIC     Gi0/0
+  22    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  33    0c06.254b.0003    DYNAMIC     Gi0/0
+  33    ca0b.17ee.001c    DYNAMIC     Gi0/0
+Total Mac Addresses for this criterion: 10
 
 !--END OF SW3 OUTPUT--!
 
@@ -398,8 +448,11 @@ Gi0/3                          up             up       SW3
 Vl10                           up             up
 
 SW4#
-SW4#show ip int brief | exclude unassigned
+SW4#show ip int brief | exclude down
 Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/2     unassigned      YES unset  up                    up
+GigabitEthernet0/3     unassigned      YES unset  up                    up
 Vlan10                 172.16.10.41    YES NVRAM  up                    up
 
 SW4#
@@ -407,21 +460,21 @@ SW4#show int status
 
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     R1                 connected    trunk      a-full   auto RJ45
-Gi0/1                        notconnect   1          a-full   auto RJ45
+Gi0/1                        disabled     1            auto   auto RJ45
 Gi0/2     SW2                connected    trunk      a-full   auto RJ45
 Gi0/3     SW3                connected    trunk      a-full   auto RJ45
-Gi1/0                        notconnect   1          a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi1/0                        disabled     1            auto   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 SW4#
 SW4#show vlan brief
 
@@ -439,11 +492,10 @@ VLAN Name                             Status    Ports
 1003 token-ring-default               act/unsup
 1004 fddinet-default                  act/unsup
 1005 trnet-default                    act/unsup
-4001 Native                           active
 SW4#
 SW4#show spanning-tree summary
 Switch is in pvst mode
-Root bridge for: VLAN0001, VLAN0010-VLAN0011, VLAN0022, VLAN0033, VLAN4001
+Root bridge for: VLAN0001, VLAN0010-VLAN0011, VLAN0022, VLAN0033
 Extended system ID                      is enabled
 Portfast Default                        is disabled
 Portfast Edge BPDU Guard Default        is disabled
@@ -458,14 +510,13 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-VLAN0001                     0         0        0         16         16
+VLAN0001                     0         0        0          3          3
 VLAN0010                     0         0        0          3          3
 VLAN0011                     0         0        0          3          3
 VLAN0022                     0         0        0          3          3
 VLAN0033                     0         0        0          3          3
-VLAN4001                     0         0        0          3          3
 ---------------------- -------- --------- -------- ---------- ----------
-6 vlans                      0         0        0         31         31
+5 vlans                      0         0        0         15         15
 SW4#
 SW4#show spanning-tree root
 
@@ -477,7 +528,6 @@ VLAN0010         32778 0c06.254b.0000         0    2   20  15
 VLAN0011         32779 0c06.254b.0000         0    2   20  15
 VLAN0022         32790 0c06.254b.0000         0    2   20  15
 VLAN0033         32801 0c06.254b.0000         0    2   20  15
-VLAN4001         36769 0c06.254b.0000         0    2   20  15
 SW4#
 SW4#show cdp neighbors
 Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
@@ -485,9 +535,9 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-R1.lan1          Gig 0/0           164               R    7206VXR   Gig 1/0
-SW2              Gig 0/2           154             R S I            Gig 0/0
-SW3              Gig 0/3           134             R S I            Gig 0/0
+R1.lan1          Gig 0/0           170               R    7206VXR   Gig 1/0
+SW2              Gig 0/2           171             R S I            Gig 0/0
+SW3              Gig 0/3           156             R S I            Gig 0/0
 
 Total cdp entries displayed : 3
 SW4#
@@ -510,6 +560,20 @@ MD5 digest                        : 0x47 0xC5 0x60 0xC7 0x46 0x6D 0x30 0x0C
                                     0xF5 0xDE 0x23 0xAA 0x1E 0x2C 0x99 0x41
 SW4#
 SW4#show run | include gateway
-ip default-gateway 172.16.10.1
+SW4#
+SW4#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0ccb.e301.0000    DYNAMIC     Gi0/3
+   1    0cf8.2320.0000    DYNAMIC     Gi0/2
+   1    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  10    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  11    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  22    ca0b.17ee.001c    DYNAMIC     Gi0/0
+  33    ca0b.17ee.001c    DYNAMIC     Gi0/0
+Total Mac Addresses for this criterion: 7
 
 !--END OF SW4 OUTPUT--!

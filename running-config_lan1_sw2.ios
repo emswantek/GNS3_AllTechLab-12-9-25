@@ -1,0 +1,158 @@
+SW2#show run
+Building configuration...
+
+Current configuration : 1938 bytes
+!
+! Last configuration change at 16:32:09 UTC Tue Dec 9 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+vtp mode transparent
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+vlan 10
+ name MGMT
+!
+vlan 11
+ name vLAN11
+!
+vlan 22
+ name vLAN22
+!
+vlan 33
+ name vLAN33
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description SW4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ description SW1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/2
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/1
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/2
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/3
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/1
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/2
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/3
+ shutdown
+ negotiation auto
+!
+interface Vlan10
+ ip address 172.16.10.21 255.255.255.128
+!
+ip forward-protocol nd
+!
+ip http server
+!
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+line aux 0
+line vty 0 4
+ login
+!
+!
+end

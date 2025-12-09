@@ -1,0 +1,164 @@
+SW1#show run
+Building configuration...
+
+Current configuration : 2163 bytes
+!
+! Last configuration change at 16:31:34 UTC Tue Dec 9 2025
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+vtp mode transparent
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+vlan 10
+ name MGMT
+!
+vlan 11
+ name vLAN11
+!
+vlan 22
+ name vLAN22
+!
+vlan 33
+ name vLAN33
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/2
+ description SW2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ description SW3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ description PC1 (Alpine Linux)
+ switchport access vlan 11
+ switchport mode access
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/1
+ description PC2 (Alpine Linux)
+ switchport access vlan 22
+ switchport mode access
+ negotiation auto
+!
+interface GigabitEthernet2/2
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet2/3
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/1
+ description PC3 (Admin Alpine Linux)
+ switchport access vlan 33
+ switchport mode access
+ negotiation auto
+!
+interface GigabitEthernet3/2
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/3
+ shutdown
+ negotiation auto
+!
+interface Vlan10
+ ip address 172.16.10.11 255.255.255.128
+!
+ip forward-protocol nd
+!
+ip http server
+!
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ privilege level 15
+line aux 0
+line vty 0 4
+ login
+!
+!
+end

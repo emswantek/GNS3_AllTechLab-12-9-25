@@ -6,7 +6,7 @@ show version | i Ver|file
 
 show int description | e down
 
-show ip int brief | exclude unassigned
+show ip int brief | exclude down
 
 show int status
 
@@ -22,6 +22,8 @@ show vtp status
 
 show run | include gateway
 
+show mac address-table
+
 !LAN1, R1, CE1 verification commands
 
 term length 0
@@ -30,7 +32,7 @@ show ver | i Ver|file
 
 show int description | e down
 
-show ip int brief | exclude admin
+show ip int brief
 
 show run | s router
 
@@ -155,9 +157,9 @@ show version
 
 show feature | exclude disabled
 
-show int status
+show ip int brief | exclude down
 
-show ip int brief
+show int status
 
 show vpc brief
 
@@ -207,6 +209,8 @@ show vtp status
 
 show run | include gateway
 
+show mac address-table
+
 
 !LAN2, LAN2-ACCESS-SW1, LAN2-ACCESS-SW2, LAN2-ACCESS-SW3 verification commands
 
@@ -233,6 +237,8 @@ show vtp status
 
 show run | include gateway
 
+show mac address-table
+
 !ISP-CORE-1 ISP-PE-1 ISP-PE-2 ISP-PE-3 ISP-PE-4 verification commands
 
 term length 0
@@ -243,7 +249,13 @@ show int description | e down
 
 show ip int brief | exclude admin
 
+show ip arp
+
+show cdp neighbors
+
 show run | s router
+
+show vrf
 
 show ip protocols
 
@@ -265,7 +277,9 @@ show isis topology
 
 show ip cef
 
-show ip arp
+show ip cef vrf CE1
 
-show cdp neighbors
+show ip cef vrf CE2
+
+
 

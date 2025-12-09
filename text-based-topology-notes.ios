@@ -1,54 +1,172 @@
+!This file was created by taking a scrolling screenshot (using ShareX) 
+!of the GNS3 topology summary then having ChatGPT extract the text after thinking longer.
+Node
+CE1
+g1/0 <=> g1/0 ISP-PE-1
+g2/0 <=> g2/0 R1
+g3/0 <=> Gi0/0 INET-GW-ASA1
 
+CE2
+g1/0 <=> g6/0 ISP-PE-2
+g2/0 <=> g2/0 EIGRP-R2
+g3/0 <=> g3/0 EIGRP-R3
+g4/0 <=> Gi0/0 INET-GW-ASA2
 
+DC-SW1
+Gi2/2 <=> g1/0 EIGRP-R2
+Gi2/3 <=> g6/0 EIGRP-R3
+Gi3/1 <=> e1/9 DC-VPC-SW1
+Gi3/2 <=> e1/9 DC-VPC-SW2
 
+DC-VPC-SW1
+e1/1 <=> e1/1 DC-VPC-SW2
+e1/2 <=> e1/2 DC-VPC-SW2
+e1/6 <=> Gi3/0 LAN2-MSTP-SW1
+e1/7 <=> Gi3/0 LAN2-MSTP-SW4
+e1/9 <=> Gi3/1 DC-SW1
+mgmt0 <=> mgmt0 DC-VPC-SW2
 
+DC-VPC-SW2
+e1/1 <=> e1/1 DC-VPC-SW1
+e1/2 <=> e1/2 DC-VPC-SW1
+e1/6 <=> Gi3/1 LAN2-MSTP-SW1
+e1/7 <=> Gi3/1 LAN2-MSTP-SW4
+e1/9 <=> Gi3/2 DC-SW1
+mgmt0 <=> mgmt0 DC-VPC-SW1
 
+EIGRP-R2
+g1/0 <=> Gi2/2 DC-SW1
+g2/0 <=> g2/0 CE2
 
+EIGRP-R3
+g3/0 <=> g3/0 CE2
+g6/0 <=> Gi2/3 DC-SW1
 
+INET-GW-ASA1
+Gi0/0 <=> g3/0 CE1
+Gi0/1 <=> g0/0 INET-ISP-RTR
 
+INET-GW-ASA2
+Gi0/0 <=> g4/0 CE2
+Gi0/1 <=> g1/0 INET-ISP-RTR
 
+INET-ISP-RTR
+g0/0 <=> Gi0/1 INET-GW-ASA1
+g1/0 <=> Gi0/1 INET-GW-ASA2
 
+ISP-CORE-1
+g1/0 <=> g2/0 ISP-PE-1
+g3/0 <=> g2/0 ISP-PE-3
+g4/0 <=> g2/0 ISP-PE-2
+g5/0 <=> g2/0 ISP-PE-4
 
-VPC-PC-1 eth0 <-> SW1 gi1/1 VLAN11
-VPC-PC-2 eth0 <-> SW1 gi2/1 VLAN22
-VPC-PC-3 eth0 <-> SW1 gi3/1 VLAN33
-SW1 gi0/3 <-> SW3 gi0/1
-SW1 gi0/2 <-> SW2 gi0/1
-SW2 gi0/0 <-> SW4 gi0/2
-SW3 gi0/0 <-> SW4 gi0/3
-SW4 gi0/0 <-> R1 gi1/0 
-R1 gi2/0 <-> CE1 gi2/0 via OSPF
-CE1 gi1/0 <-> ISP-PE-1 gi1/0 via BGP
-ISP-PE-1 gi2/0 <-> ISP-CORE-1 gi1/0
-ISP-PE-1 gi4/0 <-> ISP-PE-2 gi1/0
-ISP-PE-1 gi5/0 <-> ISP-PE-4 gi1/0
-ISP-PE-1 gi3/0 <-> ISP-PE-3 gi1/0
-ISP-PE-2 gi2/0 <-> ISP-CORE-1 gi4/0
-ISP-PE-2 gi3/0 <-> ISP-PE-3 gi4/0
-ISP-PE-2 gi5/0 <-> ISP-PE-4 gi4/0
-ISP-PE-3 gi2/0 <-> ISP-CORE-1 gi3/0
-ISP-PE-3 gi5/0 <-> ISP-PE-4 gi3/0
-ISP-PE-4 gi2/0 <-> ISP-CORE-1 gi5/0
-ISP-PE2 gi6/0 <-> CE2 gi1/0 via BGP
-CE2 gi2/0 <-> EIGRP-R2 gi2/0 via EIGRP
-CE2 gi3/0 <-> EIGRP-R3 gi3/0 via EIGRP
-EIGRP-R2 gi1/0 <-> DC-SW1 gi2/2
-EIGRP-R3 gi6/0 <-> DC-SW1 gi2/3
-DC-SW1 gi3/1 <-> DC-VPC-SW1 eth1/9
-DC-SW1 gi3/2 <-> DC-VPC-SW2 eth1/9
-DC-VPC-SW1 mgmt0 <-> DC-VPC-SW2 mgmt0
-DC-VPC-SW1 eth1/1 <-> DC-VPC-SW2 eth1/1
-DC-VPC-SW1 eth1/2 <-> DC-VPC-SW2 eth1/2
-DC-VPC-SW1 eth2/10 <-> LAN2-MSTP-SW1 gi3/0
-DC-VPC-SW1 eth2/11 <-> LAN2-MSTP-SW4 gi3/0
-DC-VPC-SW2 eth2/2 <-> LAN2-MSTP-SW1 gi3/1
-DC-VPC-SW2 eth2/3 <-> LAN2-MSTP-SW4 gi3/1
-LAN2-MSTP-SW1 gi0/0 <-> LAN2-MSTP-SW2 gi0/0
-LAN2-MSTP-SW2 gi0/1 <-> LAN2-MSTP-SW3 gi0/0
-LAN2-MSTP-SW2 gi1/0 <-> LAN2-SW1 gi1/0
-LAN2-MSTP-SW3 gi0/1 <-> LAN2-MSTP-SW4 gi0/0
-LAN2-MSTP-SW3 gi1/0 <-> LAN2-SW2
-LAN2-MSTP-SW4 gi1/0 <-> LAN2-SW3
-LAN2-SW1 gi0/0 <-> PC4 eth0
-LAN2-SW2 gi0/0 <-> PC5 eth0
-LAN2-SW3 gi0/0 <-> PC6 eth0
+ISP-PE-1
+g1/0 <=> g1/0 CE1
+g2/0 <=> g1/0 ISP-CORE-1
+g3/0 <=> g1/0 ISP-PE-3
+g4/0 <=> g1/0 ISP-PE-2
+g5/0 <=> g1/0 ISP-PE-4
+
+ISP-PE-2
+g1/0 <=> g4/0 ISP-PE-1
+g2/0 <=> g4/0 ISP-CORE-1
+g3/0 <=> g4/0 ISP-PE-3
+g5/0 <=> g4/0 ISP-PE-4
+g6/0 <=> g1/0 CE2
+
+ISP-PE-3
+g1/0 <=> g3/0 ISP-PE-1
+g2/0 <=> g3/0 ISP-CORE-1
+g4/0 <=> g3/0 ISP-PE-2
+g5/0 <=> g3/0 ISP-PE-4
+
+ISP-PE-4
+g1/0 <=> g5/0 ISP-PE-1
+g2/0 <=> g5/0 ISP-CORE-1
+g3/0 <=> g5/0 ISP-PE-3
+g4/0 <=> g5/0 ISP-PE-2
+
+LAN2-ACCESS-SW1
+Gi0/0 <=> eth0 PC4
+Gi1/0 <=> Gi1/0 LAN2-MSTP-SW2
+
+LAN2-ACCESS-SW2
+Gi0/0 <=> eth0 PC5
+Gi0/1 <=> eth0 PC7
+Gi1/0 <=> Gi1/0 LAN2-MSTP-SW3
+
+LAN2-ACCESS-SW3
+Gi0/0 <=> eth0 PC6
+Gi1/0 <=> Gi1/0 LAN2-MSTP-SW4
+
+LAN2-MSTP-SW1
+Gi0/0 <=> Gi0/0 LAN2-MSTP-SW2
+Gi0/1 <=> Gi0/1 LAN2-MSTP-SW4
+Gi1/0 <=> eth0 SERVER1
+Gi3/0 <=> e1/6 DC-VPC-SW1
+Gi3/1 <=> e1/6 DC-VPC-SW2
+
+LAN2-MSTP-SW2
+Gi0/0 <=> Gi0/0 LAN2-MSTP-SW1
+Gi0/1 <=> Gi0/0 LAN2-MSTP-SW3
+Gi1/0 <=> Gi1/0 LAN2-ACCESS-SW1
+
+LAN2-MSTP-SW3
+Gi0/0 <=> Gi0/1 LAN2-MSTP-SW2
+Gi0/1 <=> Gi0/0 LAN2-MSTP-SW4
+Gi1/0 <=> Gi1/0 LAN2-ACCESS-SW2
+
+LAN2-MSTP-SW4
+Gi0/0 <=> Gi0/1 LAN2-MSTP-SW3
+Gi0/1 <=> Gi0/1 LAN2-MSTP-SW1
+Gi1/0 <=> Gi1/0 LAN2-ACCESS-SW3
+Gi3/0 <=> e1/7 DC-VPC-SW1
+Gi3/1 <=> e1/7 DC-VPC-SW2
+
+PC1
+eth0 <=> Gi1/1 SW1
+
+PC2
+eth0 <=> Gi2/1 SW1
+
+PC3
+eth0 <=> Gi3/1 SW1
+
+PC4
+eth0 <=> Gi0/0 LAN2-ACCESS-SW1
+
+PC5
+eth0 <=> Gi0/0 LAN2-ACCESS-SW2
+
+PC6
+eth0 <=> Gi0/0 LAN2-ACCESS-SW3
+
+PC7
+eth0 <=> Gi0/1 LAN2-ACCESS-SW2
+
+R1
+g1/0 <=> Gi0/0 SW4
+g2/0 <=> g2/0 CE1
+
+SERVER1
+eth0 <=> Gi1/0 LAN2-MSTP-SW1
+
+SW1
+Gi0/2 <=> Gi0/1 SW2
+Gi0/3 <=> Gi0/1 SW3
+Gi1/1 <=> eth0 PC1
+Gi2/1 <=> eth0 PC2
+Gi3/1 <=> eth0 PC3
+
+SW2
+Gi0/0 <=> Gi0/2 SW4
+Gi0/1 <=> Gi0/2 SW1
+
+SW3
+Gi0/0 <=> Gi0/3 SW4
+Gi0/1 <=> Gi0/3 SW1
+
+SW4
+Gi0/0 <=> g1/0 R1
+Gi0/2 <=> Gi0/0 SW2
+Gi0/3 <=> Gi0/0 SW3
