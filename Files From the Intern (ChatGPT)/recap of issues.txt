@@ -1,0 +1,10 @@
+Note: As of 12/9/25 LAN1 <-> LAN2 via MPLS is not opperable by design. May change in future labs
+
+| Issue Encountered                 | Root Cause               | Resolution                            |
+| --------------------------------- | ------------------------ | ------------------------------------- |
+| No ARP between MSTP & VPC         | IOU/NX image bug         | Worked around by adjusting link roles |
+| SAs up but no traffic             | Missing ASA inside route | Static route corrected                |
+| SSH failure                       | Cipher mismatch          | Forced ssh-rsa on Alpine              |
+| CE1 → CE2 path dead               | MPLS redistribution gap  | Fixed PE influence                    |
+| LAN1-SW2 ignored by documentation | Incomplete notes         | Now fully documented                  |
+| DHCP relay missing in VPC         | NX-OS limitation         | Moved DHCP server location            |

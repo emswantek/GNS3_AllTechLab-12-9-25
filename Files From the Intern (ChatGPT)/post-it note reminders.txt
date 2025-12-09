@@ -1,0 +1,40 @@
+POST-IT NOTE VERSION – GNS3 ALL-TECH LAB
+
+LAN1: VLANs 1/10/11/22/33.
+Don’t forget LAN1-SW2 exists.
+R1 = inter-VLAN router. CE1 → MPLS.
+
+LAN2: MSTP domain (241–243).
+R2 + CE2 → MPLS.
+PC7 lives here.
+
+DC: VPC pair. No DHCP relay.
+ARP weirdness w/ MSTP.
+
+MPLS: Check LDP + vpnv4.
+VRFs = CE1 + CE2.
+Routes must appear on PEs.
+
+ASA VPN: Crypto-map.
+Needs NAT exemption, mirrored crypto ACLs.
+If SA up but traffic fails → ASA routing after decrypt.
+
+Quick checks:
+
+PC → default gateway?
+
+CE neighbors up?
+
+VRF routes on PEs?
+
+ASA: show crypto isa/ipsec sa
+
+packet-tracer
+
+Quirks:
+– ASA SSH needs ssh-rsa.
+– VPC ↔ MSTP ARP bugs.
+– SLA needed to auto-bring tunnels up.
+
+One-liner:
+Two LANs, two ASAs, MPLS core, VPN backup; VLAN10 SVI on SW2; watch routes + NAT.

@@ -1,0 +1,141 @@
+🌟 **GNS3 All-Tech Lab
+
+Simplified “Future Me” Project Pickup Checklist**
+
+1. Know the Core Topology (Quick Memory Jog)
+
+Three Sites + SP + Internet:
+
+LAN1 → R1, CE1, ASA1, SW1–SW4 (VLANs 1/10/11/22/33)
+
+LAN2 → R2, CE2, ASA2, Access SW, MSTP SW
+
+Data Center → VPC-SW1/SW2 + DC-SW1
+
+MPLS Cloud → CORE-1 + PE1–PE4
+
+Internet Edge → INET-ISP-RTR sitting between ASA1 and ASA2
+
+Hosts:
+
+PC3 (LAN1)
+
+PC7 (LAN2)
+
+Alpine Linux VM (DHCP/SSH testing)
+
+2. Before Powering Anything On
+✔ Load the correct GNS3 project
+✔ Ensure links match the diagram (gns3_all_tech_diagram-12-9-25.png)
+✔ Alpine Linux VM connected + NAT node available if needed
+✔ Make sure ASA1 and ASA2 have their correct outside IP mappings
+3. After Power-On — What to Check First
+✔ Layer 2 sanity (LAN1 + LAN2)
+
+LAN1 VLANs: 1 / 10 / 11 / 22 / 33
+
+LAN1-SW2 exists (don’t forget this again)
+
+LAN2 MSTP converges (show spanning-tree mst)
+
+VPC domain is up (show vpc)
+
+✔ Check routing on R1, R2, CE1, CE2
+
+EIGRP neighbors up
+
+VRF routes appear for CE1 and CE2
+
+✔ MPLS health
+
+LDP neighbors
+
+vpnv4 neighbors
+
+CE routes visible in correct VRF
+
+4. ASA / VPN Quick Checks
+✔ Are SAs up?
+show crypto isa sa
+show crypto ipsec sa
+
+✔ Do NAT exemptions exist for LAN1 ↔ LAN2?
+show nat detail
+
+✔ Packet-tracer works?
+packet-tracer input inside ...
+
+5. Test End-to-End
+From LAN1 PC3 → LAN2 PC7:
+
+Over MPLS first
+
+Then test VPN overlay path if MPLS links are shut down
+
+Check return path symmetry
+
+Most old issues were from ASA routing after decryption.
+
+6. Quirks You Will Forget
+⚠ DC VPC switches cannot do DHCP relay
+
+Must place DHCP server L2-adjacent
+
+⚠ MSTP ↔ VPC ARP weirdness
+
+If ARP breaks, try bouncing the trunk or clearing ARP
+
+⚠ ASA SSH requires specific host key negotiation
+
+Use: ssh -oHostKeyAlgorithms=ssh-rsa …
+
+⚠ Crypto ACLs must be mirrored exactly
+
+If SAs come up but traffic fails → check this first
+
+⚠ NAT exemption must be more specific than dynamic PAT
+
+Otherwise tunneled traffic gets NAT’d and dies
+
+⚠ LAN1-SW2 matters
+
+It participates in VLAN propagation
+
+Easy to overlook when debugging
+
+7. If Something Is Broken — Start Here
+✔ Do PCs reach their default gateways?
+
+If no → L2 issue
+
+✔ Do CE routers advertise routes?
+
+If no → CE/PE routing issue
+
+✔ Do PE routers have the VRF routes?
+
+If no → RT/RD/redistribution issue
+
+✔ Do ASAs decrypt but not route?
+
+If yes → missing inside route on ASA
+
+✔ Do tunnels come up only one way?
+
+If yes → need SLA to trigger initial traffic
+
+8. When You’re Back and Ready to Build More
+Possible next expansions:
+
+Convert crypto maps → VTI
+
+Add GRE over IPsec
+
+Add automation (Ansible/Python)
+
+Add simulated cloud gateways (Azure VPN, etc.)
+
+9. One-Sentence Memory Anchor
+
+Two LANs, two ASAs, MPLS in the middle, IPsec as backup, 
+VLAN10 is the only SVI in LAN1, and LAN1-SW2 is easy to forget.

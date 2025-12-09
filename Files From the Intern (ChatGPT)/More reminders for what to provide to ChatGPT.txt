@@ -1,0 +1,163 @@
+# GNS3 All-Tech Lab  
+## Troubleshooting Input Guide for ChatGPT  
+_Last updated: 2025-12_
+
+This document lists the **exact command outputs** that provide the best troubleshooting context for the GNS3 All-Tech Lab.  
+Use this when asking for help so ChatGPT can analyze state, routing, forwarding, VPN, and L2 behavior accurately.
+
+Giving command outputs is the best way to get faster, more accurate help. Full configs are still useful for architecture/design decisions, but real-time issues are always solved fastest with live command outputs.
+
+---
+
+# 1. PC / Host-Level Tests
+
+Run these on Alpine, PC3, PC7, or any test host:
+
+ip addr
+ip route
+ping <target>
+traceroute <target>
+
+
+---
+
+# 2. LAN1 Switching (SW1–SW4 including SW2)
+
+Useful for VLAN, trunk, and MAC table issues:
+
+show interfaces trunk
+show vlan brief
+show mac address-table
+show arp
+
+
+If VLAN10 gateway is relevant:
+
+show run interface vlan10
+
+
+---
+
+# 3. LAN2 MSTP Domain
+
+For STP, VLAN propagation, or L2 loops/blackholes:
+
+show spanning-tree mst
+show spanning-tree mst interface gi0/0
+show interfaces trunk
+show arp
+show mac address-table
+
+
+---
+
+# 4. Data Center (Nexus VPC Domain)
+
+For VPC consistency and uplink failures:
+
+show vpc
+show vpc consistency-parameters
+show port-channel summary
+show arp
+
+
+---
+
+# 5. MPLS / Service Provider Cloud
+
+For CE–PE routing, redistribution, VRF leaks, or MPLS label issues:
+
+_On CE routers:_
+
+show ip eigrp neighbors
+show ip route
+
+
+_On PE routers:_
+
+show ip route vrf CE1
+show ip route vrf CE2
+show bgp vpnv4 all summary
+show bgp vpnv4 all
+show mpls ldp neighbor
+show mpls forwarding-table
+
+
+_On CORE routers:_
+
+show mpls ldp neighbor
+show mpls forwarding-table
+
+
+---
+
+# 6. ASA / IPsec VPN
+
+These commands are the most diagnostic when VPN or routing is broken:
+
+show crypto isakmp sa
+show crypto ipsec sa
+show nat detail
+show access-list
+show route
+packet-tracer input inside <proto> <src-ip> <src-port> <dst-ip> <dst-port>
+
+
+Common causes of failure:
+- Missing NAT exemption  
+- Crypto ACL mismatch  
+- No route after decrypt  
+- Incorrect outside ACL  
+
+---
+
+# 7. Alpine Linux (DHCP + SSH Testing)
+
+If Alpine is misbehaving:
+
+_DHCP client / networking:_
+
+cat /etc/network/interfaces
+ip addr
+ip route
+
+_DHCP server (if used):_
+
+cat /etc/dhcp/dhcpd.conf
+cat /etc/conf.d/dhcpd
+rc-status
+
+ssh -vv admin@<asa-ip>
+
+
+---
+
+# 8. If You're Not Sure What to Provide
+
+Paste these four — they solve 90% of issues:
+
+traceroute <target>
+show ip route
+show arp
+packet-tracer input inside icmp <src-ip> 8 <dst-ip> 0
+
+
+---
+
+# 9. Things That Matter in This Lab
+
+- LAN1 VLANs = **1/10/11/22/33**  
+- LAN1-SW2 often overlooked  
+- MSTP ↔ VPC ARP quirks  
+- ASA requires `ssh-rsa` hostkey  
+- DHCP relay unsupported on Nexus VPC images  
+- Crypto ACLs must be mirrored exactly  
+- NAT exemption must beat overload rules  
+
+---
+
+# Summary
+
+**This guide ensures ChatGPT gets the exact state information needed to diagnose your lab quickly and accurately.**  
+Keep it handy as part of your project documentation.
+

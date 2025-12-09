@@ -1,4 +1,7 @@
+# Updated 12/9/25
 # GNS3_AllTechLab
+# Folders include device outputs, diagrams, and full running configs
+
 Purpose: I created this lab from scratch to explore several technologies. 
 I originally came up with this when I was working towards my CCNP in 2023.
 Due to various other things going on I did not complete it then. 

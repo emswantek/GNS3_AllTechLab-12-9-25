@@ -1,0 +1,375 @@
+!Note, as of 12/9/25, there is no site to site connectivity over MPLS, may change in the future.
+============================================================
+GNS3 ALL-TECH LAB – MASTER TROUBLESHOOTING FLOW (ASCII)
+============================================================
+
+                +------------------------+
+                |        START           |
+                +------------------------+
+                             |
+                             v
+        +----------------------------------------+
+        | 1. DEFINE SYMPTOM                     |
+        |    "PC A cannot reach PC B"           |
+        +----------------------------------------+
+                             |
+                             v
+        +----------------------------------------+
+        | 2. CAN PC PING ITS OWN DEFAULT G/W?   |
+        |   (e.g. PC3 -> LAN1-R1, PC7 -> R2)    |
+        +----------------------------------------+
+             |                          |
+             | Yes                      | No
+             v                          v
+   [Go to 3] L3 OK           +--------------------------+
+                             | L2/L3 LOCAL ISSUE       |
+                             +--------------------------+
+                             | - Check NIC IP config   |
+                             |   (ip addr / ipconfig)  |
+                             | - Check SWport status   |
+                             |   (show int status)     |
+                             | - Check VLAN access     |
+                             |   (show vlan brief)     |
+                             | - Check trunks (if PC   |
+                             |   behind multiple SW)   |
+                             |   (show int trunk)      |
+                             +--------------------------+
+                             | Fix and retest ping to  |
+                             | default gateway.        |
+                             +--------------------------+
+                             |
+                             v
+                            [Retest from Step 2]
+
+
+3. LOCAL SUBNET REACHABILITY
+----------------------------
+
++---------------------------------------------+
+| 3. CAN PC REACH OTHER HOSTS IN SAME VLAN?   |
+|   (e.g. PC3 -> another 172.16.10.x host)    |
++---------------------------------------------+
+           |                          |
+           | Yes                      | No
+           v                          v
+   [Go to 4] L3 focus       +-------------------------------+
+                            | L2 ISSUE (SAME VLAN)         |
+                            +-------------------------------+
+                            | - Check ARP on SW:           |
+                            |   show arp                   |
+                            | - Check MAC table:           |
+                            |   show mac address-table     |
+                            | - Make sure both ports are   |
+                            |   in same VLAN (10/11/22/33) |
+                            | - On LAN2, check MSTP:       |
+                            |   show spanning-tree mst     |
+                            | - On DC/VPC, watch for ARP   |
+                            |   oddities between MSTP and  |
+                            |   VPC domain.                |
+                            +-------------------------------+
+                            | Fix & re-test local VLAN     |
+                            +-------------------------------+
+                            |
+                            v
+                           [Retest from Step 3]
+
+
+4. END-TO-END PATH TYPE
+-----------------------
+
++----------------------------------------------+
+| 4. WHAT PATH SHOULD THIS TRAFFIC USE?        |
++----------------------------------------------+
+| A) Same Site Only?                           |
+|    -> Stay on local L2/L3.                   |
+| B) Other Site via MPLS (primary)?           |
+|    -> Use MPLS L3VPN path.                   |
+| C) Other Site via Internet VPN (overlay)?    |
+|    -> Use ASA/IPsec path.                    |
++----------------------------------------------+
+           |              |              |
+           v              v              v
+   +----------------+  +----------------+  +----------------+
+   | 4A LOCAL ONLY  |  | 4B MPLS PATH   |  | 4C VPN PATH    |
+   +----------------+  +----------------+  +----------------+
+           |              |                       |
+           |              |                       |
+           |       [Follow MPLS FLOW]      [Follow VPN FLOW]
+           |              |                       |
+           v              v                       v
+   [If still broken, consolidate into Step 8]
+
+
+5. ROUTING CHECK (GENERAL)
+--------------------------
+
++------------------------------------------------+
+| 5. DO BOTH SIDES HAVE ROUTES TO EACH OTHER?    |
++------------------------------------------------+
+| On each relevant router/firewall:              |
+|   show ip route <other subnet>                 |
+|   show ip route vrf CE1/CE2 <other subnet>     |
+|   (if ASA) show route                          |
++------------------------------------------------+
+          |                            |
+          | Yes                        | No
+          v                            v
+   [Go to 6]                      +---------------------+
+                                  |  ADD / FIX ROUTE   |
+                                  +---------------------+
+                                  | - On CE/PE:        |
+                                  |   adjust EIGRP/BGP |
+                                  |   or RT import/export|
+                                  | - On ASA: static   |
+                                  |   route to inside  |
+                                  |   next-hop         |
+                                  +---------------------+
+                                  | Retest route lookups|
+                                  +---------------------+
+                                  |
+                                  v
+                                 [Retest from Step 5]
+
+
+6. FILTERING / SECURITY / NAT
+-----------------------------
+
++------------------------------------------------------+
+| 6. IS SOMETHING DROPPING THE TRAFFIC?                |
++------------------------------------------------------+
+| - On routers:                                        |
+|   show access-lists                                  |
+|   show ip nat translations                           |
+| - On ASA:                                            |
+|   show access-list OUTSIDE-IN                        |
+|   show nat detail                                    |
+|   packet-tracer input inside/outside ...             |
++------------------------------------------------------+
+          |                             |
+          | Yes, ACL/NAT issues         | No obvious drop
+          v                             v
++------------------------------+   [Go to 7]
+| FIX POLICY / NAT:            |
++------------------------------+
+| - Ensure NAT exemption for   |
+|   VPN interesting traffic.   |
+| - ASA: identity NAT or nat 0 |
+|   for internal subnets.      |
+| - Permit ISAKMP/ESP/NAT-T    |
+|   on outside ACL.            |
++------------------------------+
+| Retest.                      |
++------------------------------+
+
+
+7. CHECK WEIRD / LAB-SPECIFIC BEHAVIOR
+--------------------------------------
+
++----------------------------------------------------------+
+| 7. KNOWN ODDITIES                                        |
++----------------------------------------------------------+
+| - MSTP <-> VPC ARP black holes:                          |
+|   * Check ARP on both sides                              |
+|   * Try bouncing link / port-channel                     |
+| - Nexus VPC DHCP relay not supported:                    |
+|   * DHCP must be L2-adjacent or moved elsewhere          |
+| - ASAv SSH negotiation:                                  |
+|   * Client side: ssh -oHostKeyAlgorithms=ssh-rsa ...     |
+| - LAN1-SW2 forgotten:                                    |
+|   * Confirm VLANs 1/10/11/22/33 and trunks SW1–SW4       |
++----------------------------------------------------------+
+                      |
+                      v
+           [If still broken, choose MPLS or VPN specific flow]
+
+
+============================================================
+SUBFLOW A – MPLS L3VPN PATH TROUBLESHOOTING
+============================================================
+
+            +-------------------------------+
+            | MPLS TROUBLESHOOTING START   |
+            +-------------------------------+
+                          |
+                          v
++---------------------------------------------------+
+| A1. ARE CE ROUTERS SEEING PE NEIGHBORS?           |
++---------------------------------------------------+
+| EIGRP/BGP:                                        |
+|   show ip eigrp neighbors                         |
+|   show ip bgp summary                             |
++---------------------------------------------------+
+          |                               |
+          | No                            | Yes
+          v                               v
++------------------------------+    [Go to A2]
+| Fix CE<->PE adjacency        |
++------------------------------+
+| - Check IPs / masks          |
+| - Check VRF binding          |
+| - Check network statements   |
++------------------------------+
+
+
++---------------------------------------------------+
+| A2. ARE CUSTOMER ROUTES IN VRF TABLES?            |
++---------------------------------------------------+
+| On PEs:                                          |
+|   show ip route vrf CE1                          |
+|   show ip route vrf CE2                          |
++---------------------------------------------------+
+          |                               |
+          | No                            | Yes
+          v                               v
++-----------------------------+     [Go to A3]
+| Fix VRF / redistribution:   |
++-----------------------------+
+| - Ensure correct RTs        |
+| - Redistribute EIGRP/BGP    |
+| - Check "route-target"      |
++-----------------------------+
+
+
++---------------------------------------------------+
+| A3. MPLS FORWARDING OK?                           |
++---------------------------------------------------+
+| On P and PE:                                      |
+|   show mpls ldp neighbor                          |
+|   show mpls forwarding-table                      |
++---------------------------------------------------+
+          |                               |
+          | No                            | Yes
+          v                               v
++--------------------------+       [Go to A4]
+| Fix MPLS:                |
++--------------------------+
+| - Enable LDP on links    |
+| - Check IGP reachability |
++--------------------------+
+
+
++---------------------------------------------------+
+| A4. END-TO-END BGP VPNV4?                         |
++---------------------------------------------------+
+|   show bgp vpnv4 all summary                      |
+|   show bgp vpnv4 all                              |
++---------------------------------------------------+
+          |                               |
+          | No                            | Yes
+          v                               v
++-----------------------------+      +----------------------+
+| Fix MP-BGP vpnv4 peering    |      | MPLS path is sound.  |
++-----------------------------+      | If traffic still     |
+| - Router-id / update-src    |      | fails, re-check CE   |
+| - Address-family activation |      | routing / ACLs.      |
++-----------------------------+      +----------------------+
+
+
+============================================================
+SUBFLOW B – ASA / IPSEC VPN PATH TROUBLESHOOTING
+============================================================
+
+             +--------------------------------+
+             | VPN TROUBLESHOOTING START     |
+             +--------------------------------+
+                           |
+                           v
++----------------------------------------------------+
+| B1. TUNNEL UP? (IKE PHASE 1 / 2)                   |
++----------------------------------------------------+
+| ASA:                                               |
+|   show crypto isa sa                               |
+|   show crypto ipsec sa                             |
++----------------------------------------------------+
+          |                                |
+          | NO SAs (DOWN)                  | SAs UP (ACTIVE)
+          v                                v
++-----------------------------+        [Go to B2]
+| TROUBLESHOOT BRINGUP:       |
++-----------------------------+
+| - Same PSK on both ASAs     |
+| - Matching IKE/crypto sets  |
+| - Outside ACL permits:      |
+|   UDP/500, UDP/4500, ESP    |
+| - Correct peer public IPs   |
++-----------------------------+
+
+
++----------------------------------------------------+
+| B2. TRAFFIC MATCHING CRYPTO ACL?                   |
++----------------------------------------------------+
+|   show access-list <crypto ACL>                    |
+| Check that src/dst subnets are mirrored on both    |
+| sides (e.g. LAN1 <-> LAN2).                        |
++----------------------------------------------------+
+          |                                |
+          | No                             | Yes
+          v                                v
++-----------------------+             [Go to B3]
+| Fix crypto ACLs:      |
++-----------------------+
+| - Symmetric src/dst   |
+| - Exact subnets, no   |
+|   overlap mismatches. |
++-----------------------+
+
+
++----------------------------------------------------+
+| B3. NAT EXEMPTION CORRECT?                         |
++----------------------------------------------------+
+| ASA:                                               |
+|   show nat detail                                  |
+| Traffic between protected subnets must NOT be      |
+| translation candidates (identity NAT / nat 0).     |
++----------------------------------------------------+
+          |                                |
+          | No                             | Yes
+          v                                v
++-----------------------------+      [Go to B4]
+| Fix NAT:                    |
++-----------------------------+
+| - Add identity NAT          |
+| - Ensure more-specific NAT  |
+|   is above generic PAT      |
++-----------------------------+
+
+
++----------------------------------------------------+
+| B4. ROUTING AFTER DECRYPTION OK?                   |
++----------------------------------------------------+
+| ASA:                                               |
+|   show route <remote subnet>                       |
+| Packet-tracer:                                     |
+|   packet-tracer input inside ...                   |
++----------------------------------------------------+
+          |                                |
+          | No route / no-adjacency        | Route OK
+          v                                v
++-----------------------------+      [Go to B5]
+| Fix routing:                |
++-----------------------------+
+| - Add static route for      |
+|   remote LAN pointing to    |
+|   inside next-hop (R1/R2).  |
++-----------------------------+
+
+
++----------------------------------------------------+
+| B5. TRAFFIC COUNTERS INCREMENTING?                 |
++----------------------------------------------------+
+|   show crypto ipsec sa                             |
+| - "pkts encaps" / "decaps" increasing?            |
++----------------------------------------------------+
+          |                                |
+          | No                             | Yes
+          v                                v
++-----------------------------+    +---------------------------+
+| Check upstream host/ACLs    |    | Tunnel healthy. If hosts |
+| / firewall in path.         |    | still fail, go back to   |
+|                             |    | Day-1 L2/L3 checks.      |
++-----------------------------+    +---------------------------+
+
+
+============================================================
+END OF ASCII TROUBLESHOOTING FLOW
+============================================================

@@ -1,0 +1,50 @@
+=== POCKET TROUBLESHOOTING CHEAT SHEET WHAT TO PROVIDE CHATGPT for HELP===
+
+PC TESTS:
+ip addr
+ip route
+ping <target>
+traceroute <target>
+
+LAN1 SW (1-4 incl. SW2):
+show interfaces trunk
+show vlan brief
+show mac address-table
+show arp
+
+LAN2 MSTP:
+show spanning-tree mst
+show interfaces trunk
+show arp
+
+DC VPC:
+show vpc
+show port-channel summary
+show arp
+
+CE/PE/MPLS:
+show ip eigrp neighbors
+show ip route vrf <CE1/CE2>
+show bgp vpnv4 all summary
+show mpls ldp neighbor
+show mpls forwarding-table
+
+ASA VPN:
+show crypto isakmp sa
+show crypto ipsec sa
+show nat detail
+show access-list
+show route
+packet-tracer input inside ...
+
+ALPINE:
+cat /etc/network/interfaces
+ip addr
+cat /etc/dhcp/dhcpd.conf
+rc-status
+
+IF UNSURE:
+traceroute <target>
+show ip route
+show arp
+packet-tracer input inside icmp ...
