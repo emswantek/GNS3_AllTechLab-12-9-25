@@ -28,7 +28,7 @@ Hardware
 
   Device name: DC-VPC-SW1
   bootflash:    3509454 kB
-Kernel uptime is 0 day(s), 3 hour(s), 16 minute(s), 3 second(s)
+Kernel uptime is 0 day(s), 3 hour(s), 23 minute(s), 40 second(s)
 
 Last reset
   Reason: Unknown
@@ -66,6 +66,17 @@ lacp                   1          enabled
 sshServer              1          enabled
 vpc                    1          enabled
 DC-VPC-SW1#
+DC-VPC-SW1# show ip int brief | exclude down
+
+IP Interface Status for VRF "default"(1)
+Interface            IP Address      Interface Status
+Vlan241              172.31.241.2    protocol-up/link-up/admin-up
+Vlan242              172.31.242.2    protocol-up/link-up/admin-up
+Vlan243              172.31.243.2    protocol-up/link-up/admin-up
+Vlan251              172.31.251.2    protocol-up/link-up/admin-up
+Vlan254              172.31.254.4    protocol-up/link-up/admin-up
+Lo0                  172.31.255.4    protocol-up/link-up/admin-up
+DC-VPC-SW1#
 DC-VPC-SW1# show int status
 
 --------------------------------------------------------------------------------
@@ -85,125 +96,125 @@ Eth1/6        LAN2-MSTP-SW1      connected trunk     full    1000    10g
 Eth1/7        LAN2-MSTP-SW4      connected trunk     full    1000    10g
 Eth1/8        --                 connected 1         full    auto    10g
 Eth1/9        DC-SW1             connected trunk     full    1000    10g
-Eth1/10       --                 notconnec 1         auto    auto    10g
-Eth1/11       --                 notconnec 1         auto    auto    10g
-Eth1/12       --                 notconnec 1         auto    auto    10g
-Eth1/13       --                 notconnec 1         auto    auto    10g
-Eth1/14       --                 notconnec 1         auto    auto    10g
-Eth1/15       --                 notconnec 1         auto    auto    10g
-Eth1/16       --                 notconnec 1         auto    auto    10g
-Eth1/17       --                 notconnec 1         auto    auto    10g
-Eth1/18       --                 notconnec 1         auto    auto    10g
-Eth1/19       --                 notconnec 1         auto    auto    10g
-Eth1/20       --                 notconnec 1         auto    auto    10g
-Eth1/21       --                 notconnec 1         auto    auto    10g
-Eth1/22       --                 notconnec 1         auto    auto    10g
-Eth1/23       --                 notconnec 1         auto    auto    10g
-Eth1/24       --                 notconnec 1         auto    auto    10g
-Eth1/25       --                 notconnec 1         auto    auto    10g
-Eth1/26       --                 notconnec 1         auto    auto    10g
-Eth1/27       --                 notconnec 1         auto    auto    10g
-Eth1/28       --                 notconnec 1         auto    auto    10g
-Eth1/29       --                 notconnec 1         auto    auto    10g
-Eth1/30       --                 notconnec 1         auto    auto    10g
-Eth1/31       --                 notconnec 1         auto    auto    10g
-Eth1/32       --                 notconnec 1         auto    auto    10g
-Eth1/33       --                 notconnec 1         auto    auto    10g
-Eth1/34       --                 notconnec 1         auto    auto    10g
-Eth1/35       --                 notconnec 1         auto    auto    10g
-Eth1/36       --                 notconnec 1         auto    auto    10g
-Eth1/37       --                 notconnec 1         auto    auto    10g
-Eth1/38       --                 notconnec 1         auto    auto    10g
-Eth1/39       --                 notconnec 1         auto    auto    10g
-Eth1/40       --                 notconnec 1         auto    auto    10g
-Eth1/41       --                 notconnec 1         auto    auto    10g
-Eth1/42       --                 notconnec 1         auto    auto    10g
-Eth1/43       --                 notconnec 1         auto    auto    10g
-Eth1/44       --                 notconnec 1         auto    auto    10g
-Eth1/45       --                 notconnec 1         auto    auto    10g
-Eth1/46       --                 notconnec 1         auto    auto    10g
-Eth1/47       --                 notconnec 1         auto    auto    10g
-Eth1/48       --                 notconnec 1         auto    auto    10g
-Eth1/49       --                 notconnec 1         auto    auto    10g
-Eth1/50       --                 notconnec 1         auto    auto    10g
-Eth1/51       --                 notconnec 1         auto    auto    10g
-Eth1/52       --                 notconnec 1         auto    auto    10g
-Eth1/53       --                 notconnec 1         auto    auto    10g
-Eth1/54       --                 notconnec 1         auto    auto    10g
-Eth1/55       --                 notconnec 1         auto    auto    10g
-Eth1/56       --                 notconnec 1         auto    auto    10g
-Eth1/57       --                 notconnec 1         auto    auto    10g
-Eth1/58       --                 notconnec 1         auto    auto    10g
-Eth1/59       --                 notconnec 1         auto    auto    10g
-Eth1/60       --                 notconnec 1         auto    auto    10g
-Eth1/61       --                 notconnec 1         auto    auto    10g
-Eth1/62       --                 notconnec 1         auto    auto    10g
-Eth1/63       --                 notconnec 1         auto    auto    10g
-Eth1/64       --                 notconnec 1         auto    auto    10g
-Eth1/65       --                 notconnec 1         auto    auto    10g
-Eth1/66       --                 notconnec 1         auto    auto    10g
-Eth1/67       --                 notconnec 1         auto    auto    10g
-Eth1/68       --                 notconnec 1         auto    auto    10g
-Eth1/69       --                 notconnec 1         auto    auto    10g
-Eth1/70       --                 notconnec 1         auto    auto    10g
-Eth1/71       --                 notconnec 1         auto    auto    10g
-Eth1/72       --                 notconnec 1         auto    auto    10g
-Eth1/73       --                 notconnec 1         auto    auto    10g
-Eth1/74       --                 notconnec 1         auto    auto    10g
-Eth1/75       --                 notconnec 1         auto    auto    10g
-Eth1/76       --                 notconnec 1         auto    auto    10g
-Eth1/77       --                 notconnec 1         auto    auto    10g
-Eth1/78       --                 notconnec 1         auto    auto    10g
-Eth1/79       --                 notconnec 1         auto    auto    10g
-Eth1/80       --                 notconnec 1         auto    auto    10g
-Eth1/81       --                 notconnec 1         auto    auto    10g
-Eth1/82       --                 notconnec 1         auto    auto    10g
-Eth1/83       --                 notconnec 1         auto    auto    10g
-Eth1/84       --                 notconnec 1         auto    auto    10g
-Eth1/85       --                 notconnec 1         auto    auto    10g
-Eth1/86       --                 notconnec 1         auto    auto    10g
-Eth1/87       --                 notconnec 1         auto    auto    10g
-Eth1/88       --                 notconnec 1         auto    auto    10g
-Eth1/89       --                 notconnec 1         auto    auto    10g
-Eth1/90       --                 notconnec 1         auto    auto    10g
-Eth1/91       --                 notconnec 1         auto    auto    10g
-Eth1/92       --                 notconnec 1         auto    auto    10g
-Eth1/93       --                 notconnec 1         auto    auto    10g
-Eth1/94       --                 notconnec 1         auto    auto    10g
-Eth1/95       --                 notconnec 1         auto    auto    10g
-Eth1/96       --                 notconnec 1         auto    auto    10g
-Eth1/97       --                 notconnec 1         auto    auto    10g
-Eth1/98       --                 notconnec 1         auto    auto    10g
-Eth1/99       --                 notconnec 1         auto    auto    10g
-Eth1/100      --                 notconnec 1         auto    auto    10g
-Eth1/101      --                 notconnec 1         auto    auto    10g
-Eth1/102      --                 notconnec 1         auto    auto    10g
-Eth1/103      --                 notconnec 1         auto    auto    10g
-Eth1/104      --                 notconnec 1         auto    auto    10g
-Eth1/105      --                 notconnec 1         auto    auto    10g
-Eth1/106      --                 notconnec 1         auto    auto    10g
-Eth1/107      --                 notconnec 1         auto    auto    10g
-Eth1/108      --                 notconnec 1         auto    auto    10g
-Eth1/109      --                 notconnec 1         auto    auto    10g
-Eth1/110      --                 notconnec 1         auto    auto    10g
-Eth1/111      --                 notconnec 1         auto    auto    10g
-Eth1/112      --                 notconnec 1         auto    auto    10g
-Eth1/113      --                 notconnec 1         auto    auto    10g
-Eth1/114      --                 notconnec 1         auto    auto    10g
-Eth1/115      --                 notconnec 1         auto    auto    10g
-Eth1/116      --                 notconnec 1         auto    auto    10g
-Eth1/117      --                 notconnec 1         auto    auto    10g
-Eth1/118      --                 notconnec 1         auto    auto    10g
-Eth1/119      --                 notconnec 1         auto    auto    10g
-Eth1/120      --                 notconnec 1         auto    auto    10g
-Eth1/121      --                 notconnec 1         auto    auto    10g
-Eth1/122      --                 notconnec 1         auto    auto    10g
-Eth1/123      --                 notconnec 1         auto    auto    10g
-Eth1/124      --                 notconnec 1         auto    auto    10g
-Eth1/125      --                 notconnec 1         auto    auto    10g
-Eth1/126      --                 notconnec 1         auto    auto    10g
-Eth1/127      --                 notconnec 1         auto    auto    10g
-Eth1/128      --                 notconnec 1         auto    auto    10g
+Eth1/10       --                 disabled  1         auto    auto    10g
+Eth1/11       --                 disabled  1         auto    auto    10g
+Eth1/12       --                 disabled  1         auto    auto    10g
+Eth1/13       --                 disabled  1         auto    auto    10g
+Eth1/14       --                 disabled  1         auto    auto    10g
+Eth1/15       --                 disabled  1         auto    auto    10g
+Eth1/16       --                 disabled  1         auto    auto    10g
+Eth1/17       --                 disabled  1         auto    auto    10g
+Eth1/18       --                 disabled  1         auto    auto    10g
+Eth1/19       --                 disabled  1         auto    auto    10g
+Eth1/20       --                 disabled  1         auto    auto    10g
+Eth1/21       --                 disabled  1         auto    auto    10g
+Eth1/22       --                 disabled  1         auto    auto    10g
+Eth1/23       --                 disabled  1         auto    auto    10g
+Eth1/24       --                 disabled  1         auto    auto    10g
+Eth1/25       --                 disabled  1         auto    auto    10g
+Eth1/26       --                 disabled  1         auto    auto    10g
+Eth1/27       --                 disabled  1         auto    auto    10g
+Eth1/28       --                 disabled  1         auto    auto    10g
+Eth1/29       --                 disabled  1         auto    auto    10g
+Eth1/30       --                 disabled  1         auto    auto    10g
+Eth1/31       --                 disabled  1         auto    auto    10g
+Eth1/32       --                 disabled  1         auto    auto    10g
+Eth1/33       --                 disabled  1         auto    auto    10g
+Eth1/34       --                 disabled  1         auto    auto    10g
+Eth1/35       --                 disabled  1         auto    auto    10g
+Eth1/36       --                 disabled  1         auto    auto    10g
+Eth1/37       --                 disabled  1         auto    auto    10g
+Eth1/38       --                 disabled  1         auto    auto    10g
+Eth1/39       --                 disabled  1         auto    auto    10g
+Eth1/40       --                 disabled  1         auto    auto    10g
+Eth1/41       --                 disabled  1         auto    auto    10g
+Eth1/42       --                 disabled  1         auto    auto    10g
+Eth1/43       --                 disabled  1         auto    auto    10g
+Eth1/44       --                 disabled  1         auto    auto    10g
+Eth1/45       --                 disabled  1         auto    auto    10g
+Eth1/46       --                 disabled  1         auto    auto    10g
+Eth1/47       --                 disabled  1         auto    auto    10g
+Eth1/48       --                 disabled  1         auto    auto    10g
+Eth1/49       --                 disabled  1         auto    auto    10g
+Eth1/50       --                 disabled  1         auto    auto    10g
+Eth1/51       --                 disabled  1         auto    auto    10g
+Eth1/52       --                 disabled  1         auto    auto    10g
+Eth1/53       --                 disabled  1         auto    auto    10g
+Eth1/54       --                 disabled  1         auto    auto    10g
+Eth1/55       --                 disabled  1         auto    auto    10g
+Eth1/56       --                 disabled  1         auto    auto    10g
+Eth1/57       --                 disabled  1         auto    auto    10g
+Eth1/58       --                 disabled  1         auto    auto    10g
+Eth1/59       --                 disabled  1         auto    auto    10g
+Eth1/60       --                 disabled  1         auto    auto    10g
+Eth1/61       --                 disabled  1         auto    auto    10g
+Eth1/62       --                 disabled  1         auto    auto    10g
+Eth1/63       --                 disabled  1         auto    auto    10g
+Eth1/64       --                 disabled  1         auto    auto    10g
+Eth1/65       --                 disabled  1         auto    auto    10g
+Eth1/66       --                 disabled  1         auto    auto    10g
+Eth1/67       --                 disabled  1         auto    auto    10g
+Eth1/68       --                 disabled  1         auto    auto    10g
+Eth1/69       --                 disabled  1         auto    auto    10g
+Eth1/70       --                 disabled  1         auto    auto    10g
+Eth1/71       --                 disabled  1         auto    auto    10g
+Eth1/72       --                 disabled  1         auto    auto    10g
+Eth1/73       --                 disabled  1         auto    auto    10g
+Eth1/74       --                 disabled  1         auto    auto    10g
+Eth1/75       --                 disabled  1         auto    auto    10g
+Eth1/76       --                 disabled  1         auto    auto    10g
+Eth1/77       --                 disabled  1         auto    auto    10g
+Eth1/78       --                 disabled  1         auto    auto    10g
+Eth1/79       --                 disabled  1         auto    auto    10g
+Eth1/80       --                 disabled  1         auto    auto    10g
+Eth1/81       --                 disabled  1         auto    auto    10g
+Eth1/82       --                 disabled  1         auto    auto    10g
+Eth1/83       --                 disabled  1         auto    auto    10g
+Eth1/84       --                 disabled  1         auto    auto    10g
+Eth1/85       --                 disabled  1         auto    auto    10g
+Eth1/86       --                 disabled  1         auto    auto    10g
+Eth1/87       --                 disabled  1         auto    auto    10g
+Eth1/88       --                 disabled  1         auto    auto    10g
+Eth1/89       --                 disabled  1         auto    auto    10g
+Eth1/90       --                 disabled  1         auto    auto    10g
+Eth1/91       --                 disabled  1         auto    auto    10g
+Eth1/92       --                 disabled  1         auto    auto    10g
+Eth1/93       --                 disabled  1         auto    auto    10g
+Eth1/94       --                 disabled  1         auto    auto    10g
+Eth1/95       --                 disabled  1         auto    auto    10g
+Eth1/96       --                 disabled  1         auto    auto    10g
+Eth1/97       --                 disabled  1         auto    auto    10g
+Eth1/98       --                 disabled  1         auto    auto    10g
+Eth1/99       --                 disabled  1         auto    auto    10g
+Eth1/100      --                 disabled  1         auto    auto    10g
+Eth1/101      --                 disabled  1         auto    auto    10g
+Eth1/102      --                 disabled  1         auto    auto    10g
+Eth1/103      --                 disabled  1         auto    auto    10g
+Eth1/104      --                 disabled  1         auto    auto    10g
+Eth1/105      --                 disabled  1         auto    auto    10g
+Eth1/106      --                 disabled  1         auto    auto    10g
+Eth1/107      --                 disabled  1         auto    auto    10g
+Eth1/108      --                 disabled  1         auto    auto    10g
+Eth1/109      --                 disabled  1         auto    auto    10g
+Eth1/110      --                 disabled  1         auto    auto    10g
+Eth1/111      --                 disabled  1         auto    auto    10g
+Eth1/112      --                 disabled  1         auto    auto    10g
+Eth1/113      --                 disabled  1         auto    auto    10g
+Eth1/114      --                 disabled  1         auto    auto    10g
+Eth1/115      --                 disabled  1         auto    auto    10g
+Eth1/116      --                 disabled  1         auto    auto    10g
+Eth1/117      --                 disabled  1         auto    auto    10g
+Eth1/118      --                 disabled  1         auto    auto    10g
+Eth1/119      --                 disabled  1         auto    auto    10g
+Eth1/120      --                 disabled  1         auto    auto    10g
+Eth1/121      --                 disabled  1         auto    auto    10g
+Eth1/122      --                 disabled  1         auto    auto    10g
+Eth1/123      --                 disabled  1         auto    auto    10g
+Eth1/124      --                 disabled  1         auto    auto    10g
+Eth1/125      --                 disabled  1         auto    auto    10g
+Eth1/126      --                 disabled  1         auto    auto    10g
+Eth1/127      --                 disabled  1         auto    auto    10g
+Eth1/128      --                 disabled  1         auto    auto    10g
 Po10          vPC peer link      connected trunk     full    1000    --
 Po11          DC-SW1             connected trunk     full    1000    --
 Po12          LAN2-MSTP-SW1      connected trunk     full    1000    --
@@ -215,17 +226,6 @@ Vlan242       LAN2-SEGMENT-2     connected routed    auto    auto    --
 Vlan243       LAN2-SEGMENT-3     connected routed    auto    auto    --
 Vlan251       NET-MGMT-VLAN      connected routed    auto    auto    --
 Vlan254       ROUTER-TRANSIT-NET connected routed    auto    auto    --
-DC-VPC-SW1#
-DC-VPC-SW1# show ip int brief
-
-IP Interface Status for VRF "default"(1)
-Interface            IP Address      Interface Status
-Vlan241              172.31.241.2    protocol-up/link-up/admin-up
-Vlan242              172.31.242.2    protocol-up/link-up/admin-up
-Vlan243              172.31.243.2    protocol-up/link-up/admin-up
-Vlan251              172.31.251.2    protocol-up/link-up/admin-up
-Vlan254              172.31.254.4    protocol-up/link-up/admin-up
-Lo0                  172.31.255.4    protocol-up/link-up/admin-up
 DC-VPC-SW1#
 DC-VPC-SW1# show vpc brief
 Legend:
@@ -462,57 +462,63 @@ IP Route Table for VRF "default"
 '[x/y]' denotes [preference/metric]
 '%<string>' in via output denotes VRF <string>
 
+0.0.0.0/0, ubest/mbest: 2/0
+    *via 172.31.254.2, Vlan254, [170/7690752], 03:18:09, eigrp-65535, external
+    *via 172.31.254.3, Vlan254, [170/7690752], 03:18:09, eigrp-65535, external
+172.16.0.0/18, ubest/mbest: 2/0
+    *via 172.31.254.2, Vlan254, [170/7690752], 03:18:09, eigrp-65535, external
+    *via 172.31.254.3, Vlan254, [170/7690752], 03:18:09, eigrp-65535, external
 172.21.0.0/24, ubest/mbest: 1/0
-    *via 172.31.254.2, Vlan254, [90/3072], 03:08:36, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/3072], 03:18:09, eigrp-65535, internal
 172.22.0.0/24, ubest/mbest: 1/0
-    *via 172.31.254.3, Vlan254, [90/3072], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/3072], 03:18:09, eigrp-65535, internal
 172.31.2.0/30, ubest/mbest: 2/0
-    *via 172.31.254.2, Vlan254, [90/3328], 03:08:36, eigrp-65535, internal
-    *via 172.31.254.3, Vlan254, [90/3328], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/3328], 03:18:09, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/3328], 03:18:09, eigrp-65535, internal
 172.31.241.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.241.2, Vlan241, [0/0], 03:11:21, direct
+    *via 172.31.241.2, Vlan241, [0/0], 03:20:50, direct
 172.31.241.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.241.1, Vlan241, [0/0], 03:11:00, hsrp
+    *via 172.31.241.1, Vlan241, [0/0], 03:20:29, hsrp
 172.31.241.2/32, ubest/mbest: 1/0, attached
-    *via 172.31.241.2, Vlan241, [0/0], 03:11:21, local
+    *via 172.31.241.2, Vlan241, [0/0], 03:20:50, local
 172.31.242.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.242.2, Vlan242, [0/0], 03:11:20, direct
+    *via 172.31.242.2, Vlan242, [0/0], 03:20:50, direct
 172.31.242.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.242.1, Vlan242, [0/0], 03:10:59, hsrp
+    *via 172.31.242.1, Vlan242, [0/0], 03:20:29, hsrp
 172.31.242.2/32, ubest/mbest: 1/0, attached
-    *via 172.31.242.2, Vlan242, [0/0], 03:11:21, local
+    *via 172.31.242.2, Vlan242, [0/0], 03:20:50, local
 172.31.243.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.243.2, Vlan243, [0/0], 03:11:21, direct
+    *via 172.31.243.2, Vlan243, [0/0], 03:20:50, direct
 172.31.243.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.243.1, Vlan243, [0/0], 03:11:00, hsrp
+    *via 172.31.243.1, Vlan243, [0/0], 03:20:29, hsrp
 172.31.243.2/32, ubest/mbest: 1/0, attached
-    *via 172.31.243.2, Vlan243, [0/0], 03:11:21, local
+    *via 172.31.243.2, Vlan243, [0/0], 03:20:50, local
 172.31.251.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.251.2, Vlan251, [0/0], 03:11:21, direct
+    *via 172.31.251.2, Vlan251, [0/0], 03:20:50, direct
 172.31.251.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.251.1, Vlan251, [0/0], 03:11:00, hsrp
+    *via 172.31.251.1, Vlan251, [0/0], 03:20:29, hsrp
 172.31.251.2/32, ubest/mbest: 1/0, attached
-    *via 172.31.251.2, Vlan251, [0/0], 03:11:21, local
+    *via 172.31.251.2, Vlan251, [0/0], 03:20:50, local
 172.31.254.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.254.4, Vlan254, [0/0], 03:11:20, direct
+    *via 172.31.254.4, Vlan254, [0/0], 03:20:50, direct
 172.31.254.4/32, ubest/mbest: 1/0, attached
-    *via 172.31.254.4, Vlan254, [0/0], 03:11:20, local
+    *via 172.31.254.4, Vlan254, [0/0], 03:20:50, local
 172.31.255.1/32, ubest/mbest: 2/0
-    *via 172.31.254.2, Vlan254, [90/131072], 03:08:36, eigrp-65535, internal
-    *via 172.31.254.3, Vlan254, [90/131072], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/131072], 03:18:09, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/131072], 03:18:09, eigrp-65535, internal
 172.31.255.2/32, ubest/mbest: 1/0
-    *via 172.31.254.2, Vlan254, [90/130816], 03:08:36, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/130816], 03:18:09, eigrp-65535, internal
 172.31.255.3/32, ubest/mbest: 1/0
-    *via 172.31.254.3, Vlan254, [90/130816], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/130816], 03:18:09, eigrp-65535, internal
 172.31.255.4/32, ubest/mbest: 2/0, attached
-    *via 172.31.255.4, Lo0, [0/0], 03:14:23, local
-    *via 172.31.255.4, Lo0, [0/0], 03:14:23, direct
+    *via 172.31.255.4, Lo0, [0/0], 03:21:52, local
+    *via 172.31.255.4, Lo0, [0/0], 03:21:52, direct
 172.31.255.5/32, ubest/mbest: 5/0
-    *via 172.31.241.3, Vlan241, [90/130816], 03:11:18, eigrp-65535, internal
-    *via 172.31.242.3, Vlan242, [90/130816], 03:11:18, eigrp-65535, internal
-    *via 172.31.243.3, Vlan243, [90/130816], 03:11:18, eigrp-65535, internal
-    *via 172.31.251.3, Vlan251, [90/130816], 03:11:18, eigrp-65535, internal
-    *via 172.31.254.5, Vlan254, [90/130816], 03:11:18, eigrp-65535, internal
+    *via 172.31.241.3, Vlan241, [90/130816], 03:20:47, eigrp-65535, internal
+    *via 172.31.242.3, Vlan242, [90/130816], 03:20:47, eigrp-65535, internal
+    *via 172.31.243.3, Vlan243, [90/130816], 03:20:47, eigrp-65535, internal
+    *via 172.31.251.3, Vlan251, [90/130816], 03:20:47, eigrp-65535, internal
+    *via 172.31.254.5, Vlan254, [90/130816], 03:20:47, eigrp-65535, internal
 
 DC-VPC-SW1#
 DC-VPC-SW1# show cdp neighbors
@@ -523,14 +529,14 @@ Capability Codes: R - Router, T - Trans-Bridge, B - Source-Route-Bridge
 
 Device-ID          Local Intrfce  Hldtme Capability  Platform      Port ID
 DC-VPC-SW2(976MYWRI6UU)
-                    mgmt0          164    R S s     N9K-9000v     mgmt0
+                    mgmt0          128    R S s     N9K-9000v     mgmt0
 DC-VPC-SW2(976MYWRI6UU)
-                    Eth1/1         141    R S I s   N9K-9000v     Eth1/1
+                    Eth1/1         167    R S I s   N9K-9000v     Eth1/1
 DC-VPC-SW2(976MYWRI6UU)
-                    Eth1/2         141    R S I s   N9K-9000v     Eth1/2
-LAN2-MSTP-SW1       Eth1/6         169    S I                     Gig3/0
-LAN2-MSTP-SW4       Eth1/7         156    R S I                   Gig3/0
-DC-SW1              Eth1/9         121    R S I                   Gig3/1
+                    Eth1/2         167    R S I s   N9K-9000v     Eth1/2
+LAN2-MSTP-SW1       Eth1/6         138    S I                     Gig3/0
+LAN2-MSTP-SW4       Eth1/7         172    R S I                   Gig3/0
+DC-SW1              Eth1/9         142    R S I                   Gig3/1
 
 Total entries displayed: 6
 DC-VPC-SW1#
@@ -539,52 +545,52 @@ Vlan241 - Group 241 (HSRP-V1) (IPv4)
   Local state is Active, priority 110 (Cfged 110), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 110
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 2.173000 sec(s)
+  Next hello sent in 1.902000 sec(s)
   Virtual IP address is 172.31.241.1 (Cfged)
   Active router is local
-  Standby router is 172.31.241.3 , priority 100 expires in 9.953000 sec(s)
+  Standby router is 172.31.241.3 , priority 100 expires in 9.908000 sec(s)
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acf1 (Default MAC)
-  2 state changes, last state change 03:10:59
+  5 state changes, last state change 03:20:29
   IP redundancy name is hsrp-Vlan241-241 (default)
 
 Vlan242 - Group 242 (HSRP-V1) (IPv4)
   Local state is Active, priority 110 (Cfged 110), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 110
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 1.317000 sec(s)
+  Next hello sent in 2.084000 sec(s)
   Virtual IP address is 172.31.242.1 (Cfged)
   Active router is local
-  Standby router is 172.31.242.3 , priority 100 expires in 7.778000 sec(s)
+  Standby router is 172.31.242.3 , priority 100 expires in 9.147000 sec(s)
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acf2 (Default MAC)
-  2 state changes, last state change 03:10:59
+  5 state changes, last state change 03:20:29
   IP redundancy name is hsrp-Vlan242-242 (default)
 
 Vlan243 - Group 243 (HSRP-V1) (IPv4)
   Local state is Active, priority 110 (Cfged 110), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 110
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 1.263000 sec(s)
+  Next hello sent in 2.491000 sec(s)
   Virtual IP address is 172.31.243.1 (Cfged)
   Active router is local
-  Standby router is 172.31.243.3 , priority 100 expires in 8.639000 sec(s)
+  Standby router is 172.31.243.3 , priority 100 expires in 8.653000 sec(s)
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acf3 (Default MAC)
-  2 state changes, last state change 03:10:59
+  5 state changes, last state change 03:20:29
   IP redundancy name is hsrp-Vlan243-243 (default)
 
 Vlan251 - Group 251 (HSRP-V1) (IPv4)
   Local state is Active, priority 110 (Cfged 110), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 110
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 0.955000 sec(s)
+  Next hello sent in 0.287000 sec(s)
   Virtual IP address is 172.31.251.1 (Cfged)
   Active router is local
-  Standby router is 172.31.251.3 , priority 100 expires in 9.598000 sec(s)
+  Standby router is 172.31.251.3 , priority 100 expires in 9.681000 sec(s)
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acfb (Default MAC)
-  2 state changes, last state change 03:10:59
+  5 state changes, last state change 03:20:29
   IP redundancy name is hsrp-Vlan251-251 (default)
 
 DC-VPC-SW1#
@@ -610,6 +616,7 @@ G  242     0c9f.43a5.0007   static   -         F      F    sup-eth1(R)
 G  243     0c9f.43a5.0007   static   -         F      F    sup-eth1(R)
 G  251     0c9f.43a5.0007   static   -         F      F    sup-eth1(R)
 G  254     0c9f.43a5.0007   static   -         F      F    sup-eth1(R)
+
 
 !--END OF DC-VPC-SW1 OUTPUT--!
 
@@ -643,7 +650,7 @@ Hardware
 
   Device name: DC-VPC-SW2
   bootflash:    3509454 kB
-Kernel uptime is 0 day(s), 3 hour(s), 16 minute(s), 4 second(s)
+Kernel uptime is 0 day(s), 3 hour(s), 23 minute(s), 43 second(s)
 
 Last reset
   Reason: Unknown
@@ -681,6 +688,17 @@ lacp                   1          enabled
 sshServer              1          enabled
 vpc                    1          enabled
 DC-VPC-SW2#
+DC-VPC-SW2# show ip int brief | exclude down
+
+IP Interface Status for VRF "default"(1)
+Interface            IP Address      Interface Status
+Vlan241              172.31.241.3    protocol-up/link-up/admin-up
+Vlan242              172.31.242.3    protocol-up/link-up/admin-up
+Vlan243              172.31.243.3    protocol-up/link-up/admin-up
+Vlan251              172.31.251.3    protocol-up/link-up/admin-up
+Vlan254              172.31.254.5    protocol-up/link-up/admin-up
+Lo0                  172.31.255.5    protocol-up/link-up/admin-up
+DC-VPC-SW2#
 DC-VPC-SW2# show int status
 
 --------------------------------------------------------------------------------
@@ -700,125 +718,125 @@ Eth1/6        LAN2-MSTP-SW1      connected trunk     full    1000    10g
 Eth1/7        LAN2-MSTP-SW4      connected trunk     full    1000    10g
 Eth1/8        --                 connected 1         full    auto    10g
 Eth1/9        DC-SW1             connected trunk     full    1000    10g
-Eth1/10       --                 notconnec 1         auto    auto    10g
-Eth1/11       --                 notconnec 1         auto    auto    10g
-Eth1/12       --                 notconnec 1         auto    auto    10g
-Eth1/13       --                 notconnec 1         auto    auto    10g
-Eth1/14       --                 notconnec 1         auto    auto    10g
-Eth1/15       --                 notconnec 1         auto    auto    10g
-Eth1/16       --                 notconnec 1         auto    auto    10g
-Eth1/17       --                 notconnec 1         auto    auto    10g
-Eth1/18       --                 notconnec 1         auto    auto    10g
-Eth1/19       --                 notconnec 1         auto    auto    10g
-Eth1/20       --                 notconnec 1         auto    auto    10g
-Eth1/21       --                 notconnec 1         auto    auto    10g
-Eth1/22       --                 notconnec 1         auto    auto    10g
-Eth1/23       --                 notconnec 1         auto    auto    10g
-Eth1/24       --                 notconnec 1         auto    auto    10g
-Eth1/25       --                 notconnec 1         auto    auto    10g
-Eth1/26       --                 notconnec 1         auto    auto    10g
-Eth1/27       --                 notconnec 1         auto    auto    10g
-Eth1/28       --                 notconnec 1         auto    auto    10g
-Eth1/29       --                 notconnec 1         auto    auto    10g
-Eth1/30       --                 notconnec 1         auto    auto    10g
-Eth1/31       --                 notconnec 1         auto    auto    10g
-Eth1/32       --                 notconnec 1         auto    auto    10g
-Eth1/33       --                 notconnec 1         auto    auto    10g
-Eth1/34       --                 notconnec 1         auto    auto    10g
-Eth1/35       --                 notconnec 1         auto    auto    10g
-Eth1/36       --                 notconnec 1         auto    auto    10g
-Eth1/37       --                 notconnec 1         auto    auto    10g
-Eth1/38       --                 notconnec 1         auto    auto    10g
-Eth1/39       --                 notconnec 1         auto    auto    10g
-Eth1/40       --                 notconnec 1         auto    auto    10g
-Eth1/41       --                 notconnec 1         auto    auto    10g
-Eth1/42       --                 notconnec 1         auto    auto    10g
-Eth1/43       --                 notconnec 1         auto    auto    10g
-Eth1/44       --                 notconnec 1         auto    auto    10g
-Eth1/45       --                 notconnec 1         auto    auto    10g
-Eth1/46       --                 notconnec 1         auto    auto    10g
-Eth1/47       --                 notconnec 1         auto    auto    10g
-Eth1/48       --                 notconnec 1         auto    auto    10g
-Eth1/49       --                 notconnec 1         auto    auto    10g
-Eth1/50       --                 notconnec 1         auto    auto    10g
-Eth1/51       --                 notconnec 1         auto    auto    10g
-Eth1/52       --                 notconnec 1         auto    auto    10g
-Eth1/53       --                 notconnec 1         auto    auto    10g
-Eth1/54       --                 notconnec 1         auto    auto    10g
-Eth1/55       --                 notconnec 1         auto    auto    10g
-Eth1/56       --                 notconnec 1         auto    auto    10g
-Eth1/57       --                 notconnec 1         auto    auto    10g
-Eth1/58       --                 notconnec 1         auto    auto    10g
-Eth1/59       --                 notconnec 1         auto    auto    10g
-Eth1/60       --                 notconnec 1         auto    auto    10g
-Eth1/61       --                 notconnec 1         auto    auto    10g
-Eth1/62       --                 notconnec 1         auto    auto    10g
-Eth1/63       --                 notconnec 1         auto    auto    10g
-Eth1/64       --                 notconnec 1         auto    auto    10g
-Eth1/65       --                 notconnec 1         auto    auto    10g
-Eth1/66       --                 notconnec 1         auto    auto    10g
-Eth1/67       --                 notconnec 1         auto    auto    10g
-Eth1/68       --                 notconnec 1         auto    auto    10g
-Eth1/69       --                 notconnec 1         auto    auto    10g
-Eth1/70       --                 notconnec 1         auto    auto    10g
-Eth1/71       --                 notconnec 1         auto    auto    10g
-Eth1/72       --                 notconnec 1         auto    auto    10g
-Eth1/73       --                 notconnec 1         auto    auto    10g
-Eth1/74       --                 notconnec 1         auto    auto    10g
-Eth1/75       --                 notconnec 1         auto    auto    10g
-Eth1/76       --                 notconnec 1         auto    auto    10g
-Eth1/77       --                 notconnec 1         auto    auto    10g
-Eth1/78       --                 notconnec 1         auto    auto    10g
-Eth1/79       --                 notconnec 1         auto    auto    10g
-Eth1/80       --                 notconnec 1         auto    auto    10g
-Eth1/81       --                 notconnec 1         auto    auto    10g
-Eth1/82       --                 notconnec 1         auto    auto    10g
-Eth1/83       --                 notconnec 1         auto    auto    10g
-Eth1/84       --                 notconnec 1         auto    auto    10g
-Eth1/85       --                 notconnec 1         auto    auto    10g
-Eth1/86       --                 notconnec 1         auto    auto    10g
-Eth1/87       --                 notconnec 1         auto    auto    10g
-Eth1/88       --                 notconnec 1         auto    auto    10g
-Eth1/89       --                 notconnec 1         auto    auto    10g
-Eth1/90       --                 notconnec 1         auto    auto    10g
-Eth1/91       --                 notconnec 1         auto    auto    10g
-Eth1/92       --                 notconnec 1         auto    auto    10g
-Eth1/93       --                 notconnec 1         auto    auto    10g
-Eth1/94       --                 notconnec 1         auto    auto    10g
-Eth1/95       --                 notconnec 1         auto    auto    10g
-Eth1/96       --                 notconnec 1         auto    auto    10g
-Eth1/97       --                 notconnec 1         auto    auto    10g
-Eth1/98       --                 notconnec 1         auto    auto    10g
-Eth1/99       --                 notconnec 1         auto    auto    10g
-Eth1/100      --                 notconnec 1         auto    auto    10g
-Eth1/101      --                 notconnec 1         auto    auto    10g
-Eth1/102      --                 notconnec 1         auto    auto    10g
-Eth1/103      --                 notconnec 1         auto    auto    10g
-Eth1/104      --                 notconnec 1         auto    auto    10g
-Eth1/105      --                 notconnec 1         auto    auto    10g
-Eth1/106      --                 notconnec 1         auto    auto    10g
-Eth1/107      --                 notconnec 1         auto    auto    10g
-Eth1/108      --                 notconnec 1         auto    auto    10g
-Eth1/109      --                 notconnec 1         auto    auto    10g
-Eth1/110      --                 notconnec 1         auto    auto    10g
-Eth1/111      --                 notconnec 1         auto    auto    10g
-Eth1/112      --                 notconnec 1         auto    auto    10g
-Eth1/113      --                 notconnec 1         auto    auto    10g
-Eth1/114      --                 notconnec 1         auto    auto    10g
-Eth1/115      --                 notconnec 1         auto    auto    10g
-Eth1/116      --                 notconnec 1         auto    auto    10g
-Eth1/117      --                 notconnec 1         auto    auto    10g
-Eth1/118      --                 notconnec 1         auto    auto    10g
-Eth1/119      --                 notconnec 1         auto    auto    10g
-Eth1/120      --                 notconnec 1         auto    auto    10g
-Eth1/121      --                 notconnec 1         auto    auto    10g
-Eth1/122      --                 notconnec 1         auto    auto    10g
-Eth1/123      --                 notconnec 1         auto    auto    10g
-Eth1/124      --                 notconnec 1         auto    auto    10g
-Eth1/125      --                 notconnec 1         auto    auto    10g
-Eth1/126      --                 notconnec 1         auto    auto    10g
-Eth1/127      --                 notconnec 1         auto    auto    10g
-Eth1/128      --                 notconnec 1         auto    auto    10g
+Eth1/10       --                 disabled  1         auto    auto    10g
+Eth1/11       --                 disabled  1         auto    auto    10g
+Eth1/12       --                 disabled  1         auto    auto    10g
+Eth1/13       --                 disabled  1         auto    auto    10g
+Eth1/14       --                 disabled  1         auto    auto    10g
+Eth1/15       --                 disabled  1         auto    auto    10g
+Eth1/16       --                 disabled  1         auto    auto    10g
+Eth1/17       --                 disabled  1         auto    auto    10g
+Eth1/18       --                 disabled  1         auto    auto    10g
+Eth1/19       --                 disabled  1         auto    auto    10g
+Eth1/20       --                 disabled  1         auto    auto    10g
+Eth1/21       --                 disabled  1         auto    auto    10g
+Eth1/22       --                 disabled  1         auto    auto    10g
+Eth1/23       --                 disabled  1         auto    auto    10g
+Eth1/24       --                 disabled  1         auto    auto    10g
+Eth1/25       --                 disabled  1         auto    auto    10g
+Eth1/26       --                 disabled  1         auto    auto    10g
+Eth1/27       --                 disabled  1         auto    auto    10g
+Eth1/28       --                 disabled  1         auto    auto    10g
+Eth1/29       --                 disabled  1         auto    auto    10g
+Eth1/30       --                 disabled  1         auto    auto    10g
+Eth1/31       --                 disabled  1         auto    auto    10g
+Eth1/32       --                 disabled  1         auto    auto    10g
+Eth1/33       --                 disabled  1         auto    auto    10g
+Eth1/34       --                 disabled  1         auto    auto    10g
+Eth1/35       --                 disabled  1         auto    auto    10g
+Eth1/36       --                 disabled  1         auto    auto    10g
+Eth1/37       --                 disabled  1         auto    auto    10g
+Eth1/38       --                 disabled  1         auto    auto    10g
+Eth1/39       --                 disabled  1         auto    auto    10g
+Eth1/40       --                 disabled  1         auto    auto    10g
+Eth1/41       --                 disabled  1         auto    auto    10g
+Eth1/42       --                 disabled  1         auto    auto    10g
+Eth1/43       --                 disabled  1         auto    auto    10g
+Eth1/44       --                 disabled  1         auto    auto    10g
+Eth1/45       --                 disabled  1         auto    auto    10g
+Eth1/46       --                 disabled  1         auto    auto    10g
+Eth1/47       --                 disabled  1         auto    auto    10g
+Eth1/48       --                 disabled  1         auto    auto    10g
+Eth1/49       --                 disabled  1         auto    auto    10g
+Eth1/50       --                 disabled  1         auto    auto    10g
+Eth1/51       --                 disabled  1         auto    auto    10g
+Eth1/52       --                 disabled  1         auto    auto    10g
+Eth1/53       --                 disabled  1         auto    auto    10g
+Eth1/54       --                 disabled  1         auto    auto    10g
+Eth1/55       --                 disabled  1         auto    auto    10g
+Eth1/56       --                 disabled  1         auto    auto    10g
+Eth1/57       --                 disabled  1         auto    auto    10g
+Eth1/58       --                 disabled  1         auto    auto    10g
+Eth1/59       --                 disabled  1         auto    auto    10g
+Eth1/60       --                 disabled  1         auto    auto    10g
+Eth1/61       --                 disabled  1         auto    auto    10g
+Eth1/62       --                 disabled  1         auto    auto    10g
+Eth1/63       --                 disabled  1         auto    auto    10g
+Eth1/64       --                 disabled  1         auto    auto    10g
+Eth1/65       --                 disabled  1         auto    auto    10g
+Eth1/66       --                 disabled  1         auto    auto    10g
+Eth1/67       --                 disabled  1         auto    auto    10g
+Eth1/68       --                 disabled  1         auto    auto    10g
+Eth1/69       --                 disabled  1         auto    auto    10g
+Eth1/70       --                 disabled  1         auto    auto    10g
+Eth1/71       --                 disabled  1         auto    auto    10g
+Eth1/72       --                 disabled  1         auto    auto    10g
+Eth1/73       --                 disabled  1         auto    auto    10g
+Eth1/74       --                 disabled  1         auto    auto    10g
+Eth1/75       --                 disabled  1         auto    auto    10g
+Eth1/76       --                 disabled  1         auto    auto    10g
+Eth1/77       --                 disabled  1         auto    auto    10g
+Eth1/78       --                 disabled  1         auto    auto    10g
+Eth1/79       --                 disabled  1         auto    auto    10g
+Eth1/80       --                 disabled  1         auto    auto    10g
+Eth1/81       --                 disabled  1         auto    auto    10g
+Eth1/82       --                 disabled  1         auto    auto    10g
+Eth1/83       --                 disabled  1         auto    auto    10g
+Eth1/84       --                 disabled  1         auto    auto    10g
+Eth1/85       --                 disabled  1         auto    auto    10g
+Eth1/86       --                 disabled  1         auto    auto    10g
+Eth1/87       --                 disabled  1         auto    auto    10g
+Eth1/88       --                 disabled  1         auto    auto    10g
+Eth1/89       --                 disabled  1         auto    auto    10g
+Eth1/90       --                 disabled  1         auto    auto    10g
+Eth1/91       --                 disabled  1         auto    auto    10g
+Eth1/92       --                 disabled  1         auto    auto    10g
+Eth1/93       --                 disabled  1         auto    auto    10g
+Eth1/94       --                 disabled  1         auto    auto    10g
+Eth1/95       --                 disabled  1         auto    auto    10g
+Eth1/96       --                 disabled  1         auto    auto    10g
+Eth1/97       --                 disabled  1         auto    auto    10g
+Eth1/98       --                 disabled  1         auto    auto    10g
+Eth1/99       --                 disabled  1         auto    auto    10g
+Eth1/100      --                 disabled  1         auto    auto    10g
+Eth1/101      --                 disabled  1         auto    auto    10g
+Eth1/102      --                 disabled  1         auto    auto    10g
+Eth1/103      --                 disabled  1         auto    auto    10g
+Eth1/104      --                 disabled  1         auto    auto    10g
+Eth1/105      --                 disabled  1         auto    auto    10g
+Eth1/106      --                 disabled  1         auto    auto    10g
+Eth1/107      --                 disabled  1         auto    auto    10g
+Eth1/108      --                 disabled  1         auto    auto    10g
+Eth1/109      --                 disabled  1         auto    auto    10g
+Eth1/110      --                 disabled  1         auto    auto    10g
+Eth1/111      --                 disabled  1         auto    auto    10g
+Eth1/112      --                 disabled  1         auto    auto    10g
+Eth1/113      --                 disabled  1         auto    auto    10g
+Eth1/114      --                 disabled  1         auto    auto    10g
+Eth1/115      --                 disabled  1         auto    auto    10g
+Eth1/116      --                 disabled  1         auto    auto    10g
+Eth1/117      --                 disabled  1         auto    auto    10g
+Eth1/118      --                 disabled  1         auto    auto    10g
+Eth1/119      --                 disabled  1         auto    auto    10g
+Eth1/120      --                 disabled  1         auto    auto    10g
+Eth1/121      --                 disabled  1         auto    auto    10g
+Eth1/122      --                 disabled  1         auto    auto    10g
+Eth1/123      --                 disabled  1         auto    auto    10g
+Eth1/124      --                 disabled  1         auto    auto    10g
+Eth1/125      --                 disabled  1         auto    auto    10g
+Eth1/126      --                 disabled  1         auto    auto    10g
+Eth1/127      --                 disabled  1         auto    auto    10g
+Eth1/128      --                 disabled  1         auto    auto    10g
 Po10          vPC peer link      connected trunk     full    1000    --
 Po11          DC-SW1             connected trunk     full    1000    --
 Po12          LAN2-MSTP-SW1      connected trunk     full    1000    --
@@ -830,17 +848,6 @@ Vlan242       LAN2-SEGMENT-2     connected routed    auto    auto    --
 Vlan243       LAN2-SEGMENT-3     connected routed    auto    auto    --
 Vlan251       NET-MGMT-VLAN      connected routed    auto    auto    --
 Vlan254       ROUTER-TRANSIT-NET connected routed    auto    auto    --
-DC-VPC-SW2#
-DC-VPC-SW2# show ip int brief
-
-IP Interface Status for VRF "default"(1)
-Interface            IP Address      Interface Status
-Vlan241              172.31.241.3    protocol-up/link-up/admin-up
-Vlan242              172.31.242.3    protocol-up/link-up/admin-up
-Vlan243              172.31.243.3    protocol-up/link-up/admin-up
-Vlan251              172.31.251.3    protocol-up/link-up/admin-up
-Vlan254              172.31.254.5    protocol-up/link-up/admin-up
-Lo0                  172.31.255.5    protocol-up/link-up/admin-up
 DC-VPC-SW2#
 DC-VPC-SW2# show vpc brief
 Legend:
@@ -1074,57 +1081,63 @@ IP Route Table for VRF "default"
 '[x/y]' denotes [preference/metric]
 '%<string>' in via output denotes VRF <string>
 
+0.0.0.0/0, ubest/mbest: 2/0
+    *via 172.31.254.2, Vlan254, [170/7690752], 03:18:10, eigrp-65535, external
+    *via 172.31.254.3, Vlan254, [170/7690752], 03:18:10, eigrp-65535, external
+172.16.0.0/18, ubest/mbest: 2/0
+    *via 172.31.254.2, Vlan254, [170/7690752], 03:18:10, eigrp-65535, external
+    *via 172.31.254.3, Vlan254, [170/7690752], 03:18:10, eigrp-65535, external
 172.21.0.0/24, ubest/mbest: 1/0
-    *via 172.31.254.2, Vlan254, [90/3072], 03:08:36, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/3072], 03:18:10, eigrp-65535, internal
 172.22.0.0/24, ubest/mbest: 1/0
-    *via 172.31.254.3, Vlan254, [90/3072], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/3072], 03:18:10, eigrp-65535, internal
 172.31.2.0/30, ubest/mbest: 2/0
-    *via 172.31.254.2, Vlan254, [90/3328], 03:08:36, eigrp-65535, internal
-    *via 172.31.254.3, Vlan254, [90/3328], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/3328], 03:18:10, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/3328], 03:18:10, eigrp-65535, internal
 172.31.241.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.241.3, Vlan241, [0/0], 03:11:21, direct
+    *via 172.31.241.3, Vlan241, [0/0], 03:20:52, direct
 172.31.241.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.241.1, Vlan241, [0/0], 03:10:39, hsrp
+    *via 172.31.241.1, Vlan241, [0/0], 03:20:10, hsrp
 172.31.241.3/32, ubest/mbest: 1/0, attached
-    *via 172.31.241.3, Vlan241, [0/0], 03:11:21, local
+    *via 172.31.241.3, Vlan241, [0/0], 03:20:52, local
 172.31.242.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.242.3, Vlan242, [0/0], 03:11:21, direct
+    *via 172.31.242.3, Vlan242, [0/0], 03:20:52, direct
 172.31.242.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.242.1, Vlan242, [0/0], 03:10:39, hsrp
+    *via 172.31.242.1, Vlan242, [0/0], 03:20:10, hsrp
 172.31.242.3/32, ubest/mbest: 1/0, attached
-    *via 172.31.242.3, Vlan242, [0/0], 03:11:21, local
+    *via 172.31.242.3, Vlan242, [0/0], 03:20:52, local
 172.31.243.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.243.3, Vlan243, [0/0], 03:11:21, direct
+    *via 172.31.243.3, Vlan243, [0/0], 03:20:52, direct
 172.31.243.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.243.1, Vlan243, [0/0], 03:10:39, hsrp
+    *via 172.31.243.1, Vlan243, [0/0], 03:20:10, hsrp
 172.31.243.3/32, ubest/mbest: 1/0, attached
-    *via 172.31.243.3, Vlan243, [0/0], 03:11:21, local
+    *via 172.31.243.3, Vlan243, [0/0], 03:20:52, local
 172.31.251.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.251.3, Vlan251, [0/0], 03:11:21, direct
+    *via 172.31.251.3, Vlan251, [0/0], 03:20:52, direct
 172.31.251.1/32, ubest/mbest: 1/0, attached
-    *via 172.31.251.1, Vlan251, [0/0], 03:10:39, hsrp
+    *via 172.31.251.1, Vlan251, [0/0], 03:20:10, hsrp
 172.31.251.3/32, ubest/mbest: 1/0, attached
-    *via 172.31.251.3, Vlan251, [0/0], 03:11:21, local
+    *via 172.31.251.3, Vlan251, [0/0], 03:20:52, local
 172.31.254.0/24, ubest/mbest: 1/0, attached
-    *via 172.31.254.5, Vlan254, [0/0], 03:11:21, direct
+    *via 172.31.254.5, Vlan254, [0/0], 03:20:52, direct
 172.31.254.5/32, ubest/mbest: 1/0, attached
-    *via 172.31.254.5, Vlan254, [0/0], 03:11:21, local
+    *via 172.31.254.5, Vlan254, [0/0], 03:20:52, local
 172.31.255.1/32, ubest/mbest: 2/0
-    *via 172.31.254.2, Vlan254, [90/131072], 03:08:36, eigrp-65535, internal
-    *via 172.31.254.3, Vlan254, [90/131072], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/131072], 03:18:10, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/131072], 03:18:10, eigrp-65535, internal
 172.31.255.2/32, ubest/mbest: 1/0
-    *via 172.31.254.2, Vlan254, [90/130816], 03:08:36, eigrp-65535, internal
+    *via 172.31.254.2, Vlan254, [90/130816], 03:18:10, eigrp-65535, internal
 172.31.255.3/32, ubest/mbest: 1/0
-    *via 172.31.254.3, Vlan254, [90/130816], 03:08:39, eigrp-65535, internal
+    *via 172.31.254.3, Vlan254, [90/130816], 03:18:10, eigrp-65535, internal
 172.31.255.4/32, ubest/mbest: 5/0
-    *via 172.31.241.2, Vlan241, [90/130816], 03:11:19, eigrp-65535, internal
-    *via 172.31.242.2, Vlan242, [90/130816], 03:11:19, eigrp-65535, internal
-    *via 172.31.243.2, Vlan243, [90/130816], 03:11:19, eigrp-65535, internal
-    *via 172.31.251.2, Vlan251, [90/130816], 03:11:19, eigrp-65535, internal
-    *via 172.31.254.4, Vlan254, [90/130816], 03:11:19, eigrp-65535, internal
+    *via 172.31.241.2, Vlan241, [90/130816], 03:20:49, eigrp-65535, internal
+    *via 172.31.242.2, Vlan242, [90/130816], 03:20:49, eigrp-65535, internal
+    *via 172.31.243.2, Vlan243, [90/130816], 03:20:49, eigrp-65535, internal
+    *via 172.31.251.2, Vlan251, [90/130816], 03:20:49, eigrp-65535, internal
+    *via 172.31.254.4, Vlan254, [90/130816], 03:20:49, eigrp-65535, internal
 172.31.255.5/32, ubest/mbest: 2/0, attached
-    *via 172.31.255.5, Lo0, [0/0], 03:14:24, local
-    *via 172.31.255.5, Lo0, [0/0], 03:14:24, direct
+    *via 172.31.255.5, Lo0, [0/0], 03:22:01, local
+    *via 172.31.255.5, Lo0, [0/0], 03:22:01, direct
 
 DC-VPC-SW2#
 DC-VPC-SW2# show cdp neighbors
@@ -1135,14 +1148,14 @@ Capability Codes: R - Router, T - Trans-Bridge, B - Source-Route-Bridge
 
 Device-ID          Local Intrfce  Hldtme Capability  Platform      Port ID
 DC-VPC-SW1(9CG64GSMIDD)
-                    mgmt0          163    R S s     N9K-9000v     mgmt0
+                    mgmt0          133    R S s     N9K-9000v     mgmt0
 DC-VPC-SW1(9CG64GSMIDD)
-                    Eth1/1         140    R S I s   N9K-9000v     Eth1/1
+                    Eth1/1         170    R S I s   N9K-9000v     Eth1/1
 DC-VPC-SW1(9CG64GSMIDD)
-                    Eth1/2         140    R S I s   N9K-9000v     Eth1/2
-LAN2-MSTP-SW1       Eth1/6         135    S I                     Gig3/1
-LAN2-MSTP-SW4       Eth1/7         132    R S I                   Gig3/1
-DC-SW1              Eth1/9         175    R S I                   Gig3/2
+                    Eth1/2         170    R S I s   N9K-9000v     Eth1/2
+LAN2-MSTP-SW1       Eth1/6         176    S I                     Gig3/1
+LAN2-MSTP-SW4       Eth1/7         176    R S I                   Gig3/1
+DC-SW1              Eth1/9         160    R S I                   Gig3/2
 
 Total entries displayed: 6
 DC-VPC-SW2#
@@ -1151,52 +1164,52 @@ Vlan241 - Group 241 (HSRP-V1) (IPv4)
   Local state is Standby, priority 100 (Cfged 100), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 100
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 1.799000 sec(s)
+  Next hello sent in 0.656000 sec(s)
   Virtual IP address is 172.31.241.1 (Cfged)
-  Active router is 172.31.241.2, priority 110 expires in 8.225000 sec(s)
+  Active router is 172.31.241.2, priority 110 expires in 9.873000 sec(s)
   Standby router is local
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acf1 (Default MAC)
-  3 state changes, last state change 03:10:39
+  4 state changes, last state change 03:20:10
   IP redundancy name is hsrp-Vlan241-241 (default)
 
 Vlan242 - Group 242 (HSRP-V1) (IPv4)
   Local state is Standby, priority 100 (Cfged 100), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 100
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 1.747000 sec(s)
+  Next hello sent in 2.603000 sec(s)
   Virtual IP address is 172.31.242.1 (Cfged)
-  Active router is 172.31.242.2, priority 110 expires in 7.634000 sec(s)
+  Active router is 172.31.242.2, priority 110 expires in 7.801000 sec(s)
   Standby router is local
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acf2 (Default MAC)
-  3 state changes, last state change 03:10:39
+  4 state changes, last state change 03:20:10
   IP redundancy name is hsrp-Vlan242-242 (default)
 
 Vlan243 - Group 243 (HSRP-V1) (IPv4)
   Local state is Standby, priority 100 (Cfged 100), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 100
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 0.219000 sec(s)
+  Next hello sent in 2.387000 sec(s)
   Virtual IP address is 172.31.243.1 (Cfged)
-  Active router is 172.31.243.2, priority 110 expires in 7.999000 sec(s)
+  Active router is 172.31.243.2, priority 110 expires in 7.610000 sec(s)
   Standby router is local
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acf3 (Default MAC)
-  3 state changes, last state change 03:10:39
+  4 state changes, last state change 03:20:10
   IP redundancy name is hsrp-Vlan243-243 (default)
 
 Vlan251 - Group 251 (HSRP-V1) (IPv4)
   Local state is Standby, priority 100 (Cfged 100), may preempt
     Forwarding threshold(for vPC), lower: 0 upper: 100
   Hellotime 3 sec, holdtime 10 sec
-  Next hello sent in 1.392000 sec(s)
+  Next hello sent in 0.454000 sec(s)
   Virtual IP address is 172.31.251.1 (Cfged)
-  Active router is 172.31.251.2, priority 110 expires in 9.936000 sec(s)
+  Active router is 172.31.251.2, priority 110 expires in 8.296000 sec(s)
   Standby router is local
   Authentication text "cisco"
   Virtual mac address is 0000.0c07.acfb (Default MAC)
-  3 state changes, last state change 03:10:39
+  4 state changes, last state change 03:20:10
   IP redundancy name is hsrp-Vlan251-251 (default)
 
 DC-VPC-SW2#
