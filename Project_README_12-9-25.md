@@ -2,6 +2,7 @@
 # GNS3_AllTechLab
 # Folders include device outputs, diagrams, and full running configs
 # .ios files were created/read by VisualStudioCode with the Cisco IOS Syntax extension  these can be read as plain-text files
+# Repo has been archived and made read only
 
 Purpose: I created this lab from scratch to explore several technologies. 
 I originally came up with this when I was working towards my CCNP in 2023.
