@@ -1,0 +1,1 @@
+# This folder contains all topology diagrams from GNS3, and a text version of the GNS3 topology summary

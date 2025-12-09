@@ -1,0 +1,1 @@
+# This folder contains saved output from the Alpine Linux VMs with some notes
