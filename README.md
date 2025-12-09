@@ -9,8 +9,6 @@ I utilized ChatGPT to help rapidly research implementation for protocols or devi
 
 (completed as of 12/9/25) Initial lab scenario: Two companies have gone through a merger and the network engineers need to have PCs at their two sites communicate.  While both are connected to the same MPLS provider, the organization does not want the downtime for the ISP to reconfigure the VRFs. Having more ports on their CE routers, the network engineers procure firewalls, and an internet circuit. LAN1 is newer and smaller while LAN2 consists of a much larger, and older enterprise with multiple protocols running. The network admins sit at PC3, and PC7 respectively.
 
-
-
 Device list:  
 Cisco IOSvL2 | vios_l2-adventerprisek9-m.SSA.high_iron_20180619.qcow2   
 Cisco 7200 | c7200-advipservicesk9-mz.152-4.S5.image  

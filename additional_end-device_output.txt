@@ -1,0 +1,103 @@
+PC1:~# ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr 0C:E2:22:51:00:00
+          inet addr:172.16.11.2  Bcast:0.0.0.0  Mask:255.255.255.0
+          inet6 addr: fe80::ee2:22ff:fe51:0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:6 errors:0 dropped:2 overruns:0 frame:0
+          TX packets:32 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1654 (1.6 KiB)  TX bytes:5572 (5.4 KiB)
+
+PC1:~#
+
+!PC1 can ping PC2, PC3, 
+PC1:~# ping 172.16.22.2
+PING 172.16.22.2 (172.16.22.2): 56 data bytes
+64 bytes from 172.16.22.2: seq=0 ttl=63 time=37.134 ms
+
+PC1:~# ping 172.16.33.2
+PING 172.16.33.2 (172.16.33.2): 56 data bytes
+64 bytes from 172.16.33.2: seq=0 ttl=63 time=69.917 ms
+
+!Devices cannot ping the LAN2 devices until the VPN tunnel comes UP
+!Oddly, as of 12/9/25 LAN1 cannot intiate the tunnel coming up, 
+!pings from LAN2 however do start the tunnel negotiations
+!Could be quirks of the configurations or odd GNS3 behavior
+
+!Once the tunnels are up, LAN1 end devices can reach LAN2
+
+!Below is a traceroute from PC7 to PC3 (the 2 admin PCs)
+PC7:~# traceroute 172.16.33.2
+traceroute to 172.16.33.2 (172.16.33.2), 30 hops max, 46 byte packets
+ 1  172.31.251.2 (172.31.251.2)  36.587 ms  37.534 ms  59.259 ms <--- HSRP on DC-VPC-SW's
+ 2  172.31.254.3 (172.31.254.3)  64.942 ms  69.896 ms  84.714 ms <--- EIGRP-R3
+ 3  172.22.0.254 (172.22.0.254)  74.097 ms  93.008 ms  85.608 ms <--- CE2
+ 4  *  *  * <-------------------------------------------------------- Tunnel encapsulation
+ 5  *  *  * <-------------------------------------------------------- Tunnel encapsulation
+ 6  172.16.33.2 (172.16.33.2)  150.298 ms  203.498 ms  189.329 ms <-- PC3
+PC7:~#
+
+
+!To get the Alpine Linux server serving DHCP
+!I installed dnsmasq, and vlan packages since my Nexus 9k images did not support dhcp relay
+
+SERVER1:~# ifconfig -a
+eth0      Link encap:Ethernet  HWaddr 0C:20:15:F9:00:00
+          inet6 addr: fe80::e20:15ff:fef9:0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:21 errors:0 dropped:2 overruns:0 frame:0
+          TX packets:125 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:5659 (5.5 KiB)  TX bytes:13074 (12.7 KiB)
+
+eth0.241  Link encap:Ethernet  HWaddr 0C:20:15:F9:00:00
+          inet addr:172.31.241.10  Bcast:0.0.0.0  Mask:255.255.255.0
+          inet6 addr: fe80::e20:15ff:fef9:0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:30 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1686 (1.6 KiB)  TX bytes:3408 (3.3 KiB)
+
+eth0.242  Link encap:Ethernet  HWaddr 0C:20:15:F9:00:00
+          inet addr:172.31.242.10  Bcast:0.0.0.0  Mask:255.255.255.0
+          inet6 addr: fe80::e20:15ff:fef9:0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:29 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1686 (1.6 KiB)  TX bytes:3366 (3.2 KiB)
+
+eth0.243  Link encap:Ethernet  HWaddr 0C:20:15:F9:00:00
+          inet addr:172.31.243.10  Bcast:0.0.0.0  Mask:255.255.255.0
+          inet6 addr: fe80::e20:15ff:fef9:0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:5 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:28 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1358 (1.3 KiB)  TX bytes:3024 (2.9 KiB)
+
+eth0.251  Link encap:Ethernet  HWaddr 0C:20:15:F9:00:00
+          inet addr:172.31.251.10  Bcast:0.0.0.0  Mask:255.255.255.0
+          inet6 addr: fe80::e20:15ff:fef9:0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:92 (92.0 B)  TX bytes:1426 (1.3 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+SERVER1:~# cat /var/lib/misc/dnsmasq.leases
+1765332386 0c:7f:3c:a8:00:00 172.31.243.85 PC6 01:0c:7f:3c:a8:00:00
+1765332386 0c:ee:fa:13:00:00 172.31.242.85 PC5 01:0c:ee:fa:13:00:00
+1765332386 0c:9f:5f:7c:00:00 172.31.241.88 PC4 01:0c:9f:5f:7c:00:00
+
+!PC7 has a static IP and is not using the DHCP server

@@ -1,0 +1,193 @@
+1. Introduction
+
+Welcome to the GNS3 All-Tech Enterprise Lab, a realistic enterprise + MPLS + IPsec overlay network built for engineering practice, troubleshooting, and design exploration. This onboarding package provides an accurate guide to the current live configuration state of the environment, based on the parsed device outputs stored in the project files.
+
+This lab simulates:
+
+Two enterprise LAN sites
+
+A data center fabric
+
+An MPLS service provider
+
+A full Internet/IPsec overlay WAN
+
+Campus switching with MSTP and VPC
+
+Firewall perimeter control
+
+Linux hosts for endpoint validation
+
+2. LAN1 Architecture (Corrected)
+
+LAN1 consists of:
+
+Device	Role	Notes
+LAN1-R1	Default gateway / L3 router	Connects LAN1 to MPLS & ASA1
+LAN1-CE1	MPLS CE router	Advertises LAN1 prefixes to PE routers
+ASA1 (LAN1-INET-GW)	Firewall/VPN endpoint	NAT, ACL, crypto-map S2S VPN
+LAN1-SW1	Access/Distribution switch	VLAN 10/11/22/33 trunking
+LAN1-SW2	Access switch	VLAN10 SVI IP = 172.16.10.21
+LAN1-SW3	Access switch	Participates in same VLAN structure
+LAN1-SW4	Access switch	Verified VLAN 1/10/11/22/33 MAC table
+PC3	Host	Test endpoint in LAN1
+2.1 LAN1 VLANs (Based on Actual Configs)
+VLAN	Purpose	Seen on
+1	Default	SW1, SW2, SW3, SW4
+10	User/Host segment	SW2 SVI = 172.16.10.21
+11	User/Dept segment	SW1/SW4 MAC entries
+22	Internal/Dept segment	SW1–SW4
+33	Additional user/management segment	SW4 MAC table
+
+No VLAN31 or VLAN99 exist in the LAN1 configs.
+
+2.2 LAN1 Switching Topology
+
+SW1 ↔ SW2 ↔ SW3 ↔ SW4 are trunked using Gi0/0 and Gi0/1 links.
+
+All VLANs (1/10/11/22/33) are propagated through the trunk domain.
+
+SW2 has the only SVI (Vlan10 = 172.16.10.21), suggesting:
+
+LAN1 L3 gateway is not provided by the switches
+
+LAN1-R1 likely provides inter-VLAN routing (SVIs on LAN1-R1)
+
+3. Routing Architecture (Config-Accurate)
+LAN1
+
+LAN1-R1 performs inter-VLAN routing (SVIs exist on the router, not switches)
+
+CE1 exchanges routes with MPLS PE routers via EIGRP (confirmed in lan1_r1_ce1.ios)
+
+ASA1 uses static routes pointing inside and to INET-ISP-RTR
+
+LAN2
+
+EIGRP across LAN2-R2, CE2, and access switches
+
+VLANs 241–243 active per MSTP configs
+
+MPLS Cloud
+
+MP-BGP vpnv4 on PE routers
+
+LDP active on P/PE links
+
+VRF CE1 and VRF CE2 configured
+
+IPsec Overlay
+
+ASA1 ↔ ASA2 crypto-map tunnels
+
+IKEv1 PSK
+
+NAT exemption rules for LAN subnets
+
+4. Data Center Architecture
+
+Files show:
+
+DC-VPC-SW1 / DC-VPC-SW2 (Nexus-style)
+
+DC-SW1
+
+VLANs 241–244 present
+
+Challenges:
+
+No ip dhcp relay support on these NX-OS images
+
+ARP inconsistencies when connecting MSTP domain ↔ VPC domain
+
+5. Firewall & Security Components
+
+The ASA configs (ASA1 and ASA2) show:
+
+Outside ACL limiting ISAKMP, ESP, and NAT-T appropriately
+
+Inside interface unrestricted (lab-appropriate)
+
+Working IPsec SAs after resolving routing/NAT issues
+
+Packet-tracer path validation successful
+
+SSH cipher mismatch fixed with host negotiation adjustments on Alpine Linux
+
+6. MPLS SP Architecture
+
+From summary-output_isp-core-1_isp-pe-*:
+
+P router = ISP-CORE-1
+
+Four PE routers provide VRF termination:
+
+PE1 / PE2 for CE1
+
+PE3 / PE4 for CE2
+
+vpnv4 routes advertised
+
+CE1 & CE2 prefixes correctly isolated
+
+MPLS forwarding table fully populated
+
+7. Verification Workflow
+
+From verification_commands.ios:
+
+Routing:
+show ip route
+show mpls forwarding-table
+show bgp vpnv4 all summary
+show bgp vpnv4 all
+
+ASA / IPsec:
+show crypto isa sa
+show crypto ipsec sa
+packet-tracer input ...
+show nat detail
+show access-list
+
+Switching:
+show interfaces trunk
+show spanning-tree mst
+show arp
+show mac address-table
+
+8. Known Issues (Based on Files + Your Notes)
+✔ LAN1 switching uses VLANs 10/11/22/33 only
+
+(Corrected above)
+
+✔ DHCP relay missing in VPC switches
+
+(Nexus image limitation)
+
+✔ ARP inconsistencies between MSTP domain and VPC domain
+
+(Possible IOU/NX-OS switching quirk)
+
+✔ Need for SLA triggers on ASAs
+
+(Planned)
+
+✔ CE1 ↔ CE2 Internet path occasionally not bringing SAs up automatically
+
+(Requires SLA or periodic traffic generation)
+
+9. What a New Engineer Should Understand
+
+Within this lab, the engineer should be able to:
+
+Trace connectivity from PC3 ↔ PC7 across MPLS and IPsec
+
+Validate forwarding across LAN1, LAN2, and the Data Center
+
+Understand VRFs, vpnv4, and LDP interactions
+
+Debug ASA IPsec using packet-tracer and SA counters
+
+Fix VLAN/STP/L2 issues within LAN1 and LAN2
+
+Recognize vPC and MSTP behavior
